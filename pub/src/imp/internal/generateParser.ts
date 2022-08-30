@@ -10,7 +10,7 @@ import * as api from "../../interface"
 
 import { GenerateImplementationFile } from "../GenerateFile"
 
-export const generateParser: GenerateImplementationFile = ($, $i) => {
+export const generateParse: GenerateImplementationFile = ($, $i) => {
     const grammar = $.grammar
     function findNextPossibleTokensInSymbolType(
         $: api.TValueType,

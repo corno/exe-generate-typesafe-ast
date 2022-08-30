@@ -6,7 +6,7 @@ import * as g from "../../interface/types/types"
 import * as wapi from "lib-fountain-pen"
 import { GenerateImplementationFile } from "../GenerateFile"
 
-export const generateVisitor: GenerateImplementationFile = ($, $i) => {
+export const generateVisit: GenerateImplementationFile = ($, $i) => {
     const grammar = $.grammar
 
     pl.cc($i.block, ($w) => {
@@ -26,7 +26,13 @@ export const generateVisitor: GenerateImplementationFile = ($, $i) => {
                     $w.snippet(`$: api.TNroot<Annotation>,`)
                 })
                 $w.line({}, ($w) => {
-                    $w.snippet(`foo: api.IVisitor<Annotation>,`)
+                    $w.snippet(`$i: {`)
+                    $w.indent({}, ($w) => {
+                        $w.line({}, ($w) => {
+                            $w.snippet(`visitor: api.IVisitor<Annotation>,`)
+                        })
+                    })
+                    $w.snippet(`}`)
                 })
             })
             $w.snippet(`): void {`)
@@ -52,7 +58,7 @@ export const generateVisitor: GenerateImplementationFile = ($, $i) => {
                                 case "composite":
                                     pl.cc($.type[1], ($) => {
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`if (foo["${pathForReporting}"] !== undefined) { foo["${pathForReporting}"].begin($) }`)
+                                            $w.snippet(`if ($i.visitor["${pathForReporting}"] !== undefined) { $i.visitor["${pathForReporting}"].begin($) }`)
                                         })
                                         $w.line({}, ($w) => {
                                             $w.snippet(`pl.cc($.content, ($) => {`)
@@ -67,14 +73,14 @@ export const generateVisitor: GenerateImplementationFile = ($, $i) => {
                                             $w.snippet(`})`)
                                         })
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`if (foo["${pathForReporting}"] !== undefined) { foo["${pathForReporting}"].end($) }`)
+                                            $w.snippet(`if ($i.visitor["${pathForReporting}"] !== undefined) { $i.visitor["${pathForReporting}"].end($) }`)
                                         })
                                     })
                                     break
                                 case "leaf":
                                     pl.cc($.type[1], ($) => {
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`if (foo["${pathForReporting}"] !== undefined) { foo["${pathForReporting}"]($) }`)
+                                            $w.snippet(`if ($i.visitor["${pathForReporting}"] !== undefined) { $i.visitor["${pathForReporting}"]($) }`)
                                         })
                                     })
                                     break

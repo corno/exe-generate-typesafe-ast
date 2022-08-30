@@ -1,11 +1,11 @@
 import * as pt from "pareto-core-types"
 import * as api from "../interface"
 
-export function createDefaultVisistor(
+export function createDefaultVisistor<ImplementationDetails>(
     $i: {
         log: ($: string) => void
     }
-): api.IVisitor<string> {
+): api.IVisitor<ImplementationDetails> {
     return {
         "$variableDeclarationList/*VariableDeclarationList": {
             begin: ($) => { $i.log("$variableDeclarationList/*VariableDeclarationList begin") },

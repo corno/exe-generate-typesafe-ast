@@ -1,55 +1,9 @@
 import * as pl from "pareto-core-lib"
-import * as pm from "pareto-core-state"
 
+import * as uglyStuff from "res-pareto-ugly-stuff"
 
 import * as ts from "res-dynamic-typescript-parser"
-import * as p from "./imp/parser"
-
-
-function doUntil<T>(
-    stack: pm.Stack<T>,
-    test: ($: T) => boolean,
-    //callback: () => void,
-
-) {
-
-    while (true) {
-        let stop = false
-        stack.pop(
-            ($) => {
-                stack.push($)
-
-                const goOn = test($)
-                if (!goOn) {
-                    //callback()
-                    stop = true
-                }
-            },
-            () => {
-                stop = true
-            }
-        )
-        if (stop) {
-            return
-        }
-    }
-}
-
-function lookAhead<T>(
-    stack: pm.Stack<T>,
-    exists: ($: T) => void,
-    notExists: () => void,
-) {
-    stack.pop(
-        ($) => {
-            stack.push($)
-            exists($)
-        },
-        () => {
-            notExists()
-        }
-    )
-}
+import * as p from "./imp/parse"
 
 ts.parse(
     {
@@ -85,8 +39,8 @@ ts.parse(
                         },
                     },
                     {
-                        doUntil: doUntil,
-                        lookAhead: lookAhead,
+                        doUntil: uglyStuff.doUntil,
+                        lookAhead: uglyStuff.lookAhead,
                         // contains: (dict, keyToBeFound) => {
                         //     let found = false
                         //     dict.forEach(() => false, ($, key) => {

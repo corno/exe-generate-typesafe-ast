@@ -1,9 +1,9 @@
 
 import * as api from "../interface"
 
-import { generateParser } from "./internal/generateParser"
-import { generateVisitor } from "./internal/generateVisitor"
-import { generateDefaultVisitor } from "./internal/generateDefaultVisitor"
+import { generateParse } from "./internal/generateParser"
+import { generateVisit } from "./internal/generateVisit"
+import { generateCreateDefaultVisitor } from "./internal/generateCreateDefaultVisitor"
 import { generateImplementationIndex } from "./internal/generateImplementationIndex"
 import { GenerateImplementationFile } from "./GenerateFile"
 import * as fp from "lib-fountain-pen"
@@ -43,16 +43,16 @@ export const generateImplementation: api.GenerateImplementation = ($, $d) => {
         )
     }
     generateFile(
-        'parser.ts',
-        generateParser,
+        'parse.ts',
+        generateParse,
     )
     generateFile(
         'visit.ts',
-        generateVisitor,
+        generateVisit,
     )
     generateFile(
-        'default_visitor.ts',
-        generateDefaultVisitor,
+        'createDefaultVisitor.ts',
+        generateCreateDefaultVisitor,
     )
     generateFile(
         'index.ts',

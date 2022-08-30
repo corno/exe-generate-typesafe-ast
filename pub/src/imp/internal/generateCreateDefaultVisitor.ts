@@ -5,7 +5,7 @@ import * as g from "../../interface/types/types"
 import * as wapi from "lib-fountain-pen"
 import { GenerateImplementationFile } from "../GenerateFile"
 
-export const generateDefaultVisitor: GenerateImplementationFile = ($, $i) => {
+export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) => {
     const grammar = $.grammar
     pl.cc(($i.block), $w => {
 
@@ -17,7 +17,7 @@ export const generateDefaultVisitor: GenerateImplementationFile = ($, $i) => {
         })
         $w.line({}, ($w) => { })
         $w.line({}, ($w) => {
-            $w.snippet(`export function createDefaultVisistor(`)
+            $w.snippet(`export function createDefaultVisistor<ImplementationDetails>(`)
             $w.indent({}, ($w) => {
                 $w.line({}, ($w) => {
                     $w.snippet(`$i: {`)
@@ -29,7 +29,7 @@ export const generateDefaultVisitor: GenerateImplementationFile = ($, $i) => {
                     $w.snippet(`}`)
                 })
             })
-            $w.snippet(`): api.IVisitor<string> {`)
+            $w.snippet(`): api.IVisitor<ImplementationDetails> {`)
             $w.indent({}, ($w) => {
                 $w.line({}, ($w) => {
                     $w.snippet(`return {`)
