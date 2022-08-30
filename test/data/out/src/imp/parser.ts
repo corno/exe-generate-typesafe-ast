@@ -12,6 +12,10 @@ export function parse<Annotation>(
         reportUnexpectedChild: ($: { path: string, child: uast.TUntypedNode<Annotation>, expected: null | string }) => void,
         reportMissingToken: ($: { parentAnnotation: Annotation, path: string, kindNameOptions: string, }) => void,
     },
+    $d: {
+        doUntil: <T>(stack: pm.Stack<T>, callback: ($: T) => boolean) => void,
+        lookAhead: <T>(stack: pm.Stack<T>, exists: ($: T) => void, notExists: () => void) => void,
+    },
 ): void {
     const $x = $i
     function GvariableDeclarationList(
@@ -19,8 +23,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGvariableDeclarationList<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "VariableDeclarationList") {
@@ -37,29 +39,23 @@ export function parse<Annotation>(
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    let currentChild: uast.TUntypedNode<Annotation> | undefined
-                    let nextChild: uast.TUntypedNode<Annotation> | undefined
                     const elements = pm.createArrayBuilder<tast.TVTGvariableDeclarationList$<Annotation>>()
                     const processElement = () => {
                         GvariableDeclaration(node, children, ($) => {
                             elements.push($)
                         })
                     }
-                    arrayLoop: while (true) {
-                        children.pop(
-                            (nextChild) => {
-                                switch (nextChild.kindName) {
-                                    case "VariableDeclaration":
-                                        processElement()
-                                        break
-                                    default: break arrayLoop
-                                }
-                            },
-                            () => {
-                                break arrayLoop
-                            },
-                        )
-                    }
+                    $d.doUntil(
+                        children,
+                        (nextChild) => {
+                            switch (nextChild.kindName) {
+                                case "VariableDeclaration": //z
+                                    processElement()
+                                    return true
+                                default: return false
+                            }
+                        },
+                    )
                     pl.cc(elements.getArray(), ($) => {
                         callback({
                             annotation: node.implementationDetails,
@@ -83,7 +79,7 @@ export function parse<Annotation>(
                     }
                 )
             },
-            () => {
+            () => { // no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "GvariableDeclarationList",
@@ -97,8 +93,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGvariableDeclaration<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "VariableDeclaration") {
@@ -115,8 +109,6 @@ export function parse<Annotation>(
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    let currentChild: uast.TUntypedNode<Annotation> | undefined
-                    let nextChild: uast.TUntypedNode<Annotation> | undefined
                     const sequenceEnd = ($: tast.TVTGvariableDeclaration$<Annotation>) => {
                         callback({
                             annotation: node.implementationDetails,
@@ -131,55 +123,55 @@ export function parse<Annotation>(
                                 optional = $
                             })
                         }
-                        children.pop(
+                        $d.lookAhead(children, 
                             (nextChild) => {
                                 switch (nextChild.kindName) {
-                                    case "null":
+                                    case "AnyKeyword": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "ArrayType": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "BooleanKeyword": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "FunctionType": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "LiteralType": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "ParenthesizedType": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "NeverKeyword": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "NumberKeyword": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "OptionalType": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "TupleType": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "TypeLiteral": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "StringKeyword": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "TypeReference": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "UndefinedKeyword": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "UnionType": //XXX
                                         setOptional()
                                         break
-                                    case "null":
+                                    case "VoidKeyword": //XXX
                                         setOptional()
                                         break
                                 }
@@ -194,67 +186,67 @@ export function parse<Annotation>(
                                     optional = $
                                 })
                             }
-                            children.pop(
+                            $d.lookAhead(children, 
                                 (nextChild) => {
                                     switch (nextChild.kindName) {
-                                        case "null":
+                                        case "ArrayLiteralExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "ArrowFunction": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "BinaryExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "CallExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "ConditionalExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "ElementAccessExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "FalseKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "Identifier": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "NewExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "NoSubstitutionTemplateLiteral": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "NumericLiteral": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "NullKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "ObjectLiteralExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "ParenthesizedExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "PostfixUnaryExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "PrefixUnaryExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "PropertyAccessExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "StringLiteral": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "TemplateExpression": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "TrueKeyword": //XXX
                                             setOptional()
                                             break
                                     }
@@ -288,7 +280,7 @@ export function parse<Annotation>(
                     }
                 )
             },
-            () => {
+            () => { // no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "GvariableDeclaration",
@@ -302,12 +294,10 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGtypeSignature<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         const choiceEnd_GtypeSignature = ($: tast.TVTGtypeSignature<Annotation>) => {
             callback($)
         }
-        children.pop(
+        $d.lookAhead(children, 
             (nextChild) => {
                 const choose_property = () => {
                     children.pop(
@@ -326,8 +316,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGtypeSignature_property$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -340,27 +328,23 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "DeclareKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ExportKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ReadonlyKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "DeclareKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ExportKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ReadonlyKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _modifiers = $
                                     GidentifierOrStringLiteral(node, children, ($) => {
@@ -401,7 +385,7 @@ export function parse<Annotation>(
                                                         }
                                                     )
                                                 },
-                                                () => {
+                                                () => { // no child
                                                     $x.reportMissingToken({
                                                         parentAnnotation: node.implementationDetails,
                                                         path: "GtypeSignature_property$_quesionToken",
@@ -410,10 +394,10 @@ export function parse<Annotation>(
                                                 },
                                             )
                                         }
-                                        children.pop(
+                                        $d.lookAhead(children, 
                                             (nextChild) => {
                                                 switch (nextChild.kindName) {
-                                                    case "null":
+                                                    case "QuestionToken": //XXX
                                                         setOptional()
                                                         break
                                                 }
@@ -428,55 +412,55 @@ export function parse<Annotation>(
                                                     optional = $
                                                 })
                                             }
-                                            children.pop(
+                                            $d.lookAhead(children, 
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "null":
+                                                        case "AnyKeyword": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "ArrayType": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "BooleanKeyword": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "FunctionType": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "LiteralType": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "ParenthesizedType": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "NeverKeyword": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "NumberKeyword": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "OptionalType": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "TupleType": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "TypeLiteral": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "StringKeyword": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "TypeReference": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "UndefinedKeyword": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "UnionType": //XXX
                                                             setOptional()
                                                             break
-                                                        case "null":
+                                                        case "VoidKeyword": //XXX
                                                             setOptional()
                                                             break
                                                     }
@@ -512,7 +496,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "GtypeSignature_property",
@@ -538,8 +522,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGtypeSignature_method$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -573,7 +555,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "GtypeSignature_method",
@@ -599,8 +581,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGtypeSignature_index$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -613,27 +593,23 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "DeclareKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ExportKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ReadonlyKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "DeclareKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ExportKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ReadonlyKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _modifiers = $
                                     Gparameter(node, children, ($) => {
@@ -644,55 +620,55 @@ export function parse<Annotation>(
                                                 optional = $
                                             })
                                         }
-                                        children.pop(
+                                        $d.lookAhead(children, 
                                             (nextChild) => {
                                                 switch (nextChild.kindName) {
-                                                    case "null":
+                                                    case "AnyKeyword": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "ArrayType": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "BooleanKeyword": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "FunctionType": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "LiteralType": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "ParenthesizedType": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "NeverKeyword": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "NumberKeyword": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "OptionalType": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "TupleType": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "TypeLiteral": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "StringKeyword": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "TypeReference": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "UndefinedKeyword": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "UnionType": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "VoidKeyword": //XXX
                                                         setOptional()
                                                         break
                                                 }
@@ -726,7 +702,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "GtypeSignature_index",
@@ -752,8 +728,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGtypeSignature_construct$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -766,21 +740,17 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "Parameter":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "Parameter": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _parameters = $
                                     Gtype(node, children, ($) => {
@@ -808,7 +778,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "GtypeSignature_construct",
@@ -818,19 +788,19 @@ export function parse<Annotation>(
                     )
                 }
                 switch (nextChild.kindName) {
-                    case "ConstructSignature": {
+                    case "ConstructSignature": /*Y*/ {
                         choose_construct()
                         break
                     }
-                    case "IndexSignature": {
+                    case "IndexSignature": /*Y*/ {
                         choose_index()
                         break
                     }
-                    case "MethodSignature": {
+                    case "MethodSignature": /*Y*/ {
                         choose_method()
                         break
                     }
-                    case "PropertySignature": {
+                    case "PropertySignature": /*Y*/ {
                         choose_property()
                         break
                     }
@@ -843,13 +813,12 @@ export function parse<Annotation>(
                     }
                 }
             },
-            () => {
+            () => { //no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "GtypeSignature",
                     kindNameOptions: "ConstructSignature, IndexSignature, MethodSignature, PropertySignature",
                 })
-                return
             },
         )
     }
@@ -858,8 +827,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGtypeParameter<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "TypeParameter") {
@@ -876,8 +843,6 @@ export function parse<Annotation>(
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    let currentChild: uast.TUntypedNode<Annotation> | undefined
-                    let nextChild: uast.TUntypedNode<Annotation> | undefined
                     Gidentifier(node, children, ($) => {
                         callback({
                             annotation: node.implementationDetails,
@@ -901,7 +866,7 @@ export function parse<Annotation>(
                     }
                 )
             },
-            () => {
+            () => { // no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "GtypeParameter",
@@ -915,12 +880,10 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGtype<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         const choiceEnd_Gtype = ($: tast.TVTGtype<Annotation>) => {
             callback($)
         }
-        children.pop(
+        $d.lookAhead(children, 
             (nextChild) => {
                 const choose_void = () => {
                     children.pop(
@@ -957,7 +920,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_void",
@@ -983,74 +946,68 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const elements = pm.createArrayBuilder<tast.TVTGtype_union$<Annotation>>()
                                 const processElement = () => {
                                     Gtype(node, children, ($) => {
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "AnyKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ArrayType":
-                                                    processElement()
-                                                    break
-                                                case "BooleanKeyword":
-                                                    processElement()
-                                                    break
-                                                case "FunctionType":
-                                                    processElement()
-                                                    break
-                                                case "LiteralType":
-                                                    processElement()
-                                                    break
-                                                case "ParenthesizedType":
-                                                    processElement()
-                                                    break
-                                                case "NeverKeyword":
-                                                    processElement()
-                                                    break
-                                                case "NumberKeyword":
-                                                    processElement()
-                                                    break
-                                                case "OptionalType":
-                                                    processElement()
-                                                    break
-                                                case "TupleType":
-                                                    processElement()
-                                                    break
-                                                case "TypeLiteral":
-                                                    processElement()
-                                                    break
-                                                case "StringKeyword":
-                                                    processElement()
-                                                    break
-                                                case "TypeReference":
-                                                    processElement()
-                                                    break
-                                                case "UndefinedKeyword":
-                                                    processElement()
-                                                    break
-                                                case "UnionType":
-                                                    processElement()
-                                                    break
-                                                case "VoidKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "AnyKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ArrayType": //z
+                                                processElement()
+                                                return true
+                                            case "BooleanKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "FunctionType": //z
+                                                processElement()
+                                                return true
+                                            case "LiteralType": //z
+                                                processElement()
+                                                return true
+                                            case "ParenthesizedType": //z
+                                                processElement()
+                                                return true
+                                            case "NeverKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "NumberKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "OptionalType": //z
+                                                processElement()
+                                                return true
+                                            case "TupleType": //z
+                                                processElement()
+                                                return true
+                                            case "TypeLiteral": //z
+                                                processElement()
+                                                return true
+                                            case "StringKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "TypeReference": //z
+                                                processElement()
+                                                return true
+                                            case "UndefinedKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "UnionType": //z
+                                                processElement()
+                                                return true
+                                            case "VoidKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -1074,7 +1031,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_union",
@@ -1118,7 +1075,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_undefined",
@@ -1144,8 +1101,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGtype_typeReference$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -1160,66 +1115,62 @@ export function parse<Annotation>(
                                             elements.push($)
                                         })
                                     }
-                                    arrayLoop: while (true) {
-                                        children.pop(
-                                            (nextChild) => {
-                                                switch (nextChild.kindName) {
-                                                    case "AnyKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "ArrayType":
-                                                        processElement()
-                                                        break
-                                                    case "BooleanKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "FunctionType":
-                                                        processElement()
-                                                        break
-                                                    case "LiteralType":
-                                                        processElement()
-                                                        break
-                                                    case "ParenthesizedType":
-                                                        processElement()
-                                                        break
-                                                    case "NeverKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "NumberKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "OptionalType":
-                                                        processElement()
-                                                        break
-                                                    case "TupleType":
-                                                        processElement()
-                                                        break
-                                                    case "TypeLiteral":
-                                                        processElement()
-                                                        break
-                                                    case "StringKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "TypeReference":
-                                                        processElement()
-                                                        break
-                                                    case "UndefinedKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "UnionType":
-                                                        processElement()
-                                                        break
-                                                    case "VoidKeyword":
-                                                        processElement()
-                                                        break
-                                                    default: break arrayLoop
-                                                }
-                                            },
-                                            () => {
-                                                break arrayLoop
-                                            },
-                                        )
-                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "AnyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ArrayType": //z
+                                                    processElement()
+                                                    return true
+                                                case "BooleanKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "FunctionType": //z
+                                                    processElement()
+                                                    return true
+                                                case "LiteralType": //z
+                                                    processElement()
+                                                    return true
+                                                case "ParenthesizedType": //z
+                                                    processElement()
+                                                    return true
+                                                case "NeverKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "NumberKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "OptionalType": //z
+                                                    processElement()
+                                                    return true
+                                                case "TupleType": //z
+                                                    processElement()
+                                                    return true
+                                                case "TypeLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "StringKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "TypeReference": //z
+                                                    processElement()
+                                                    return true
+                                                case "UndefinedKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "UnionType": //z
+                                                    processElement()
+                                                    return true
+                                                case "VoidKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
                                     pl.cc(elements.getArray(), ($) => {
                                         const _parameters = $
                                         sequenceEnd({
@@ -1228,7 +1179,7 @@ export function parse<Annotation>(
                                         })
                                     })
                                 }
-                                children.pop(
+                                $d.lookAhead(children, 
                                     (nextChild) => {
                                         const choose_qualifiedName = () => {
                                             children.pop(
@@ -1247,8 +1198,6 @@ export function parse<Annotation>(
                                                     ): void => {
                                                         const node = $
                                                         const children = pm.createStack($.children)
-                                                        let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                        let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                         const sequenceEnd = ($: tast.TVTGtype_typeReference$_x_qualifiedName$<Annotation>) => {
                                                             callback({
                                                                 annotation: node.implementationDetails,
@@ -1282,7 +1231,7 @@ export function parse<Annotation>(
                                                         }
                                                     )
                                                 },
-                                                () => {
+                                                () => { // no child
                                                     $x.reportMissingToken({
                                                         parentAnnotation: node.implementationDetails,
                                                         path: "Gtype_typeReference$_x_qualifiedName",
@@ -1297,11 +1246,11 @@ export function parse<Annotation>(
                                             })
                                         }
                                         switch (nextChild.kindName) {
-                                            case "Identifier": {
+                                            case "Identifier": /*Y*/ {
                                                 choose_identifier()
                                                 break
                                             }
-                                            case "QualifiedName": {
+                                            case "QualifiedName": /*Y*/ {
                                                 choose_qualifiedName()
                                                 break
                                             }
@@ -1314,13 +1263,12 @@ export function parse<Annotation>(
                                             }
                                         }
                                     },
-                                    () => {
+                                    () => { //no child
                                         $x.reportMissingToken({
                                             parentAnnotation: node.implementationDetails,
                                             path: "Gtype_typeReference$_x",
                                             kindNameOptions: "Identifier, QualifiedName",
                                         })
-                                        return
                                     },
                                 )
                                 children.pop(
@@ -1340,7 +1288,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_typeReference",
@@ -1384,7 +1332,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_string",
@@ -1410,38 +1358,32 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const elements = pm.createArrayBuilder<tast.TVTGtype_typeLiteral$<Annotation>>()
                                 const processElement = () => {
                                     GtypeSignature(node, children, ($) => {
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "ConstructSignature":
-                                                    processElement()
-                                                    break
-                                                case "IndexSignature":
-                                                    processElement()
-                                                    break
-                                                case "MethodSignature":
-                                                    processElement()
-                                                    break
-                                                case "PropertySignature":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "ConstructSignature": //z
+                                                processElement()
+                                                return true
+                                            case "IndexSignature": //z
+                                                processElement()
+                                                return true
+                                            case "MethodSignature": //z
+                                                processElement()
+                                                return true
+                                            case "PropertySignature": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -1465,7 +1407,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_typeLiteral",
@@ -1491,74 +1433,68 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const elements = pm.createArrayBuilder<tast.TVTGtype_tuple$<Annotation>>()
                                 const processElement = () => {
                                     Gtype(node, children, ($) => {
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "AnyKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ArrayType":
-                                                    processElement()
-                                                    break
-                                                case "BooleanKeyword":
-                                                    processElement()
-                                                    break
-                                                case "FunctionType":
-                                                    processElement()
-                                                    break
-                                                case "LiteralType":
-                                                    processElement()
-                                                    break
-                                                case "ParenthesizedType":
-                                                    processElement()
-                                                    break
-                                                case "NeverKeyword":
-                                                    processElement()
-                                                    break
-                                                case "NumberKeyword":
-                                                    processElement()
-                                                    break
-                                                case "OptionalType":
-                                                    processElement()
-                                                    break
-                                                case "TupleType":
-                                                    processElement()
-                                                    break
-                                                case "TypeLiteral":
-                                                    processElement()
-                                                    break
-                                                case "StringKeyword":
-                                                    processElement()
-                                                    break
-                                                case "TypeReference":
-                                                    processElement()
-                                                    break
-                                                case "UndefinedKeyword":
-                                                    processElement()
-                                                    break
-                                                case "UnionType":
-                                                    processElement()
-                                                    break
-                                                case "VoidKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "AnyKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ArrayType": //z
+                                                processElement()
+                                                return true
+                                            case "BooleanKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "FunctionType": //z
+                                                processElement()
+                                                return true
+                                            case "LiteralType": //z
+                                                processElement()
+                                                return true
+                                            case "ParenthesizedType": //z
+                                                processElement()
+                                                return true
+                                            case "NeverKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "NumberKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "OptionalType": //z
+                                                processElement()
+                                                return true
+                                            case "TupleType": //z
+                                                processElement()
+                                                return true
+                                            case "TypeLiteral": //z
+                                                processElement()
+                                                return true
+                                            case "StringKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "TypeReference": //z
+                                                processElement()
+                                                return true
+                                            case "UndefinedKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "UnionType": //z
+                                                processElement()
+                                                return true
+                                            case "VoidKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -1582,7 +1518,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_tuple",
@@ -1608,8 +1544,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 Gtype(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -1633,7 +1567,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_optional",
@@ -1677,7 +1611,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_number",
@@ -1721,7 +1655,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_never",
@@ -1747,8 +1681,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 Gtype(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -1772,7 +1704,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_parenthesized",
@@ -1798,15 +1730,13 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const choiceEnd_Gtype_literal$ = ($: tast.TVTGtype_literal$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                children.pop(
+                                $d.lookAhead(children, 
                                     (nextChild) => {
                                         const choose_string = () => {
                                             GstringLiteral(node, children, ($) => {
@@ -1848,7 +1778,7 @@ export function parse<Annotation>(
                                                         }
                                                     )
                                                 },
-                                                () => {
+                                                () => { // no child
                                                     $x.reportMissingToken({
                                                         parentAnnotation: node.implementationDetails,
                                                         path: "Gtype_literal$_null",
@@ -1858,11 +1788,11 @@ export function parse<Annotation>(
                                             )
                                         }
                                         switch (nextChild.kindName) {
-                                            case "NullKeyword": {
+                                            case "NullKeyword": /*Y*/ {
                                                 choose_null()
                                                 break
                                             }
-                                            case "StringLiteral": {
+                                            case "StringLiteral": /*Y*/ {
                                                 choose_string()
                                                 break
                                             }
@@ -1875,13 +1805,12 @@ export function parse<Annotation>(
                                             }
                                         }
                                     },
-                                    () => {
+                                    () => { //no child
                                         $x.reportMissingToken({
                                             parentAnnotation: node.implementationDetails,
                                             path: "Gtype_literal$",
                                             kindNameOptions: "NullKeyword, StringLiteral",
                                         })
-                                        return
                                     },
                                 )
                                 children.pop(
@@ -1901,7 +1830,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_literal",
@@ -1927,8 +1856,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGtype_function$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -1941,21 +1868,17 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "Parameter":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "Parameter": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _parameters = $
                                     let optional: null | tast.TVTGtype_function$_returnType<Annotation> = null
@@ -1964,55 +1887,55 @@ export function parse<Annotation>(
                                             optional = $
                                         })
                                     }
-                                    children.pop(
+                                    $d.lookAhead(children, 
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "null":
+                                                case "AnyKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "ArrayType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "BooleanKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "FunctionType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "LiteralType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "ParenthesizedType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "NeverKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "NumberKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "OptionalType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "TupleType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "TypeLiteral": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "StringKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "TypeReference": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "UndefinedKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "UnionType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "VoidKeyword": //XXX
                                                     setOptional()
                                                     break
                                             }
@@ -2044,7 +1967,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_function",
@@ -2088,7 +2011,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_boolean",
@@ -2114,8 +2037,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 Gtype(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -2139,7 +2060,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_array",
@@ -2183,7 +2104,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gtype_any",
@@ -2193,67 +2114,67 @@ export function parse<Annotation>(
                     )
                 }
                 switch (nextChild.kindName) {
-                    case "AnyKeyword": {
+                    case "AnyKeyword": /*Y*/ {
                         choose_any()
                         break
                     }
-                    case "ArrayType": {
+                    case "ArrayType": /*Y*/ {
                         choose_array()
                         break
                     }
-                    case "BooleanKeyword": {
+                    case "BooleanKeyword": /*Y*/ {
                         choose_boolean()
                         break
                     }
-                    case "FunctionType": {
+                    case "FunctionType": /*Y*/ {
                         choose_function()
                         break
                     }
-                    case "LiteralType": {
+                    case "LiteralType": /*Y*/ {
                         choose_literal()
                         break
                     }
-                    case "ParenthesizedType": {
+                    case "ParenthesizedType": /*Y*/ {
                         choose_parenthesized()
                         break
                     }
-                    case "NeverKeyword": {
+                    case "NeverKeyword": /*Y*/ {
                         choose_never()
                         break
                     }
-                    case "NumberKeyword": {
+                    case "NumberKeyword": /*Y*/ {
                         choose_number()
                         break
                     }
-                    case "OptionalType": {
+                    case "OptionalType": /*Y*/ {
                         choose_optional()
                         break
                     }
-                    case "TupleType": {
+                    case "TupleType": /*Y*/ {
                         choose_tuple()
                         break
                     }
-                    case "TypeLiteral": {
+                    case "TypeLiteral": /*Y*/ {
                         choose_typeLiteral()
                         break
                     }
-                    case "StringKeyword": {
+                    case "StringKeyword": /*Y*/ {
                         choose_string()
                         break
                     }
-                    case "TypeReference": {
+                    case "TypeReference": /*Y*/ {
                         choose_typeReference()
                         break
                     }
-                    case "UndefinedKeyword": {
+                    case "UndefinedKeyword": /*Y*/ {
                         choose_undefined()
                         break
                     }
-                    case "UnionType": {
+                    case "UnionType": /*Y*/ {
                         choose_union()
                         break
                     }
-                    case "VoidKeyword": {
+                    case "VoidKeyword": /*Y*/ {
                         choose_void()
                         break
                     }
@@ -2266,13 +2187,12 @@ export function parse<Annotation>(
                     }
                 }
             },
-            () => {
+            () => { //no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "Gtype",
                     kindNameOptions: "AnyKeyword, ArrayType, BooleanKeyword, FunctionType, LiteralType, ParenthesizedType, NeverKeyword, NumberKeyword, OptionalType, TupleType, TypeLiteral, StringKeyword, TypeReference, UndefinedKeyword, UnionType, VoidKeyword",
                 })
-                return
             },
         )
     }
@@ -2281,8 +2201,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGstringLiteral<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "StringLiteral") {
@@ -2320,7 +2238,7 @@ export function parse<Annotation>(
                     }
                 )
             },
-            () => {
+            () => { // no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "GstringLiteral",
@@ -2334,12 +2252,10 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGstatement<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         const choiceEnd_Gstatement = ($: tast.TVTGstatement<Annotation>) => {
             callback($)
         }
-        children.pop(
+        $d.lookAhead(children, 
             (nextChild) => {
                 const choose_while = () => {
                     children.pop(
@@ -2358,8 +2274,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_while$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -2393,7 +2307,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_while",
@@ -2419,8 +2333,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_variable$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -2433,27 +2345,23 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "DeclareKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ExportKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ReadonlyKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "DeclareKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ExportKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ReadonlyKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _modifiers = $
                                     GvariableDeclarationList(node, children, ($) => {
@@ -2481,7 +2389,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_variable",
@@ -2507,8 +2415,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_typeAlias$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -2521,27 +2427,23 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "DeclareKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ExportKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ReadonlyKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "DeclareKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ExportKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ReadonlyKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _modifiers = $
                                     Gidentifier(node, children, ($) => {
@@ -2552,21 +2454,17 @@ export function parse<Annotation>(
                                                 elements.push($)
                                             })
                                         }
-                                        arrayLoop: while (true) {
-                                            children.pop(
-                                                (nextChild) => {
-                                                    switch (nextChild.kindName) {
-                                                        case "TypeParameter":
-                                                            processElement()
-                                                            break
-                                                        default: break arrayLoop
-                                                    }
-                                                },
-                                                () => {
-                                                    break arrayLoop
-                                                },
-                                            )
-                                        }
+                                        $d.doUntil(
+                                            children,
+                                            (nextChild) => {
+                                                switch (nextChild.kindName) {
+                                                    case "TypeParameter": //z
+                                                        processElement()
+                                                        return true
+                                                    default: return false
+                                                }
+                                            },
+                                        )
                                         pl.cc(elements.getArray(), ($) => {
                                             const _typeParameters = $
                                             Gtype(node, children, ($) => {
@@ -2598,7 +2496,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_typeAlias",
@@ -2624,8 +2522,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_try$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -2650,8 +2546,6 @@ export function parse<Annotation>(
                                             ): void => {
                                                 const node = $
                                                 const children = pm.createStack($.children)
-                                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                 const sequenceEnd = ($: tast.TVTGstatement_try$_catchClause$<Annotation>) => {
                                                     callback({
                                                         annotation: node.implementationDetails,
@@ -2689,7 +2583,7 @@ export function parse<Annotation>(
                                                 }
                                             )
                                         },
-                                        () => {
+                                        () => { // no child
                                             $x.reportMissingToken({
                                                 parentAnnotation: node.implementationDetails,
                                                 path: "Gstatement_try$_catchClause",
@@ -2715,7 +2609,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_try",
@@ -2741,8 +2635,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 Gexpression(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -2766,7 +2658,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_throw",
@@ -2792,8 +2684,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_switch$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -2818,14 +2708,12 @@ export function parse<Annotation>(
                                             ): void => {
                                                 const node = $
                                                 const children = pm.createStack($.children)
-                                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                 const elements = pm.createArrayBuilder<tast.TVTGstatement_switch$_caseBlock$<Annotation>>()
                                                 const processElement = () => {
                                                     const choiceEnd_Gstatement_switch$_caseBlock$ = ($: tast.TVTGstatement_switch$_caseBlock$<Annotation>) => {
                                                         elements.push($)
                                                     }
-                                                    children.pop(
+                                                    $d.lookAhead(children, 
                                                         (nextChild) => {
                                                             const choose_default = () => {
                                                                 children.pop(
@@ -2844,77 +2732,71 @@ export function parse<Annotation>(
                                                                         ): void => {
                                                                             const node = $
                                                                             const children = pm.createStack($.children)
-                                                                            let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                                            let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                                             const elements = pm.createArrayBuilder<tast.TVTGstatement_switch$_caseBlock$_default$<Annotation>>()
                                                                             const processElement = () => {
                                                                                 Gstatement(node, children, ($) => {
                                                                                     elements.push($)
                                                                                 })
                                                                             }
-                                                                            arrayLoop: while (true) {
-                                                                                children.pop(
-                                                                                    (nextChild) => {
-                                                                                        switch (nextChild.kindName) {
-                                                                                            case "Block":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "BreakStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "ExportDeclaration":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "ExpressionStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "ForStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "FunctionDeclaration":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "IfStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "ImportDeclaration":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "InterfaceDeclaration":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "LabeledStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "ReturnStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "SwitchStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "ThrowStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "TryStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "TypeAliasDeclaration":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "VariableStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            case "WhileStatement":
-                                                                                                processElement()
-                                                                                                break
-                                                                                            default: break arrayLoop
-                                                                                        }
-                                                                                    },
-                                                                                    () => {
-                                                                                        break arrayLoop
-                                                                                    },
-                                                                                )
-                                                                            }
+                                                                            $d.doUntil(
+                                                                                children,
+                                                                                (nextChild) => {
+                                                                                    switch (nextChild.kindName) {
+                                                                                        case "Block": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "BreakStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "ExportDeclaration": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "ExpressionStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "ForStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "FunctionDeclaration": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "IfStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "ImportDeclaration": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "InterfaceDeclaration": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "LabeledStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "ReturnStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "SwitchStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "ThrowStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "TryStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "TypeAliasDeclaration": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "VariableStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        case "WhileStatement": //z
+                                                                                            processElement()
+                                                                                            return true
+                                                                                        default: return false
+                                                                                    }
+                                                                                },
+                                                                            )
                                                                             pl.cc(elements.getArray(), ($) => {
                                                                                 callback({
                                                                                     annotation: node.implementationDetails,
@@ -2938,7 +2820,7 @@ export function parse<Annotation>(
                                                                             }
                                                                         )
                                                                     },
-                                                                    () => {
+                                                                    () => { // no child
                                                                         $x.reportMissingToken({
                                                                             parentAnnotation: node.implementationDetails,
                                                                             path: "Gstatement_switch$_caseBlock$_default",
@@ -2964,8 +2846,6 @@ export function parse<Annotation>(
                                                                         ): void => {
                                                                             const node = $
                                                                             const children = pm.createStack($.children)
-                                                                            let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                                            let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                                             const sequenceEnd = ($: tast.TVTGstatement_switch$_caseBlock$_case$<Annotation>) => {
                                                                                 callback({
                                                                                     annotation: node.implementationDetails,
@@ -2980,69 +2860,65 @@ export function parse<Annotation>(
                                                                                         elements.push($)
                                                                                     })
                                                                                 }
-                                                                                arrayLoop: while (true) {
-                                                                                    children.pop(
-                                                                                        (nextChild) => {
-                                                                                            switch (nextChild.kindName) {
-                                                                                                case "Block":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "BreakStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "ExportDeclaration":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "ExpressionStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "ForStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "FunctionDeclaration":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "IfStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "ImportDeclaration":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "InterfaceDeclaration":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "LabeledStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "ReturnStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "SwitchStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "ThrowStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "TryStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "TypeAliasDeclaration":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "VariableStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                case "WhileStatement":
-                                                                                                    processElement()
-                                                                                                    break
-                                                                                                default: break arrayLoop
-                                                                                            }
-                                                                                        },
-                                                                                        () => {
-                                                                                            break arrayLoop
-                                                                                        },
-                                                                                    )
-                                                                                }
+                                                                                $d.doUntil(
+                                                                                    children,
+                                                                                    (nextChild) => {
+                                                                                        switch (nextChild.kindName) {
+                                                                                            case "Block": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "BreakStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "ExportDeclaration": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "ExpressionStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "ForStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "FunctionDeclaration": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "IfStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "ImportDeclaration": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "InterfaceDeclaration": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "LabeledStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "ReturnStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "SwitchStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "ThrowStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "TryStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "TypeAliasDeclaration": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "VariableStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            case "WhileStatement": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            default: return false
+                                                                                        }
+                                                                                    },
+                                                                                )
                                                                                 pl.cc(elements.getArray(), ($) => {
                                                                                     const _statements = $
                                                                                     sequenceEnd({
@@ -3068,7 +2944,7 @@ export function parse<Annotation>(
                                                                             }
                                                                         )
                                                                     },
-                                                                    () => {
+                                                                    () => { // no child
                                                                         $x.reportMissingToken({
                                                                             parentAnnotation: node.implementationDetails,
                                                                             path: "Gstatement_switch$_caseBlock$_case",
@@ -3078,11 +2954,11 @@ export function parse<Annotation>(
                                                                 )
                                                             }
                                                             switch (nextChild.kindName) {
-                                                                case "CaseClause": {
+                                                                case "CaseClause": /*Y*/ {
                                                                     choose_case()
                                                                     break
                                                                 }
-                                                                case "DefaultClause": {
+                                                                case "DefaultClause": /*Y*/ {
                                                                     choose_default()
                                                                     break
                                                                 }
@@ -3095,34 +2971,29 @@ export function parse<Annotation>(
                                                                 }
                                                             }
                                                         },
-                                                        () => {
+                                                        () => { //no child
                                                             $x.reportMissingToken({
                                                                 parentAnnotation: node.implementationDetails,
                                                                 path: "Gstatement_switch$_caseBlock$",
                                                                 kindNameOptions: "CaseClause, DefaultClause",
                                                             })
-                                                            return
                                                         },
                                                     )
                                                 }
-                                                arrayLoop: while (true) {
-                                                    children.pop(
-                                                        (nextChild) => {
-                                                            switch (nextChild.kindName) {
-                                                                case "CaseClause":
-                                                                    processElement()
-                                                                    break
-                                                                case "DefaultClause":
-                                                                    processElement()
-                                                                    break
-                                                                default: break arrayLoop
-                                                            }
-                                                        },
-                                                        () => {
-                                                            break arrayLoop
-                                                        },
-                                                    )
-                                                }
+                                                $d.doUntil(
+                                                    children,
+                                                    (nextChild) => {
+                                                        switch (nextChild.kindName) {
+                                                            case "CaseClause": //z
+                                                                processElement()
+                                                                return true
+                                                            case "DefaultClause": //z
+                                                                processElement()
+                                                                return true
+                                                            default: return false
+                                                        }
+                                                    },
+                                                )
                                                 pl.cc(elements.getArray(), ($) => {
                                                     callback({
                                                         annotation: node.implementationDetails,
@@ -3150,7 +3021,7 @@ export function parse<Annotation>(
                                                 }
                                             )
                                         },
-                                        () => {
+                                        () => { // no child
                                             $x.reportMissingToken({
                                                 parentAnnotation: node.implementationDetails,
                                                 path: "Gstatement_switch$_caseBlock",
@@ -3176,7 +3047,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_switch",
@@ -3202,75 +3073,73 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 let optional: null | tast.TVTGstatement_return$<Annotation> = null
                                 const setOptional = () => {
                                     Gexpression(node, children, ($) => {
                                         optional = $
                                     })
                                 }
-                                children.pop(
+                                $d.lookAhead(children, 
                                     (nextChild) => {
                                         switch (nextChild.kindName) {
-                                            case "null":
+                                            case "ArrayLiteralExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "ArrowFunction": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "BinaryExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "CallExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "ConditionalExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "ElementAccessExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "FalseKeyword": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "Identifier": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "NewExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "NoSubstitutionTemplateLiteral": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "NumericLiteral": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "NullKeyword": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "ObjectLiteralExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "ParenthesizedExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "PostfixUnaryExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "PrefixUnaryExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "PropertyAccessExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "StringLiteral": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "TemplateExpression": //XXX
                                                 setOptional()
                                                 break
-                                            case "null":
+                                            case "TrueKeyword": //XXX
                                                 setOptional()
                                                 break
                                         }
@@ -3300,7 +3169,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_return",
@@ -3326,8 +3195,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_labeled$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -3361,7 +3228,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_labeled",
@@ -3387,8 +3254,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_interface$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -3401,27 +3266,23 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "DeclareKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ExportKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ReadonlyKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "DeclareKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ExportKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ReadonlyKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _modifiers = $
                                     Gidentifier(node, children, ($) => {
@@ -3432,21 +3293,17 @@ export function parse<Annotation>(
                                                 elements.push($)
                                             })
                                         }
-                                        arrayLoop: while (true) {
-                                            children.pop(
-                                                (nextChild) => {
-                                                    switch (nextChild.kindName) {
-                                                        case "TypeParameter":
-                                                            processElement()
-                                                            break
-                                                        default: break arrayLoop
-                                                    }
-                                                },
-                                                () => {
-                                                    break arrayLoop
-                                                },
-                                            )
-                                        }
+                                        $d.doUntil(
+                                            children,
+                                            (nextChild) => {
+                                                switch (nextChild.kindName) {
+                                                    case "TypeParameter": //z
+                                                        processElement()
+                                                        return true
+                                                    default: return false
+                                                }
+                                            },
+                                        )
                                         pl.cc(elements.getArray(), ($) => {
                                             const _typeParameters = $
                                             const elements = pm.createArrayBuilder<tast.TVTGstatement_interface$_signature<Annotation>>()
@@ -3455,30 +3312,26 @@ export function parse<Annotation>(
                                                     elements.push($)
                                                 })
                                             }
-                                            arrayLoop: while (true) {
-                                                children.pop(
-                                                    (nextChild) => {
-                                                        switch (nextChild.kindName) {
-                                                            case "ConstructSignature":
-                                                                processElement()
-                                                                break
-                                                            case "IndexSignature":
-                                                                processElement()
-                                                                break
-                                                            case "MethodSignature":
-                                                                processElement()
-                                                                break
-                                                            case "PropertySignature":
-                                                                processElement()
-                                                                break
-                                                            default: break arrayLoop
-                                                        }
-                                                    },
-                                                    () => {
-                                                        break arrayLoop
-                                                    },
-                                                )
-                                            }
+                                            $d.doUntil(
+                                                children,
+                                                (nextChild) => {
+                                                    switch (nextChild.kindName) {
+                                                        case "ConstructSignature": //z
+                                                            processElement()
+                                                            return true
+                                                        case "IndexSignature": //z
+                                                            processElement()
+                                                            return true
+                                                        case "MethodSignature": //z
+                                                            processElement()
+                                                            return true
+                                                        case "PropertySignature": //z
+                                                            processElement()
+                                                            return true
+                                                        default: return false
+                                                    }
+                                                },
+                                            )
                                             pl.cc(elements.getArray(), ($) => {
                                                 const _signature = $
                                                 sequenceEnd({
@@ -3508,7 +3361,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_interface",
@@ -3534,8 +3387,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_import$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -3558,15 +3409,13 @@ export function parse<Annotation>(
                                         ): void => {
                                             const node = $
                                             const children = pm.createStack($.children)
-                                            let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                            let nextChild: uast.TUntypedNode<Annotation> | undefined
                                             const choiceEnd_Gstatement_import$_clause$ = ($: tast.TVTGstatement_import$_clause$<Annotation>) => {
                                                 callback({
                                                     annotation: node.implementationDetails,
                                                     content: $,
                                                 })
                                             }
-                                            children.pop(
+                                            $d.lookAhead(children, 
                                                 (nextChild) => {
                                                     const choose_named = () => {
                                                         children.pop(
@@ -3585,8 +3434,6 @@ export function parse<Annotation>(
                                                                 ): void => {
                                                                     const node = $
                                                                     const children = pm.createStack($.children)
-                                                                    let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                                    let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                                     const elements = pm.createArrayBuilder<tast.TVTGstatement_import$_clause$_named$<Annotation>>()
                                                                     const processElement = () => {
                                                                         children.pop(
@@ -3605,8 +3452,6 @@ export function parse<Annotation>(
                                                                                 ): void => {
                                                                                     const node = $
                                                                                     const children = pm.createStack($.children)
-                                                                                    let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                                                    let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                                                     const sequenceEnd = ($: tast.TVTGstatement_import$_clause$_named$$<Annotation>) => {
                                                                                         callback({
                                                                                             annotation: node.implementationDetails,
@@ -3621,10 +3466,10 @@ export function parse<Annotation>(
                                                                                                 optional = $
                                                                                             })
                                                                                         }
-                                                                                        children.pop(
+                                                                                        $d.lookAhead(children, 
                                                                                             (nextChild) => {
                                                                                                 switch (nextChild.kindName) {
-                                                                                                    case "null":
+                                                                                                    case "Identifier": //XXX
                                                                                                         setOptional()
                                                                                                         break
                                                                                                 }
@@ -3656,7 +3501,7 @@ export function parse<Annotation>(
                                                                                     }
                                                                                 )
                                                                             },
-                                                                            () => {
+                                                                            () => { // no child
                                                                                 $x.reportMissingToken({
                                                                                     parentAnnotation: node.implementationDetails,
                                                                                     path: "Gstatement_import$_clause$_named$",
@@ -3665,21 +3510,17 @@ export function parse<Annotation>(
                                                                             },
                                                                         )
                                                                     }
-                                                                    arrayLoop: while (true) {
-                                                                        children.pop(
-                                                                            (nextChild) => {
-                                                                                switch (nextChild.kindName) {
-                                                                                    case "ImportSpecifier":
-                                                                                        processElement()
-                                                                                        break
-                                                                                    default: break arrayLoop
-                                                                                }
-                                                                            },
-                                                                            () => {
-                                                                                break arrayLoop
-                                                                            },
-                                                                        )
-                                                                    }
+                                                                    $d.doUntil(
+                                                                        children,
+                                                                        (nextChild) => {
+                                                                            switch (nextChild.kindName) {
+                                                                                case "ImportSpecifier": //z
+                                                                                    processElement()
+                                                                                    return true
+                                                                                default: return false
+                                                                            }
+                                                                        },
+                                                                    )
                                                                     pl.cc(elements.getArray(), ($) => {
                                                                         callback({
                                                                             annotation: node.implementationDetails,
@@ -3703,7 +3544,7 @@ export function parse<Annotation>(
                                                                     }
                                                                 )
                                                             },
-                                                            () => {
+                                                            () => { // no child
                                                                 $x.reportMissingToken({
                                                                     parentAnnotation: node.implementationDetails,
                                                                     path: "Gstatement_import$_clause$_named",
@@ -3729,8 +3570,6 @@ export function parse<Annotation>(
                                                                 ): void => {
                                                                     const node = $
                                                                     const children = pm.createStack($.children)
-                                                                    let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                                    let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                                     Gidentifier(node, children, ($) => {
                                                                         callback({
                                                                             annotation: node.implementationDetails,
@@ -3754,7 +3593,7 @@ export function parse<Annotation>(
                                                                     }
                                                                 )
                                                             },
-                                                            () => {
+                                                            () => { // no child
                                                                 $x.reportMissingToken({
                                                                     parentAnnotation: node.implementationDetails,
                                                                     path: "Gstatement_import$_clause$_namespace",
@@ -3764,11 +3603,11 @@ export function parse<Annotation>(
                                                         )
                                                     }
                                                     switch (nextChild.kindName) {
-                                                        case "NamespaceImport": {
+                                                        case "NamespaceImport": /*Y*/ {
                                                             choose_namespace()
                                                             break
                                                         }
-                                                        case "NamedImports": {
+                                                        case "NamedImports": /*Y*/ {
                                                             choose_named()
                                                             break
                                                         }
@@ -3781,13 +3620,12 @@ export function parse<Annotation>(
                                                         }
                                                     }
                                                 },
-                                                () => {
+                                                () => { //no child
                                                     $x.reportMissingToken({
                                                         parentAnnotation: node.implementationDetails,
                                                         path: "Gstatement_import$_clause$",
                                                         kindNameOptions: "NamespaceImport, NamedImports",
                                                     })
-                                                    return
                                                 },
                                             )
                                             children.pop(
@@ -3814,7 +3652,7 @@ export function parse<Annotation>(
                                             }
                                         )
                                     },
-                                    () => {
+                                    () => { // no child
                                         $x.reportMissingToken({
                                             parentAnnotation: node.implementationDetails,
                                             path: "Gstatement_import$_clause",
@@ -3839,7 +3677,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_import",
@@ -3865,8 +3703,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_if$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -3883,58 +3719,58 @@ export function parse<Annotation>(
                                                 optional = $
                                             })
                                         }
-                                        children.pop(
+                                        $d.lookAhead(children, 
                                             (nextChild) => {
                                                 switch (nextChild.kindName) {
-                                                    case "null":
+                                                    case "Block": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "BreakStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "ExportDeclaration": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "ExpressionStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "ForStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "FunctionDeclaration": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "IfStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "ImportDeclaration": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "InterfaceDeclaration": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "LabeledStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "ReturnStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "SwitchStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "ThrowStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "TryStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "TypeAliasDeclaration": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "VariableStatement": //XXX
                                                         setOptional()
                                                         break
-                                                    case "null":
+                                                    case "WhileStatement": //XXX
                                                         setOptional()
                                                         break
                                                 }
@@ -3968,7 +3804,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_if",
@@ -3994,8 +3830,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_function$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -4008,27 +3842,23 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "DeclareKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ExportKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ReadonlyKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "DeclareKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ExportKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ReadonlyKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _modifiers = $
                                     Gidentifier(node, children, ($) => {
@@ -4041,10 +3871,10 @@ export function parse<Annotation>(
                                                     optional = $
                                                 })
                                             }
-                                            children.pop(
+                                            $d.lookAhead(children, 
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "null":
+                                                        case "Block": //XXX
                                                             setOptional()
                                                             break
                                                     }
@@ -4080,7 +3910,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_function",
@@ -4106,8 +3936,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGstatement_for$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -4149,7 +3977,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_for",
@@ -4175,8 +4003,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 Gexpression(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -4200,7 +4026,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_expression",
@@ -4226,8 +4052,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 GstringLiteral(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -4251,7 +4075,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_export",
@@ -4277,18 +4101,16 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 let optional: null | tast.TVTGstatement_break$<Annotation> = null
                                 const setOptional = () => {
                                     Gidentifier(node, children, ($) => {
                                         optional = $
                                     })
                                 }
-                                children.pop(
+                                $d.lookAhead(children, 
                                     (nextChild) => {
                                         switch (nextChild.kindName) {
-                                            case "null":
+                                            case "Identifier": //XXX
                                                 setOptional()
                                                 break
                                         }
@@ -4318,7 +4140,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gstatement_break",
@@ -4333,71 +4155,71 @@ export function parse<Annotation>(
                     })
                 }
                 switch (nextChild.kindName) {
-                    case "Block": {
+                    case "Block": /*Y*/ {
                         choose_block()
                         break
                     }
-                    case "BreakStatement": {
+                    case "BreakStatement": /*Y*/ {
                         choose_break()
                         break
                     }
-                    case "ExportDeclaration": {
+                    case "ExportDeclaration": /*Y*/ {
                         choose_export()
                         break
                     }
-                    case "ExpressionStatement": {
+                    case "ExpressionStatement": /*Y*/ {
                         choose_expression()
                         break
                     }
-                    case "ForStatement": {
+                    case "ForStatement": /*Y*/ {
                         choose_for()
                         break
                     }
-                    case "FunctionDeclaration": {
+                    case "FunctionDeclaration": /*Y*/ {
                         choose_function()
                         break
                     }
-                    case "IfStatement": {
+                    case "IfStatement": /*Y*/ {
                         choose_if()
                         break
                     }
-                    case "ImportDeclaration": {
+                    case "ImportDeclaration": /*Y*/ {
                         choose_import()
                         break
                     }
-                    case "InterfaceDeclaration": {
+                    case "InterfaceDeclaration": /*Y*/ {
                         choose_interface()
                         break
                     }
-                    case "LabeledStatement": {
+                    case "LabeledStatement": /*Y*/ {
                         choose_labeled()
                         break
                     }
-                    case "ReturnStatement": {
+                    case "ReturnStatement": /*Y*/ {
                         choose_return()
                         break
                     }
-                    case "SwitchStatement": {
+                    case "SwitchStatement": /*Y*/ {
                         choose_switch()
                         break
                     }
-                    case "ThrowStatement": {
+                    case "ThrowStatement": /*Y*/ {
                         choose_throw()
                         break
                     }
-                    case "TryStatement": {
+                    case "TryStatement": /*Y*/ {
                         choose_try()
                         break
                     }
-                    case "TypeAliasDeclaration": {
+                    case "TypeAliasDeclaration": /*Y*/ {
                         choose_typeAlias()
                         break
                     }
-                    case "VariableStatement": {
+                    case "VariableStatement": /*Y*/ {
                         choose_variable()
                         break
                     }
-                    case "WhileStatement": {
+                    case "WhileStatement": /*Y*/ {
                         choose_while()
                         break
                     }
@@ -4410,13 +4232,12 @@ export function parse<Annotation>(
                     }
                 }
             },
-            () => {
+            () => { //no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "Gstatement",
                     kindNameOptions: "Block, BreakStatement, ExportDeclaration, ExpressionStatement, ForStatement, FunctionDeclaration, IfStatement, ImportDeclaration, InterfaceDeclaration, LabeledStatement, ReturnStatement, SwitchStatement, ThrowStatement, TryStatement, TypeAliasDeclaration, VariableStatement, WhileStatement",
                 })
-                return
             },
         )
     }
@@ -4425,8 +4246,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGparameter<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "Parameter") {
@@ -4443,8 +4262,6 @@ export function parse<Annotation>(
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    let currentChild: uast.TUntypedNode<Annotation> | undefined
-                    let nextChild: uast.TUntypedNode<Annotation> | undefined
                     const sequenceEnd = ($: tast.TVTGparameter$<Annotation>) => {
                         callback({
                             annotation: node.implementationDetails,
@@ -4489,7 +4306,7 @@ export function parse<Annotation>(
                                         }
                                     )
                                 },
-                                () => {
+                                () => { // no child
                                     $x.reportMissingToken({
                                         parentAnnotation: node.implementationDetails,
                                         path: "Gparameter$_questionToken",
@@ -4498,10 +4315,10 @@ export function parse<Annotation>(
                                 },
                             )
                         }
-                        children.pop(
+                        $d.lookAhead(children, 
                             (nextChild) => {
                                 switch (nextChild.kindName) {
-                                    case "null":
+                                    case "QuestionToken": //XXX
                                         setOptional()
                                         break
                                 }
@@ -4516,55 +4333,55 @@ export function parse<Annotation>(
                                     optional = $
                                 })
                             }
-                            children.pop(
+                            $d.lookAhead(children, 
                                 (nextChild) => {
                                     switch (nextChild.kindName) {
-                                        case "null":
+                                        case "AnyKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "ArrayType": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "BooleanKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "FunctionType": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "LiteralType": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "ParenthesizedType": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "NeverKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "NumberKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "OptionalType": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "TupleType": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "TypeLiteral": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "StringKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "TypeReference": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "UndefinedKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "UnionType": //XXX
                                             setOptional()
                                             break
-                                        case "null":
+                                        case "VoidKeyword": //XXX
                                             setOptional()
                                             break
                                     }
@@ -4598,7 +4415,7 @@ export function parse<Annotation>(
                     }
                 )
             },
-            () => {
+            () => { // no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "Gparameter",
@@ -4612,8 +4429,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGnumericLiteral<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "NumericLiteral") {
@@ -4651,7 +4466,7 @@ export function parse<Annotation>(
                     }
                 )
             },
-            () => {
+            () => { // no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "GnumericLiteral",
@@ -4665,12 +4480,10 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGmodifier<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         const choiceEnd_Gmodifier = ($: tast.TVTGmodifier<Annotation>) => {
             callback($)
         }
-        children.pop(
+        $d.lookAhead(children, 
             (nextChild) => {
                 const choose_readonly = () => {
                     children.pop(
@@ -4707,7 +4520,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gmodifier_readonly",
@@ -4751,7 +4564,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gmodifier_export",
@@ -4795,7 +4608,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gmodifier_declare",
@@ -4805,15 +4618,15 @@ export function parse<Annotation>(
                     )
                 }
                 switch (nextChild.kindName) {
-                    case "DeclareKeyword": {
+                    case "DeclareKeyword": /*Y*/ {
                         choose_declare()
                         break
                     }
-                    case "ExportKeyword": {
+                    case "ExportKeyword": /*Y*/ {
                         choose_export()
                         break
                     }
-                    case "ReadonlyKeyword": {
+                    case "ReadonlyKeyword": /*Y*/ {
                         choose_readonly()
                         break
                     }
@@ -4826,13 +4639,12 @@ export function parse<Annotation>(
                     }
                 }
             },
-            () => {
+            () => { //no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "Gmodifier",
                     kindNameOptions: "DeclareKeyword, ExportKeyword, ReadonlyKeyword",
                 })
-                return
             },
         )
     }
@@ -4841,12 +4653,10 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGidentifierOrStringLiteral<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         const choiceEnd_GidentifierOrStringLiteral = ($: tast.TVTGidentifierOrStringLiteral<Annotation>) => {
             callback($)
         }
-        children.pop(
+        $d.lookAhead(children, 
             (nextChild) => {
                 const choose_stringLiteral = () => {
                     GstringLiteral(node, children, ($) => {
@@ -4859,11 +4669,11 @@ export function parse<Annotation>(
                     })
                 }
                 switch (nextChild.kindName) {
-                    case "Identifier": {
+                    case "Identifier": /*Y*/ {
                         choose_identifier()
                         break
                     }
-                    case "StringLiteral": {
+                    case "StringLiteral": /*Y*/ {
                         choose_stringLiteral()
                         break
                     }
@@ -4876,13 +4686,12 @@ export function parse<Annotation>(
                     }
                 }
             },
-            () => {
+            () => { //no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "GidentifierOrStringLiteral",
                     kindNameOptions: "Identifier, StringLiteral",
                 })
-                return
             },
         )
     }
@@ -4891,8 +4700,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGidentifier<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "Identifier") {
@@ -4930,7 +4737,7 @@ export function parse<Annotation>(
                     }
                 )
             },
-            () => {
+            () => { // no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "Gidentifier",
@@ -4944,8 +4751,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGfunctionDefinition<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         const sequenceEnd = ($: tast.TVTGfunctionDefinition<Annotation>) => {
             callback($)
         }
@@ -4955,21 +4760,17 @@ export function parse<Annotation>(
                 elements.push($)
             })
         }
-        arrayLoop: while (true) {
-            children.pop(
-                (nextChild) => {
-                    switch (nextChild.kindName) {
-                        case "TypeParameter":
-                            processElement()
-                            break
-                        default: break arrayLoop
-                    }
-                },
-                () => {
-                    break arrayLoop
-                },
-            )
-        }
+        $d.doUntil(
+            children,
+            (nextChild) => {
+                switch (nextChild.kindName) {
+                    case "TypeParameter": //z
+                        processElement()
+                        return true
+                    default: return false
+                }
+            },
+        )
         pl.cc(elements.getArray(), ($) => {
             const _typeParameters = $
             const elements = pm.createArrayBuilder<tast.TVTGfunctionDefinition_parameters<Annotation>>()
@@ -4978,21 +4779,17 @@ export function parse<Annotation>(
                     elements.push($)
                 })
             }
-            arrayLoop: while (true) {
-                children.pop(
-                    (nextChild) => {
-                        switch (nextChild.kindName) {
-                            case "Parameter":
-                                processElement()
-                                break
-                            default: break arrayLoop
-                        }
-                    },
-                    () => {
-                        break arrayLoop
-                    },
-                )
-            }
+            $d.doUntil(
+                children,
+                (nextChild) => {
+                    switch (nextChild.kindName) {
+                        case "Parameter": //z
+                            processElement()
+                            return true
+                        default: return false
+                    }
+                },
+            )
             pl.cc(elements.getArray(), ($) => {
                 const _parameters = $
                 let optional: null | tast.TVTGfunctionDefinition_returnType<Annotation> = null
@@ -5001,55 +4798,55 @@ export function parse<Annotation>(
                         optional = $
                     })
                 }
-                children.pop(
+                $d.lookAhead(children, 
                     (nextChild) => {
                         switch (nextChild.kindName) {
-                            case "null":
+                            case "AnyKeyword": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "ArrayType": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "BooleanKeyword": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "FunctionType": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "LiteralType": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "ParenthesizedType": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "NeverKeyword": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "NumberKeyword": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "OptionalType": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "TupleType": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "TypeLiteral": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "StringKeyword": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "TypeReference": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "UndefinedKeyword": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "UnionType": //XXX
                                 setOptional()
                                 break
-                            case "null":
+                            case "VoidKeyword": //XXX
                                 setOptional()
                                 break
                         }
@@ -5072,12 +4869,10 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGexpression<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         const choiceEnd_Gexpression = ($: tast.TVTGexpression<Annotation>) => {
             callback($)
         }
-        children.pop(
+        $d.lookAhead(children, 
             (nextChild) => {
                 const choose_true = () => {
                     children.pop(
@@ -5114,7 +4909,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_true",
@@ -5140,8 +4935,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGexpression_template$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -5200,8 +4993,6 @@ export function parse<Annotation>(
                                                             ): void => {
                                                                 const node = $
                                                                 const children = pm.createStack($.children)
-                                                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                                 const sequenceEnd = ($: tast.TVTGexpression_template$_spans$<Annotation>) => {
                                                                     callback({
                                                                         annotation: node.implementationDetails,
@@ -5217,7 +5008,7 @@ export function parse<Annotation>(
                                                                             "x": _x,
                                                                         })
                                                                     }
-                                                                    children.pop(
+                                                                    $d.lookAhead(children, 
                                                                         (nextChild) => {
                                                                             const choose_tail = () => {
                                                                                 children.pop(
@@ -5257,7 +5048,7 @@ export function parse<Annotation>(
                                                                                             }
                                                                                         )
                                                                                     },
-                                                                                    () => {
+                                                                                    () => { // no child
                                                                                         $x.reportMissingToken({
                                                                                             parentAnnotation: node.implementationDetails,
                                                                                             path: "Gexpression_template$_spans$_x_tail",
@@ -5304,7 +5095,7 @@ export function parse<Annotation>(
                                                                                             }
                                                                                         )
                                                                                     },
-                                                                                    () => {
+                                                                                    () => { // no child
                                                                                         $x.reportMissingToken({
                                                                                             parentAnnotation: node.implementationDetails,
                                                                                             path: "Gexpression_template$_spans$_x_middle",
@@ -5314,11 +5105,11 @@ export function parse<Annotation>(
                                                                                 )
                                                                             }
                                                                             switch (nextChild.kindName) {
-                                                                                case "TemplateMiddle": {
+                                                                                case "TemplateMiddle": /*Y*/ {
                                                                                     choose_middle()
                                                                                     break
                                                                                 }
-                                                                                case "TemplateTail": {
+                                                                                case "TemplateTail": /*Y*/ {
                                                                                     choose_tail()
                                                                                     break
                                                                                 }
@@ -5331,13 +5122,12 @@ export function parse<Annotation>(
                                                                                 }
                                                                             }
                                                                         },
-                                                                        () => {
+                                                                        () => { //no child
                                                                             $x.reportMissingToken({
                                                                                 parentAnnotation: node.implementationDetails,
                                                                                 path: "Gexpression_template$_spans$_x",
                                                                                 kindNameOptions: "TemplateMiddle, TemplateTail",
                                                                             })
-                                                                            return
                                                                         },
                                                                     )
                                                                 })
@@ -5358,7 +5148,7 @@ export function parse<Annotation>(
                                                                 }
                                                             )
                                                         },
-                                                        () => {
+                                                        () => { // no child
                                                             $x.reportMissingToken({
                                                                 parentAnnotation: node.implementationDetails,
                                                                 path: "Gexpression_template$_spans",
@@ -5367,21 +5157,17 @@ export function parse<Annotation>(
                                                         },
                                                     )
                                                 }
-                                                arrayLoop: while (true) {
-                                                    children.pop(
-                                                        (nextChild) => {
-                                                            switch (nextChild.kindName) {
-                                                                case "TemplateSpan":
-                                                                    processElement()
-                                                                    break
-                                                                default: break arrayLoop
-                                                            }
-                                                        },
-                                                        () => {
-                                                            break arrayLoop
-                                                        },
-                                                    )
-                                                }
+                                                $d.doUntil(
+                                                    children,
+                                                    (nextChild) => {
+                                                        switch (nextChild.kindName) {
+                                                            case "TemplateSpan": //z
+                                                                processElement()
+                                                                return true
+                                                            default: return false
+                                                        }
+                                                    },
+                                                )
                                                 pl.cc(elements.getArray(), ($) => {
                                                     const _spans = $
                                                     sequenceEnd({
@@ -5392,7 +5178,7 @@ export function parse<Annotation>(
                                             }
                                         )
                                     },
-                                    () => {
+                                    () => { // no child
                                         $x.reportMissingToken({
                                             parentAnnotation: node.implementationDetails,
                                             path: "Gexpression_template$_head",
@@ -5417,7 +5203,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_template",
@@ -5448,8 +5234,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGexpression_propertyAccess$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -5483,7 +5267,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_propertyAccess",
@@ -5509,8 +5293,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 Gexpression(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -5534,7 +5316,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_prefixUnary",
@@ -5560,8 +5342,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 Gexpression(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -5585,7 +5365,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_postfixUnary",
@@ -5611,8 +5391,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 Gexpression(node, children, ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -5636,7 +5414,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_parenthesizedExpression",
@@ -5662,8 +5440,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const elements = pm.createArrayBuilder<tast.TVTGexpression_objectLiteral$<Annotation>>()
                                 const processElement = () => {
                                     children.pop(
@@ -5682,8 +5458,6 @@ export function parse<Annotation>(
                                             ): void => {
                                                 const node = $
                                                 const children = pm.createStack($.children)
-                                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                                 const sequenceEnd = ($: tast.TVTGexpression_objectLiteral$$<Annotation>) => {
                                                     callback({
                                                         annotation: node.implementationDetails,
@@ -5700,7 +5474,7 @@ export function parse<Annotation>(
                                                         })
                                                     })
                                                 }
-                                                children.pop(
+                                                $d.lookAhead(children, 
                                                     (nextChild) => {
                                                         const choose_stringLiteral = () => {
                                                             GstringLiteral(node, children, ($) => {
@@ -5718,15 +5492,15 @@ export function parse<Annotation>(
                                                             })
                                                         }
                                                         switch (nextChild.kindName) {
-                                                            case "Identifier": {
+                                                            case "Identifier": /*Y*/ {
                                                                 choose_identifier()
                                                                 break
                                                             }
-                                                            case "NumericLiteral": {
+                                                            case "NumericLiteral": /*Y*/ {
                                                                 choose_numericLiteral()
                                                                 break
                                                             }
-                                                            case "StringLiteral": {
+                                                            case "StringLiteral": /*Y*/ {
                                                                 choose_stringLiteral()
                                                                 break
                                                             }
@@ -5739,13 +5513,12 @@ export function parse<Annotation>(
                                                             }
                                                         }
                                                     },
-                                                    () => {
+                                                    () => { //no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_objectLiteral$$_name",
                                                             kindNameOptions: "Identifier, NumericLiteral, StringLiteral",
                                                         })
-                                                        return
                                                     },
                                                 )
                                                 children.pop(
@@ -5765,7 +5538,7 @@ export function parse<Annotation>(
                                                 }
                                             )
                                         },
-                                        () => {
+                                        () => { // no child
                                             $x.reportMissingToken({
                                                 parentAnnotation: node.implementationDetails,
                                                 path: "Gexpression_objectLiteral$",
@@ -5774,21 +5547,17 @@ export function parse<Annotation>(
                                         },
                                     )
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "PropertyAssignment":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "PropertyAssignment": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -5812,7 +5581,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_objectLiteral",
@@ -5856,7 +5625,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_nullKeyword",
@@ -5905,7 +5674,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_noSubstitutionTemplateLiteral",
@@ -5931,8 +5700,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGexpression_new$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -5947,78 +5714,74 @@ export function parse<Annotation>(
                                             elements.push($)
                                         })
                                     }
-                                    arrayLoop: while (true) {
-                                        children.pop(
-                                            (nextChild) => {
-                                                switch (nextChild.kindName) {
-                                                    case "ArrayLiteralExpression":
-                                                        processElement()
-                                                        break
-                                                    case "ArrowFunction":
-                                                        processElement()
-                                                        break
-                                                    case "BinaryExpression":
-                                                        processElement()
-                                                        break
-                                                    case "CallExpression":
-                                                        processElement()
-                                                        break
-                                                    case "ConditionalExpression":
-                                                        processElement()
-                                                        break
-                                                    case "ElementAccessExpression":
-                                                        processElement()
-                                                        break
-                                                    case "FalseKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "Identifier":
-                                                        processElement()
-                                                        break
-                                                    case "NewExpression":
-                                                        processElement()
-                                                        break
-                                                    case "NoSubstitutionTemplateLiteral":
-                                                        processElement()
-                                                        break
-                                                    case "NumericLiteral":
-                                                        processElement()
-                                                        break
-                                                    case "NullKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "ObjectLiteralExpression":
-                                                        processElement()
-                                                        break
-                                                    case "ParenthesizedExpression":
-                                                        processElement()
-                                                        break
-                                                    case "PostfixUnaryExpression":
-                                                        processElement()
-                                                        break
-                                                    case "PrefixUnaryExpression":
-                                                        processElement()
-                                                        break
-                                                    case "PropertyAccessExpression":
-                                                        processElement()
-                                                        break
-                                                    case "StringLiteral":
-                                                        processElement()
-                                                        break
-                                                    case "TemplateExpression":
-                                                        processElement()
-                                                        break
-                                                    case "TrueKeyword":
-                                                        processElement()
-                                                        break
-                                                    default: break arrayLoop
-                                                }
-                                            },
-                                            () => {
-                                                break arrayLoop
-                                            },
-                                        )
-                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "ArrayLiteralExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "ArrowFunction": //z
+                                                    processElement()
+                                                    return true
+                                                case "BinaryExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "CallExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "ConditionalExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "ElementAccessExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "FalseKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "Identifier": //z
+                                                    processElement()
+                                                    return true
+                                                case "NewExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "NoSubstitutionTemplateLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "NumericLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "NullKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ObjectLiteralExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "ParenthesizedExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "PostfixUnaryExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "PrefixUnaryExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "PropertyAccessExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "StringLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "TemplateExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "TrueKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
                                     pl.cc(elements.getArray(), ($) => {
                                         const _parameters = $
                                         sequenceEnd({
@@ -6044,7 +5807,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_new",
@@ -6093,7 +5856,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_false",
@@ -6119,8 +5882,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGexpression_elementAccess$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -6154,7 +5915,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_elementAccess",
@@ -6180,8 +5941,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGexpression_conditional$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -6267,7 +6026,7 @@ export function parse<Annotation>(
                                                                     }
                                                                 )
                                                             },
-                                                            () => {
+                                                            () => { // no child
                                                                 $x.reportMissingToken({
                                                                     parentAnnotation: node.implementationDetails,
                                                                     path: "Gexpression_conditional$_colonToken",
@@ -6279,7 +6038,7 @@ export function parse<Annotation>(
                                                 }
                                             )
                                         },
-                                        () => {
+                                        () => { // no child
                                             $x.reportMissingToken({
                                                 parentAnnotation: node.implementationDetails,
                                                 path: "Gexpression_conditional$_questionToken",
@@ -6305,7 +6064,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_conditional",
@@ -6331,8 +6090,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGexpression_call$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -6347,66 +6104,62 @@ export function parse<Annotation>(
                                             elements.push($)
                                         })
                                     }
-                                    arrayLoop: while (true) {
-                                        children.pop(
-                                            (nextChild) => {
-                                                switch (nextChild.kindName) {
-                                                    case "AnyKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "ArrayType":
-                                                        processElement()
-                                                        break
-                                                    case "BooleanKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "FunctionType":
-                                                        processElement()
-                                                        break
-                                                    case "LiteralType":
-                                                        processElement()
-                                                        break
-                                                    case "ParenthesizedType":
-                                                        processElement()
-                                                        break
-                                                    case "NeverKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "NumberKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "OptionalType":
-                                                        processElement()
-                                                        break
-                                                    case "TupleType":
-                                                        processElement()
-                                                        break
-                                                    case "TypeLiteral":
-                                                        processElement()
-                                                        break
-                                                    case "StringKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "TypeReference":
-                                                        processElement()
-                                                        break
-                                                    case "UndefinedKeyword":
-                                                        processElement()
-                                                        break
-                                                    case "UnionType":
-                                                        processElement()
-                                                        break
-                                                    case "VoidKeyword":
-                                                        processElement()
-                                                        break
-                                                    default: break arrayLoop
-                                                }
-                                            },
-                                            () => {
-                                                break arrayLoop
-                                            },
-                                        )
-                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "AnyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ArrayType": //z
+                                                    processElement()
+                                                    return true
+                                                case "BooleanKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "FunctionType": //z
+                                                    processElement()
+                                                    return true
+                                                case "LiteralType": //z
+                                                    processElement()
+                                                    return true
+                                                case "ParenthesizedType": //z
+                                                    processElement()
+                                                    return true
+                                                case "NeverKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "NumberKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "OptionalType": //z
+                                                    processElement()
+                                                    return true
+                                                case "TupleType": //z
+                                                    processElement()
+                                                    return true
+                                                case "TypeLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "StringKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "TypeReference": //z
+                                                    processElement()
+                                                    return true
+                                                case "UndefinedKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "UnionType": //z
+                                                    processElement()
+                                                    return true
+                                                case "VoidKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
                                     pl.cc(elements.getArray(), ($) => {
                                         const _typeParameters = $
                                         const elements = pm.createArrayBuilder<tast.TVTGexpression_call$_parameters<Annotation>>()
@@ -6415,78 +6168,74 @@ export function parse<Annotation>(
                                                 elements.push($)
                                             })
                                         }
-                                        arrayLoop: while (true) {
-                                            children.pop(
-                                                (nextChild) => {
-                                                    switch (nextChild.kindName) {
-                                                        case "ArrayLiteralExpression":
-                                                            processElement()
-                                                            break
-                                                        case "ArrowFunction":
-                                                            processElement()
-                                                            break
-                                                        case "BinaryExpression":
-                                                            processElement()
-                                                            break
-                                                        case "CallExpression":
-                                                            processElement()
-                                                            break
-                                                        case "ConditionalExpression":
-                                                            processElement()
-                                                            break
-                                                        case "ElementAccessExpression":
-                                                            processElement()
-                                                            break
-                                                        case "FalseKeyword":
-                                                            processElement()
-                                                            break
-                                                        case "Identifier":
-                                                            processElement()
-                                                            break
-                                                        case "NewExpression":
-                                                            processElement()
-                                                            break
-                                                        case "NoSubstitutionTemplateLiteral":
-                                                            processElement()
-                                                            break
-                                                        case "NumericLiteral":
-                                                            processElement()
-                                                            break
-                                                        case "NullKeyword":
-                                                            processElement()
-                                                            break
-                                                        case "ObjectLiteralExpression":
-                                                            processElement()
-                                                            break
-                                                        case "ParenthesizedExpression":
-                                                            processElement()
-                                                            break
-                                                        case "PostfixUnaryExpression":
-                                                            processElement()
-                                                            break
-                                                        case "PrefixUnaryExpression":
-                                                            processElement()
-                                                            break
-                                                        case "PropertyAccessExpression":
-                                                            processElement()
-                                                            break
-                                                        case "StringLiteral":
-                                                            processElement()
-                                                            break
-                                                        case "TemplateExpression":
-                                                            processElement()
-                                                            break
-                                                        case "TrueKeyword":
-                                                            processElement()
-                                                            break
-                                                        default: break arrayLoop
-                                                    }
-                                                },
-                                                () => {
-                                                    break arrayLoop
-                                                },
-                                            )
-                                        }
+                                        $d.doUntil(
+                                            children,
+                                            (nextChild) => {
+                                                switch (nextChild.kindName) {
+                                                    case "ArrayLiteralExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ArrowFunction": //z
+                                                        processElement()
+                                                        return true
+                                                    case "BinaryExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "CallExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ConditionalExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ElementAccessExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "FalseKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "Identifier": //z
+                                                        processElement()
+                                                        return true
+                                                    case "NewExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "NoSubstitutionTemplateLiteral": //z
+                                                        processElement()
+                                                        return true
+                                                    case "NumericLiteral": //z
+                                                        processElement()
+                                                        return true
+                                                    case "NullKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ObjectLiteralExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ParenthesizedExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "PostfixUnaryExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "PrefixUnaryExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "PropertyAccessExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "StringLiteral": //z
+                                                        processElement()
+                                                        return true
+                                                    case "TemplateExpression": //z
+                                                        processElement()
+                                                        return true
+                                                    case "TrueKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    default: return false
+                                                }
+                                            },
+                                        )
                                         pl.cc(elements.getArray(), ($) => {
                                             const _parameters = $
                                             sequenceEnd({
@@ -6514,7 +6263,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_call",
@@ -6540,8 +6289,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGexpression_binary$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -6561,7 +6308,7 @@ export function parse<Annotation>(
                                             })
                                         })
                                     }
-                                    children.pop(
+                                    $d.lookAhead(children, 
                                         (nextChild) => {
                                             const choose_plusEquals = () => {
                                                 children.pop(
@@ -6598,7 +6345,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_plusEquals",
@@ -6642,7 +6389,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_plus",
@@ -6686,7 +6433,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_minusEquals",
@@ -6730,7 +6477,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_minus",
@@ -6774,7 +6521,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_lessThan",
@@ -6818,7 +6565,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_greaterThan",
@@ -6862,7 +6609,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_exclamationEqualsEquals",
@@ -6906,7 +6653,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_equalsEqualsEquals",
@@ -6950,7 +6697,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_equals",
@@ -6994,7 +6741,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_barBar",
@@ -7038,7 +6785,7 @@ export function parse<Annotation>(
                                                             }
                                                         )
                                                     },
-                                                    () => {
+                                                    () => { // no child
                                                         $x.reportMissingToken({
                                                             parentAnnotation: node.implementationDetails,
                                                             path: "Gexpression_binary$_operator_ampersandAmpersand",
@@ -7048,47 +6795,47 @@ export function parse<Annotation>(
                                                 )
                                             }
                                             switch (nextChild.kindName) {
-                                                case "AmpersandAmpersandToken": {
+                                                case "AmpersandAmpersandToken": /*Y*/ {
                                                     choose_ampersandAmpersand()
                                                     break
                                                 }
-                                                case "BarBarToken": {
+                                                case "BarBarToken": /*Y*/ {
                                                     choose_barBar()
                                                     break
                                                 }
-                                                case "EqualsToken": {
+                                                case "EqualsToken": /*Y*/ {
                                                     choose_equals()
                                                     break
                                                 }
-                                                case "EqualsEqualsEqualsToken": {
+                                                case "EqualsEqualsEqualsToken": /*Y*/ {
                                                     choose_equalsEqualsEquals()
                                                     break
                                                 }
-                                                case "ExclamationEqualsEqualsToken": {
+                                                case "ExclamationEqualsEqualsToken": /*Y*/ {
                                                     choose_exclamationEqualsEquals()
                                                     break
                                                 }
-                                                case "GreaterThanToken": {
+                                                case "GreaterThanToken": /*Y*/ {
                                                     choose_greaterThan()
                                                     break
                                                 }
-                                                case "LessThanToken": {
+                                                case "LessThanToken": /*Y*/ {
                                                     choose_lessThan()
                                                     break
                                                 }
-                                                case "MinusToken": {
+                                                case "MinusToken": /*Y*/ {
                                                     choose_minus()
                                                     break
                                                 }
-                                                case "MinusEqualsToken": {
+                                                case "MinusEqualsToken": /*Y*/ {
                                                     choose_minusEquals()
                                                     break
                                                 }
-                                                case "PlusToken": {
+                                                case "PlusToken": /*Y*/ {
                                                     choose_plus()
                                                     break
                                                 }
-                                                case "PlusEqualsToken": {
+                                                case "PlusEqualsToken": /*Y*/ {
                                                     choose_plusEquals()
                                                     break
                                                 }
@@ -7101,13 +6848,12 @@ export function parse<Annotation>(
                                                 }
                                             }
                                         },
-                                        () => {
+                                        () => { //no child
                                             $x.reportMissingToken({
                                                 parentAnnotation: node.implementationDetails,
                                                 path: "Gexpression_binary$_operator",
                                                 kindNameOptions: "AmpersandAmpersandToken, BarBarToken, EqualsToken, EqualsEqualsEqualsToken, ExclamationEqualsEqualsToken, GreaterThanToken, LessThanToken, MinusToken, MinusEqualsToken, PlusToken, PlusEqualsToken",
                                             })
-                                            return
                                         },
                                     )
                                 })
@@ -7128,7 +6874,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_binary",
@@ -7154,8 +6900,6 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const sequenceEnd = ($: tast.TVTGexpression_arrowFunction$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -7168,21 +6912,17 @@ export function parse<Annotation>(
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "Parameter":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "Parameter": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _parameters = $
                                     let optional: null | tast.TVTGexpression_arrowFunction$_returnType<Annotation> = null
@@ -7191,55 +6931,55 @@ export function parse<Annotation>(
                                             optional = $
                                         })
                                     }
-                                    children.pop(
+                                    $d.lookAhead(children, 
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "null":
+                                                case "AnyKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "ArrayType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "BooleanKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "FunctionType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "LiteralType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "ParenthesizedType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "NeverKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "NumberKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "OptionalType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "TupleType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "TypeLiteral": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "StringKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "TypeReference": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "UndefinedKeyword": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "UnionType": //XXX
                                                     setOptional()
                                                     break
-                                                case "null":
+                                                case "VoidKeyword": //XXX
                                                     setOptional()
                                                     break
                                             }
@@ -7288,7 +7028,7 @@ export function parse<Annotation>(
                                                                 "implementation": _implementation,
                                                             })
                                                         }
-                                                        children.pop(
+                                                        $d.lookAhead(children, 
                                                             (nextChild) => {
                                                                 const choose_expression = () => {
                                                                     Gexpression(node, children, ($) => {
@@ -7301,87 +7041,87 @@ export function parse<Annotation>(
                                                                     })
                                                                 }
                                                                 switch (nextChild.kindName) {
-                                                                    case "Block": {
+                                                                    case "Block": /*Y*/ {
                                                                         choose_block()
                                                                         break
                                                                     }
-                                                                    case "ArrayLiteralExpression": {
+                                                                    case "ArrayLiteralExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "ArrowFunction": {
+                                                                    case "ArrowFunction": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "BinaryExpression": {
+                                                                    case "BinaryExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "CallExpression": {
+                                                                    case "CallExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "ConditionalExpression": {
+                                                                    case "ConditionalExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "ElementAccessExpression": {
+                                                                    case "ElementAccessExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "FalseKeyword": {
+                                                                    case "FalseKeyword": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "Identifier": {
+                                                                    case "Identifier": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "NewExpression": {
+                                                                    case "NewExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "NoSubstitutionTemplateLiteral": {
+                                                                    case "NoSubstitutionTemplateLiteral": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "NumericLiteral": {
+                                                                    case "NumericLiteral": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "NullKeyword": {
+                                                                    case "NullKeyword": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "ObjectLiteralExpression": {
+                                                                    case "ObjectLiteralExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "ParenthesizedExpression": {
+                                                                    case "ParenthesizedExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "PostfixUnaryExpression": {
+                                                                    case "PostfixUnaryExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "PrefixUnaryExpression": {
+                                                                    case "PrefixUnaryExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "PropertyAccessExpression": {
+                                                                    case "PropertyAccessExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "StringLiteral": {
+                                                                    case "StringLiteral": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "TemplateExpression": {
+                                                                    case "TemplateExpression": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
-                                                                    case "TrueKeyword": {
+                                                                    case "TrueKeyword": /*Y*/ {
                                                                         choose_expression()
                                                                         break
                                                                     }
@@ -7394,19 +7134,18 @@ export function parse<Annotation>(
                                                                     }
                                                                 }
                                                             },
-                                                            () => {
+                                                            () => { //no child
                                                                 $x.reportMissingToken({
                                                                     parentAnnotation: node.implementationDetails,
                                                                     path: "Gexpression_arrowFunction$_implementation",
                                                                     kindNameOptions: "Block, ArrayLiteralExpression, ArrowFunction, BinaryExpression, CallExpression, ConditionalExpression, ElementAccessExpression, FalseKeyword, Identifier, NewExpression, NoSubstitutionTemplateLiteral, NumericLiteral, NullKeyword, ObjectLiteralExpression, ParenthesizedExpression, PostfixUnaryExpression, PrefixUnaryExpression, PropertyAccessExpression, StringLiteral, TemplateExpression, TrueKeyword",
                                                                 })
-                                                                return
                                                             },
                                                         )
                                                     }
                                                 )
                                             },
-                                            () => {
+                                            () => { // no child
                                                 $x.reportMissingToken({
                                                     parentAnnotation: node.implementationDetails,
                                                     path: "Gexpression_arrowFunction$_equalsGreaterThan",
@@ -7433,7 +7172,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_arrowFunction",
@@ -7459,86 +7198,80 @@ export function parse<Annotation>(
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let currentChild: uast.TUntypedNode<Annotation> | undefined
-                                let nextChild: uast.TUntypedNode<Annotation> | undefined
                                 const elements = pm.createArrayBuilder<tast.TVTGexpression_arrayLiteral$<Annotation>>()
                                 const processElement = () => {
                                     Gexpression(node, children, ($) => {
                                         elements.push($)
                                     })
                                 }
-                                arrayLoop: while (true) {
-                                    children.pop(
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "ArrayLiteralExpression":
-                                                    processElement()
-                                                    break
-                                                case "ArrowFunction":
-                                                    processElement()
-                                                    break
-                                                case "BinaryExpression":
-                                                    processElement()
-                                                    break
-                                                case "CallExpression":
-                                                    processElement()
-                                                    break
-                                                case "ConditionalExpression":
-                                                    processElement()
-                                                    break
-                                                case "ElementAccessExpression":
-                                                    processElement()
-                                                    break
-                                                case "FalseKeyword":
-                                                    processElement()
-                                                    break
-                                                case "Identifier":
-                                                    processElement()
-                                                    break
-                                                case "NewExpression":
-                                                    processElement()
-                                                    break
-                                                case "NoSubstitutionTemplateLiteral":
-                                                    processElement()
-                                                    break
-                                                case "NumericLiteral":
-                                                    processElement()
-                                                    break
-                                                case "NullKeyword":
-                                                    processElement()
-                                                    break
-                                                case "ObjectLiteralExpression":
-                                                    processElement()
-                                                    break
-                                                case "ParenthesizedExpression":
-                                                    processElement()
-                                                    break
-                                                case "PostfixUnaryExpression":
-                                                    processElement()
-                                                    break
-                                                case "PrefixUnaryExpression":
-                                                    processElement()
-                                                    break
-                                                case "PropertyAccessExpression":
-                                                    processElement()
-                                                    break
-                                                case "StringLiteral":
-                                                    processElement()
-                                                    break
-                                                case "TemplateExpression":
-                                                    processElement()
-                                                    break
-                                                case "TrueKeyword":
-                                                    processElement()
-                                                    break
-                                                default: break arrayLoop
-                                            }
-                                        },
-                                        () => {
-                                            break arrayLoop
-                                        },
-                                    )
-                                }
+                                $d.doUntil(
+                                    children,
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "ArrayLiteralExpression": //z
+                                                processElement()
+                                                return true
+                                            case "ArrowFunction": //z
+                                                processElement()
+                                                return true
+                                            case "BinaryExpression": //z
+                                                processElement()
+                                                return true
+                                            case "CallExpression": //z
+                                                processElement()
+                                                return true
+                                            case "ConditionalExpression": //z
+                                                processElement()
+                                                return true
+                                            case "ElementAccessExpression": //z
+                                                processElement()
+                                                return true
+                                            case "FalseKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "Identifier": //z
+                                                processElement()
+                                                return true
+                                            case "NewExpression": //z
+                                                processElement()
+                                                return true
+                                            case "NoSubstitutionTemplateLiteral": //z
+                                                processElement()
+                                                return true
+                                            case "NumericLiteral": //z
+                                                processElement()
+                                                return true
+                                            case "NullKeyword": //z
+                                                processElement()
+                                                return true
+                                            case "ObjectLiteralExpression": //z
+                                                processElement()
+                                                return true
+                                            case "ParenthesizedExpression": //z
+                                                processElement()
+                                                return true
+                                            case "PostfixUnaryExpression": //z
+                                                processElement()
+                                                return true
+                                            case "PrefixUnaryExpression": //z
+                                                processElement()
+                                                return true
+                                            case "PropertyAccessExpression": //z
+                                                processElement()
+                                                return true
+                                            case "StringLiteral": //z
+                                                processElement()
+                                                return true
+                                            case "TemplateExpression": //z
+                                                processElement()
+                                                return true
+                                            case "TrueKeyword": //z
+                                                processElement()
+                                                return true
+                                            default: return false
+                                        }
+                                    },
+                                )
                                 pl.cc(elements.getArray(), ($) => {
                                     callback({
                                         annotation: node.implementationDetails,
@@ -7562,7 +7295,7 @@ export function parse<Annotation>(
                                 }
                             )
                         },
-                        () => {
+                        () => { // no child
                             $x.reportMissingToken({
                                 parentAnnotation: node.implementationDetails,
                                 path: "Gexpression_arrayLiteral",
@@ -7572,83 +7305,83 @@ export function parse<Annotation>(
                     )
                 }
                 switch (nextChild.kindName) {
-                    case "ArrayLiteralExpression": {
+                    case "ArrayLiteralExpression": /*Y*/ {
                         choose_arrayLiteral()
                         break
                     }
-                    case "ArrowFunction": {
+                    case "ArrowFunction": /*Y*/ {
                         choose_arrowFunction()
                         break
                     }
-                    case "BinaryExpression": {
+                    case "BinaryExpression": /*Y*/ {
                         choose_binary()
                         break
                     }
-                    case "CallExpression": {
+                    case "CallExpression": /*Y*/ {
                         choose_call()
                         break
                     }
-                    case "ConditionalExpression": {
+                    case "ConditionalExpression": /*Y*/ {
                         choose_conditional()
                         break
                     }
-                    case "ElementAccessExpression": {
+                    case "ElementAccessExpression": /*Y*/ {
                         choose_elementAccess()
                         break
                     }
-                    case "FalseKeyword": {
+                    case "FalseKeyword": /*Y*/ {
                         choose_false()
                         break
                     }
-                    case "Identifier": {
+                    case "Identifier": /*Y*/ {
                         choose_identifier()
                         break
                     }
-                    case "NewExpression": {
+                    case "NewExpression": /*Y*/ {
                         choose_new()
                         break
                     }
-                    case "NoSubstitutionTemplateLiteral": {
+                    case "NoSubstitutionTemplateLiteral": /*Y*/ {
                         choose_noSubstitutionTemplateLiteral()
                         break
                     }
-                    case "NumericLiteral": {
+                    case "NumericLiteral": /*Y*/ {
                         choose_numericLiteral()
                         break
                     }
-                    case "NullKeyword": {
+                    case "NullKeyword": /*Y*/ {
                         choose_nullKeyword()
                         break
                     }
-                    case "ObjectLiteralExpression": {
+                    case "ObjectLiteralExpression": /*Y*/ {
                         choose_objectLiteral()
                         break
                     }
-                    case "ParenthesizedExpression": {
+                    case "ParenthesizedExpression": /*Y*/ {
                         choose_parenthesizedExpression()
                         break
                     }
-                    case "PostfixUnaryExpression": {
+                    case "PostfixUnaryExpression": /*Y*/ {
                         choose_postfixUnary()
                         break
                     }
-                    case "PrefixUnaryExpression": {
+                    case "PrefixUnaryExpression": /*Y*/ {
                         choose_prefixUnary()
                         break
                     }
-                    case "PropertyAccessExpression": {
+                    case "PropertyAccessExpression": /*Y*/ {
                         choose_propertyAccess()
                         break
                     }
-                    case "StringLiteral": {
+                    case "StringLiteral": /*Y*/ {
                         choose_stringLiteral()
                         break
                     }
-                    case "TemplateExpression": {
+                    case "TemplateExpression": /*Y*/ {
                         choose_template()
                         break
                     }
-                    case "TrueKeyword": {
+                    case "TrueKeyword": /*Y*/ {
                         choose_true()
                         break
                     }
@@ -7661,13 +7394,12 @@ export function parse<Annotation>(
                     }
                 }
             },
-            () => {
+            () => { //no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "Gexpression",
                     kindNameOptions: "ArrayLiteralExpression, ArrowFunction, BinaryExpression, CallExpression, ConditionalExpression, ElementAccessExpression, FalseKeyword, Identifier, NewExpression, NoSubstitutionTemplateLiteral, NumericLiteral, NullKeyword, ObjectLiteralExpression, ParenthesizedExpression, PostfixUnaryExpression, PrefixUnaryExpression, PropertyAccessExpression, StringLiteral, TemplateExpression, TrueKeyword",
                 })
-                return
             },
         )
     }
@@ -7676,8 +7408,6 @@ export function parse<Annotation>(
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
         callback: ($: tast.TGblock<Annotation>) => void,
     ): void {
-        let currentChild: uast.TUntypedNode<Annotation> | undefined
-        let nextChild: uast.TUntypedNode<Annotation> | undefined
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "Block") {
@@ -7694,77 +7424,71 @@ export function parse<Annotation>(
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    let currentChild: uast.TUntypedNode<Annotation> | undefined
-                    let nextChild: uast.TUntypedNode<Annotation> | undefined
                     const elements = pm.createArrayBuilder<tast.TVTGblock$<Annotation>>()
                     const processElement = () => {
                         Gstatement(node, children, ($) => {
                             elements.push($)
                         })
                     }
-                    arrayLoop: while (true) {
-                        children.pop(
-                            (nextChild) => {
-                                switch (nextChild.kindName) {
-                                    case "Block":
-                                        processElement()
-                                        break
-                                    case "BreakStatement":
-                                        processElement()
-                                        break
-                                    case "ExportDeclaration":
-                                        processElement()
-                                        break
-                                    case "ExpressionStatement":
-                                        processElement()
-                                        break
-                                    case "ForStatement":
-                                        processElement()
-                                        break
-                                    case "FunctionDeclaration":
-                                        processElement()
-                                        break
-                                    case "IfStatement":
-                                        processElement()
-                                        break
-                                    case "ImportDeclaration":
-                                        processElement()
-                                        break
-                                    case "InterfaceDeclaration":
-                                        processElement()
-                                        break
-                                    case "LabeledStatement":
-                                        processElement()
-                                        break
-                                    case "ReturnStatement":
-                                        processElement()
-                                        break
-                                    case "SwitchStatement":
-                                        processElement()
-                                        break
-                                    case "ThrowStatement":
-                                        processElement()
-                                        break
-                                    case "TryStatement":
-                                        processElement()
-                                        break
-                                    case "TypeAliasDeclaration":
-                                        processElement()
-                                        break
-                                    case "VariableStatement":
-                                        processElement()
-                                        break
-                                    case "WhileStatement":
-                                        processElement()
-                                        break
-                                    default: break arrayLoop
-                                }
-                            },
-                            () => {
-                                break arrayLoop
-                            },
-                        )
-                    }
+                    $d.doUntil(
+                        children,
+                        (nextChild) => {
+                            switch (nextChild.kindName) {
+                                case "Block": //z
+                                    processElement()
+                                    return true
+                                case "BreakStatement": //z
+                                    processElement()
+                                    return true
+                                case "ExportDeclaration": //z
+                                    processElement()
+                                    return true
+                                case "ExpressionStatement": //z
+                                    processElement()
+                                    return true
+                                case "ForStatement": //z
+                                    processElement()
+                                    return true
+                                case "FunctionDeclaration": //z
+                                    processElement()
+                                    return true
+                                case "IfStatement": //z
+                                    processElement()
+                                    return true
+                                case "ImportDeclaration": //z
+                                    processElement()
+                                    return true
+                                case "InterfaceDeclaration": //z
+                                    processElement()
+                                    return true
+                                case "LabeledStatement": //z
+                                    processElement()
+                                    return true
+                                case "ReturnStatement": //z
+                                    processElement()
+                                    return true
+                                case "SwitchStatement": //z
+                                    processElement()
+                                    return true
+                                case "ThrowStatement": //z
+                                    processElement()
+                                    return true
+                                case "TryStatement": //z
+                                    processElement()
+                                    return true
+                                case "TypeAliasDeclaration": //z
+                                    processElement()
+                                    return true
+                                case "VariableStatement": //z
+                                    processElement()
+                                    return true
+                                case "WhileStatement": //z
+                                    processElement()
+                                    return true
+                                default: return false
+                            }
+                        },
+                    )
                     pl.cc(elements.getArray(), ($) => {
                         callback({
                             annotation: node.implementationDetails,
@@ -7788,7 +7512,7 @@ export function parse<Annotation>(
                     }
                 )
             },
-            () => {
+            () => { // no child
                 $x.reportMissingToken({
                     parentAnnotation: node.implementationDetails,
                     path: "Gblock",
@@ -7809,8 +7533,6 @@ export function parse<Annotation>(
         ): void => {
             const node = $
             const children = pm.createStack($.children)
-            let currentChild: uast.TUntypedNode<Annotation> | undefined
-            let nextChild: uast.TUntypedNode<Annotation> | undefined
             const sequenceEnd = ($: tast.TVTroot<Annotation>) => {
                 callback({
                     annotation: node.implementationDetails,
@@ -7823,69 +7545,65 @@ export function parse<Annotation>(
                     elements.push($)
                 })
             }
-            arrayLoop: while (true) {
-                children.pop(
-                    (nextChild) => {
-                        switch (nextChild.kindName) {
-                            case "Block":
-                                processElement()
-                                break
-                            case "BreakStatement":
-                                processElement()
-                                break
-                            case "ExportDeclaration":
-                                processElement()
-                                break
-                            case "ExpressionStatement":
-                                processElement()
-                                break
-                            case "ForStatement":
-                                processElement()
-                                break
-                            case "FunctionDeclaration":
-                                processElement()
-                                break
-                            case "IfStatement":
-                                processElement()
-                                break
-                            case "ImportDeclaration":
-                                processElement()
-                                break
-                            case "InterfaceDeclaration":
-                                processElement()
-                                break
-                            case "LabeledStatement":
-                                processElement()
-                                break
-                            case "ReturnStatement":
-                                processElement()
-                                break
-                            case "SwitchStatement":
-                                processElement()
-                                break
-                            case "ThrowStatement":
-                                processElement()
-                                break
-                            case "TryStatement":
-                                processElement()
-                                break
-                            case "TypeAliasDeclaration":
-                                processElement()
-                                break
-                            case "VariableStatement":
-                                processElement()
-                                break
-                            case "WhileStatement":
-                                processElement()
-                                break
-                            default: break arrayLoop
-                        }
-                    },
-                    () => {
-                        break arrayLoop
-                    },
-                )
-            }
+            $d.doUntil(
+                children,
+                (nextChild) => {
+                    switch (nextChild.kindName) {
+                        case "Block": //z
+                            processElement()
+                            return true
+                        case "BreakStatement": //z
+                            processElement()
+                            return true
+                        case "ExportDeclaration": //z
+                            processElement()
+                            return true
+                        case "ExpressionStatement": //z
+                            processElement()
+                            return true
+                        case "ForStatement": //z
+                            processElement()
+                            return true
+                        case "FunctionDeclaration": //z
+                            processElement()
+                            return true
+                        case "IfStatement": //z
+                            processElement()
+                            return true
+                        case "ImportDeclaration": //z
+                            processElement()
+                            return true
+                        case "InterfaceDeclaration": //z
+                            processElement()
+                            return true
+                        case "LabeledStatement": //z
+                            processElement()
+                            return true
+                        case "ReturnStatement": //z
+                            processElement()
+                            return true
+                        case "SwitchStatement": //z
+                            processElement()
+                            return true
+                        case "ThrowStatement": //z
+                            processElement()
+                            return true
+                        case "TryStatement": //z
+                            processElement()
+                            return true
+                        case "TypeAliasDeclaration": //z
+                            processElement()
+                            return true
+                        case "VariableStatement": //z
+                            processElement()
+                            return true
+                        case "WhileStatement": //z
+                            processElement()
+                            return true
+                        default: return false
+                    }
+                },
+            )
             pl.cc(elements.getArray(), ($) => {
                 const _statements = $
                 children.pop(
@@ -7926,7 +7644,7 @@ export function parse<Annotation>(
                             }
                         )
                     },
-                    () => {
+                    () => { // no child
                         $x.reportMissingToken({
                             parentAnnotation: node.implementationDetails,
                             path: "root_endOfFile",

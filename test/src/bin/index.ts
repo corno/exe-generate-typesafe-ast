@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import * as pt from "pareto-core-types"
 import * as pl from "pareto-core-lib"
 import * as pe from "pareto-core-exe"
 
@@ -21,6 +22,9 @@ function genImp(
     },
     $i: {
         onError: fs.OnFSError<fs.TWriteFileError>
+    },
+    $d: {
+        startAsync: ($: pt.AsyncNonValue) => void
     }
 ) {
     const rootPath = $.path
@@ -42,17 +46,19 @@ function genImp(
                 $,
                 $c,
             ) => {
-                pf.createWriteStream(
-                    {
-                        path: [rootPath, $.path],
-                        createContainingDirectories: true,
-                    },
-                    {
-                        onError: $i.onError
-                    },
-                    ($c2) => {
-                        $c($c2)
-                    }
+                $d.startAsync(
+                    pf.createWriteStream(
+                        {
+                            path: [rootPath, $.path],
+                            createContainingDirectories: true,
+                        },
+                        {
+                            onError: $i.onError
+                        },
+                        ($c2) => {
+                            $c($c2)
+                        }
+                    )
                 )
             }
         }
@@ -67,7 +73,10 @@ function genInf(
     },
     $i: {
         onError: fs.OnFSError<fs.TWriteFileError>
-    }
+    },
+    $d: {
+        startAsync: ($: pt.AsyncNonValue) => void
+    },
 ) {
     const rootPath = $.path
 
@@ -87,17 +96,19 @@ function genInf(
                 $,
                 $c,
             ) => {
-                pf.createWriteStream(
-                    {
-                        path: [rootPath, $.path],
-                        createContainingDirectories: true,
-                    },
-                    {
-                        onError: $i.onError
-                    },
-                    ($c2) => {
-                        $c($c2)
-                    }
+                $d.startAsync(
+                    pf.createWriteStream(
+                        {
+                            path: [rootPath, $.path],
+                            createContainingDirectories: true,
+                        },
+                        {
+                            onError: $i.onError
+                        },
+                        ($c2) => {
+                            $c($c2)
+                        }
+                    )
                 )
             }
         }
@@ -114,7 +125,7 @@ pe.runProgram(($, $i, $d) => {
             },
             callback: ($) => {
                 const dataPath = $
-
+                pl.logDebugMessage(`>>> ${$}`)
                 genInf(
                     {
                         path: [dataPath, "out", "src", "interface"],
@@ -124,6 +135,9 @@ pe.runProgram(($, $i, $d) => {
                         onError: ($) => {
                             pl.panic(`write file stream error: ${$.error[0]}, ${$.error[1]}, ${$.path}`)
                         }
+                    },
+                    {
+                        startAsync: $d.startAsync
                     }
                 )
                 genImp(
@@ -136,6 +150,9 @@ pe.runProgram(($, $i, $d) => {
                         onError: ($) => {
                             pl.panic(`write file stream error: ${$.error[0]}, ${$.error[1]}, ${$.path}`)
                         }
+                    },
+                    {
+                        startAsync: $d.startAsync
                     }
                 )
 

@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "noLib": true,
+    "lib": ["ES2018"],
     "target": "ES2015",
     "module": "commonjs",
     "declaration": true,
-    "outDir": "./dist",
+    "outDir": "../../../tmp/dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,

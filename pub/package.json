@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "lib-fountain-pen": "^0.4.1",
-    "pareto-core-lib": "^0.5.0",
-    "pareto-core-state": "^0.5.0",
+    "pareto-core-lib": "^0.6.0",
+    "pareto-core-state": "^0.6.0",
     "pareto-core-tostring": "^0.1.0"
   },
   "name": "exe-generate-typesafe-ast",
@@ -28,6 +28,6 @@
   "files": [
     "dist"
   ],
-  "interface-fingerprint": "a92c047eb55c96b10c96eafa528bbdff6195f9fa",
-  "content-fingerprint": "ae36637035807120712b6f4b9ccd4d519f2a5966"
+  "interface-fingerprint": "f0730e1480690fbd8937f57018e6831bf876878b",
+  "content-fingerprint": "b7263ba29c78bbe128d03bdbcc242d9610c1251d"
 }
