@@ -8,16 +8,20 @@ import * as p from "./imp/parser"
 
 function doUntil<T>(
     stack: pm.Stack<T>,
-    callback: ($: T) => boolean
+    test: ($: T) => boolean,
+    //callback: () => void,
+    
 ) {
+
     while (true) {
         let stop = false
         stack.pop(
             ($) => {
                 stack.push($)
 
-                const goOn = callback($)
+                const goOn = test($)
                 if (!goOn) {
+                    //callback()
                     stop = true
                 }
             },
@@ -83,6 +87,15 @@ ts.parse({
         {
             doUntil: doUntil,
             lookAhead: lookAhead,
+            // contains: (dict, keyToBeFound) => {
+            //     let found = false
+            //     dict.forEach(() => false, ($, key) => {
+            //         if (key === keyToBeFound) {
+            //             found = true
+            //         }
+            //     })
+            //     return found
+            // }
         }
     )
 })
