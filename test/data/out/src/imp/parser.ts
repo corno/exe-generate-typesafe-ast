@@ -7,8 +7,7 @@ export function parse<Annotation>(
     $: uast.TUntypedNode<Annotation>,
     $i: {
         callback: ($: api.TRoot<Annotation>) => void,
-        reportUnexpectedRoot: ($: { root: uast.TUntypedNode<Annotation>, }) => void,
-        reportUnexpectedChild: ($: { path: string, child: uast.TUntypedNode<Annotation>, expected: null | string }) => void,
+        reportUnexpectedToken: ($: { path: string, token: uast.TUntypedNode<Annotation>, expected: null | string }) => void,
         reportMissingToken: ($: { parentAnnotation: Annotation, path: string, kindNameOptions: string, }) => void,
     },
     $d: {
@@ -25,9 +24,9 @@ export function parse<Annotation>(
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "VariableDeclarationList") {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "GvariableDeclarationList",
-                        child: currentChild,
+                        token: currentChild,
                         expected: "VariableDeclarationList",
                     })
                     return
@@ -63,9 +62,9 @@ export function parse<Annotation>(
                     })
                     children.pop(
                         (nextChild) => {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "GvariableDeclarationList$",
-                                child: nextChild,
+                                token: nextChild,
                                 expected: null,
                             })
                         },
@@ -95,9 +94,9 @@ export function parse<Annotation>(
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "VariableDeclaration") {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "GvariableDeclaration",
-                        child: currentChild,
+                        token: currentChild,
                         expected: "VariableDeclaration",
                     })
                     return
@@ -264,9 +263,9 @@ export function parse<Annotation>(
                     })
                     children.pop(
                         (nextChild) => {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "GvariableDeclaration$",
-                                child: nextChild,
+                                token: nextChild,
                                 expected: null,
                             })
                         },
@@ -302,9 +301,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "PropertySignature") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "GtypeSignature_property",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "PropertySignature",
                                 })
                                 return
@@ -353,9 +352,9 @@ export function parse<Annotation>(
                                             children.pop(
                                                 (currentChild) => {
                                                     if (currentChild.kindName !== "QuestionToken") {
-                                                        $x.reportUnexpectedChild({
+                                                        $x.reportUnexpectedToken({
                                                             path: "GtypeSignature_property$_quesionToken",
-                                                            child: currentChild,
+                                                            token: currentChild,
                                                             expected: "QuestionToken",
                                                         })
                                                         return
@@ -369,9 +368,9 @@ export function parse<Annotation>(
                                                         callback($.implementationDetails)
                                                         children.pop(
                                                             (nextChild) => {
-                                                                $x.reportUnexpectedChild({
+                                                                $x.reportUnexpectedToken({
                                                                     path: "GtypeSignature_property$_quesionToken$",
-                                                                    child: nextChild,
+                                                                    token: nextChild,
                                                                     expected: null,
                                                                 })
                                                             },
@@ -480,9 +479,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "GtypeSignature_property$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -508,9 +507,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "MethodSignature") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "GtypeSignature_method",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "MethodSignature",
                                 })
                                 return
@@ -539,9 +538,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "GtypeSignature_method$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -567,9 +566,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "IndexSignature") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "GtypeSignature_index",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "IndexSignature",
                                 })
                                 return
@@ -686,9 +685,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "GtypeSignature_index$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -714,9 +713,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ConstructSignature") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "GtypeSignature_construct",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ConstructSignature",
                                 })
                                 return
@@ -762,9 +761,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "GtypeSignature_construct$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -804,9 +803,9 @@ export function parse<Annotation>(
                         break
                     }
                     default: {
-                        $x.reportUnexpectedChild({
+                        $x.reportUnexpectedToken({
                             path: "GtypeSignature",
-                            child: nextChild,
+                            token: nextChild,
                             expected: "ConstructSignature, IndexSignature, MethodSignature, PropertySignature",
                         })
                     }
@@ -829,9 +828,9 @@ export function parse<Annotation>(
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "TypeParameter") {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "GtypeParameter",
-                        child: currentChild,
+                        token: currentChild,
                         expected: "TypeParameter",
                     })
                     return
@@ -850,9 +849,9 @@ export function parse<Annotation>(
                     })
                     children.pop(
                         (nextChild) => {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "GtypeParameter$",
-                                child: nextChild,
+                                token: nextChild,
                                 expected: null,
                             })
                         },
@@ -888,9 +887,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "VoidKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_void",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "VoidKeyword",
                                 })
                                 return
@@ -904,9 +903,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_void$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -932,9 +931,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "UnionType") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_union",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "UnionType",
                                 })
                                 return
@@ -1015,9 +1014,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_union$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1043,9 +1042,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "UndefinedKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_undefined",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "UndefinedKeyword",
                                 })
                                 return
@@ -1059,9 +1058,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_undefined$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1087,9 +1086,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "TypeReference") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_typeReference",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "TypeReference",
                                 })
                                 return
@@ -1184,9 +1183,9 @@ export function parse<Annotation>(
                                             children.pop(
                                                 (currentChild) => {
                                                     if (currentChild.kindName !== "QualifiedName") {
-                                                        $x.reportUnexpectedChild({
+                                                        $x.reportUnexpectedToken({
                                                             path: "Gtype_typeReference$_x_qualifiedName",
-                                                            child: currentChild,
+                                                            token: currentChild,
                                                             expected: "QualifiedName",
                                                         })
                                                         return
@@ -1215,9 +1214,9 @@ export function parse<Annotation>(
                                                         })
                                                         children.pop(
                                                             (nextChild) => {
-                                                                $x.reportUnexpectedChild({
+                                                                $x.reportUnexpectedToken({
                                                                     path: "Gtype_typeReference$_x_qualifiedName$",
-                                                                    child: nextChild,
+                                                                    token: nextChild,
                                                                     expected: null,
                                                                 })
                                                             },
@@ -1254,9 +1253,9 @@ export function parse<Annotation>(
                                                 break
                                             }
                                             default: {
-                                                $x.reportUnexpectedChild({
+                                                $x.reportUnexpectedToken({
                                                     path: "Gtype_typeReference$_x",
-                                                    child: nextChild,
+                                                    token: nextChild,
                                                     expected: "Identifier, QualifiedName",
                                                 })
                                             }
@@ -1272,9 +1271,9 @@ export function parse<Annotation>(
                                 )
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_typeReference$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1300,9 +1299,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "StringKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_string",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "StringKeyword",
                                 })
                                 return
@@ -1316,9 +1315,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_string$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1344,9 +1343,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "TypeLiteral") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_typeLiteral",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "TypeLiteral",
                                 })
                                 return
@@ -1391,9 +1390,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_typeLiteral$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1419,9 +1418,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "TupleType") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_tuple",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "TupleType",
                                 })
                                 return
@@ -1502,9 +1501,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_tuple$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1530,9 +1529,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "OptionalType") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_optional",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "OptionalType",
                                 })
                                 return
@@ -1551,9 +1550,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_optional$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1579,9 +1578,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "NumberKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_number",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "NumberKeyword",
                                 })
                                 return
@@ -1595,9 +1594,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_number$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1623,9 +1622,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "NeverKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_never",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "NeverKeyword",
                                 })
                                 return
@@ -1639,9 +1638,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_never$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1667,9 +1666,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ParenthesizedType") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_parenthesized",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ParenthesizedType",
                                 })
                                 return
@@ -1688,9 +1687,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_parenthesized$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1716,9 +1715,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "LiteralType") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_literal",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "LiteralType",
                                 })
                                 return
@@ -1746,9 +1745,9 @@ export function parse<Annotation>(
                                             children.pop(
                                                 (currentChild) => {
                                                     if (currentChild.kindName !== "NullKeyword") {
-                                                        $x.reportUnexpectedChild({
+                                                        $x.reportUnexpectedToken({
                                                             path: "Gtype_literal$_null",
-                                                            child: currentChild,
+                                                            token: currentChild,
                                                             expected: "NullKeyword",
                                                         })
                                                         return
@@ -1762,9 +1761,9 @@ export function parse<Annotation>(
                                                         callback($.implementationDetails)
                                                         children.pop(
                                                             (nextChild) => {
-                                                                $x.reportUnexpectedChild({
+                                                                $x.reportUnexpectedToken({
                                                                     path: "Gtype_literal$_null$",
-                                                                    child: nextChild,
+                                                                    token: nextChild,
                                                                     expected: null,
                                                                 })
                                                             },
@@ -1796,9 +1795,9 @@ export function parse<Annotation>(
                                                 break
                                             }
                                             default: {
-                                                $x.reportUnexpectedChild({
+                                                $x.reportUnexpectedToken({
                                                     path: "Gtype_literal$",
-                                                    child: nextChild,
+                                                    token: nextChild,
                                                     expected: "NullKeyword, StringLiteral",
                                                 })
                                             }
@@ -1814,9 +1813,9 @@ export function parse<Annotation>(
                                 )
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_literal$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1842,9 +1841,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "FunctionType") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_function",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "FunctionType",
                                 })
                                 return
@@ -1951,9 +1950,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_function$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -1979,9 +1978,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "BooleanKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_boolean",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "BooleanKeyword",
                                 })
                                 return
@@ -1995,9 +1994,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_boolean$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -2023,9 +2022,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ArrayType") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_array",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ArrayType",
                                 })
                                 return
@@ -2044,9 +2043,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_array$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -2072,9 +2071,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "AnyKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gtype_any",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "AnyKeyword",
                                 })
                                 return
@@ -2088,9 +2087,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gtype_any$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -2178,9 +2177,9 @@ export function parse<Annotation>(
                         break
                     }
                     default: {
-                        $x.reportUnexpectedChild({
+                        $x.reportUnexpectedToken({
                             path: "Gtype",
-                            child: nextChild,
+                            token: nextChild,
                             expected: "AnyKeyword, ArrayType, BooleanKeyword, FunctionType, LiteralType, ParenthesizedType, NeverKeyword, NumberKeyword, OptionalType, TupleType, TypeLiteral, StringKeyword, TypeReference, UndefinedKeyword, UnionType, VoidKeyword",
                         })
                     }
@@ -2203,9 +2202,9 @@ export function parse<Annotation>(
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "StringLiteral") {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "GstringLiteral",
-                        child: currentChild,
+                        token: currentChild,
                         expected: "StringLiteral",
                     })
                     return
@@ -2222,9 +2221,9 @@ export function parse<Annotation>(
                     })
                     children.pop(
                         (nextChild) => {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "GstringLiteral$",
-                                child: nextChild,
+                                token: nextChild,
                                 expected: null,
                             })
                         },
@@ -2260,9 +2259,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "WhileStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_while",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "WhileStatement",
                                 })
                                 return
@@ -2291,9 +2290,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_while$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -2319,9 +2318,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "VariableStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_variable",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "VariableStatement",
                                 })
                                 return
@@ -2373,9 +2372,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_variable$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -2401,9 +2400,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "TypeAliasDeclaration") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_typeAlias",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "TypeAliasDeclaration",
                                 })
                                 return
@@ -2480,9 +2479,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_typeAlias$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -2508,9 +2507,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "TryStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_try",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "TryStatement",
                                 })
                                 return
@@ -2532,9 +2531,9 @@ export function parse<Annotation>(
                                     children.pop(
                                         (currentChild) => {
                                             if (currentChild.kindName !== "CatchClause") {
-                                                $x.reportUnexpectedChild({
+                                                $x.reportUnexpectedToken({
                                                     path: "Gstatement_try$_catchClause",
-                                                    child: currentChild,
+                                                    token: currentChild,
                                                     expected: "CatchClause",
                                                 })
                                                 return
@@ -2563,9 +2562,9 @@ export function parse<Annotation>(
                                                 })
                                                 children.pop(
                                                     (nextChild) => {
-                                                        $x.reportUnexpectedChild({
+                                                        $x.reportUnexpectedToken({
                                                             path: "Gstatement_try$_catchClause$",
-                                                            child: nextChild,
+                                                            token: nextChild,
                                                             expected: null,
                                                         })
                                                     },
@@ -2593,9 +2592,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_try$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -2621,9 +2620,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ThrowStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_throw",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ThrowStatement",
                                 })
                                 return
@@ -2642,9 +2641,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_throw$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -2670,9 +2669,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "SwitchStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_switch",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "SwitchStatement",
                                 })
                                 return
@@ -2694,9 +2693,9 @@ export function parse<Annotation>(
                                     children.pop(
                                         (currentChild) => {
                                             if (currentChild.kindName !== "CaseBlock") {
-                                                $x.reportUnexpectedChild({
+                                                $x.reportUnexpectedToken({
                                                     path: "Gstatement_switch$_caseBlock",
-                                                    child: currentChild,
+                                                    token: currentChild,
                                                     expected: "CaseBlock",
                                                 })
                                                 return
@@ -2718,9 +2717,9 @@ export function parse<Annotation>(
                                                                 children.pop(
                                                                     (currentChild) => {
                                                                         if (currentChild.kindName !== "DefaultClause") {
-                                                                            $x.reportUnexpectedChild({
+                                                                            $x.reportUnexpectedToken({
                                                                                 path: "Gstatement_switch$_caseBlock$_default",
-                                                                                child: currentChild,
+                                                                                token: currentChild,
                                                                                 expected: "DefaultClause",
                                                                             })
                                                                             return
@@ -2804,9 +2803,9 @@ export function parse<Annotation>(
                                                                             })
                                                                             children.pop(
                                                                                 (nextChild) => {
-                                                                                    $x.reportUnexpectedChild({
+                                                                                    $x.reportUnexpectedToken({
                                                                                         path: "Gstatement_switch$_caseBlock$_default$",
-                                                                                        child: nextChild,
+                                                                                        token: nextChild,
                                                                                         expected: null,
                                                                                     })
                                                                                 },
@@ -2832,9 +2831,9 @@ export function parse<Annotation>(
                                                                 children.pop(
                                                                     (currentChild) => {
                                                                         if (currentChild.kindName !== "CaseClause") {
-                                                                            $x.reportUnexpectedChild({
+                                                                            $x.reportUnexpectedToken({
                                                                                 path: "Gstatement_switch$_caseBlock$_case",
-                                                                                child: currentChild,
+                                                                                token: currentChild,
                                                                                 expected: "CaseClause",
                                                                             })
                                                                             return
@@ -2928,9 +2927,9 @@ export function parse<Annotation>(
                                                                             })
                                                                             children.pop(
                                                                                 (nextChild) => {
-                                                                                    $x.reportUnexpectedChild({
+                                                                                    $x.reportUnexpectedToken({
                                                                                         path: "Gstatement_switch$_caseBlock$_case$",
-                                                                                        child: nextChild,
+                                                                                        token: nextChild,
                                                                                         expected: null,
                                                                                     })
                                                                                 },
@@ -2962,9 +2961,9 @@ export function parse<Annotation>(
                                                                     break
                                                                 }
                                                                 default: {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gstatement_switch$_caseBlock$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: "CaseClause, DefaultClause",
                                                                     })
                                                                 }
@@ -3001,9 +3000,9 @@ export function parse<Annotation>(
                                                 })
                                                 children.pop(
                                                     (nextChild) => {
-                                                        $x.reportUnexpectedChild({
+                                                        $x.reportUnexpectedToken({
                                                             path: "Gstatement_switch$_caseBlock$",
-                                                            child: nextChild,
+                                                            token: nextChild,
                                                             expected: null,
                                                         })
                                                     },
@@ -3031,9 +3030,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_switch$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -3059,9 +3058,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ReturnStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_return",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ReturnStatement",
                                 })
                                 return
@@ -3153,9 +3152,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_return$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -3181,9 +3180,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "LabeledStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_labeled",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "LabeledStatement",
                                 })
                                 return
@@ -3212,9 +3211,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_labeled$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -3240,9 +3239,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "InterfaceDeclaration") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_interface",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "InterfaceDeclaration",
                                 })
                                 return
@@ -3345,9 +3344,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_interface$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -3373,9 +3372,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ImportDeclaration") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_import",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ImportDeclaration",
                                 })
                                 return
@@ -3395,9 +3394,9 @@ export function parse<Annotation>(
                                 children.pop(
                                     (currentChild) => {
                                         if (currentChild.kindName !== "ImportClause") {
-                                            $x.reportUnexpectedChild({
+                                            $x.reportUnexpectedToken({
                                                 path: "Gstatement_import$_clause",
-                                                child: currentChild,
+                                                token: currentChild,
                                                 expected: "ImportClause",
                                             })
                                             return
@@ -3420,9 +3419,9 @@ export function parse<Annotation>(
                                                         children.pop(
                                                             (currentChild) => {
                                                                 if (currentChild.kindName !== "NamedImports") {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gstatement_import$_clause$_named",
-                                                                        child: currentChild,
+                                                                        token: currentChild,
                                                                         expected: "NamedImports",
                                                                     })
                                                                     return
@@ -3438,9 +3437,9 @@ export function parse<Annotation>(
                                                                         children.pop(
                                                                             (currentChild) => {
                                                                                 if (currentChild.kindName !== "ImportSpecifier") {
-                                                                                    $x.reportUnexpectedChild({
+                                                                                    $x.reportUnexpectedToken({
                                                                                         path: "Gstatement_import$_clause$_named$",
-                                                                                        child: currentChild,
+                                                                                        token: currentChild,
                                                                                         expected: "ImportSpecifier",
                                                                                     })
                                                                                     return
@@ -3485,9 +3484,9 @@ export function parse<Annotation>(
                                                                                     })
                                                                                     children.pop(
                                                                                         (nextChild) => {
-                                                                                            $x.reportUnexpectedChild({
+                                                                                            $x.reportUnexpectedToken({
                                                                                                 path: "Gstatement_import$_clause$_named$$",
-                                                                                                child: nextChild,
+                                                                                                token: nextChild,
                                                                                                 expected: null,
                                                                                             })
                                                                                         },
@@ -3528,9 +3527,9 @@ export function parse<Annotation>(
                                                                     })
                                                                     children.pop(
                                                                         (nextChild) => {
-                                                                            $x.reportUnexpectedChild({
+                                                                            $x.reportUnexpectedToken({
                                                                                 path: "Gstatement_import$_clause$_named$",
-                                                                                child: nextChild,
+                                                                                token: nextChild,
                                                                                 expected: null,
                                                                             })
                                                                         },
@@ -3556,9 +3555,9 @@ export function parse<Annotation>(
                                                         children.pop(
                                                             (currentChild) => {
                                                                 if (currentChild.kindName !== "NamespaceImport") {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gstatement_import$_clause$_namespace",
-                                                                        child: currentChild,
+                                                                        token: currentChild,
                                                                         expected: "NamespaceImport",
                                                                     })
                                                                     return
@@ -3577,9 +3576,9 @@ export function parse<Annotation>(
                                                                     })
                                                                     children.pop(
                                                                         (nextChild) => {
-                                                                            $x.reportUnexpectedChild({
+                                                                            $x.reportUnexpectedToken({
                                                                                 path: "Gstatement_import$_clause$_namespace$",
-                                                                                child: nextChild,
+                                                                                token: nextChild,
                                                                                 expected: null,
                                                                             })
                                                                         },
@@ -3611,9 +3610,9 @@ export function parse<Annotation>(
                                                             break
                                                         }
                                                         default: {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gstatement_import$_clause$",
-                                                                child: nextChild,
+                                                                token: nextChild,
                                                                 expected: "NamespaceImport, NamedImports",
                                                             })
                                                         }
@@ -3629,9 +3628,9 @@ export function parse<Annotation>(
                                             )
                                             children.pop(
                                                 (nextChild) => {
-                                                    $x.reportUnexpectedChild({
+                                                    $x.reportUnexpectedToken({
                                                         path: "Gstatement_import$_clause$",
-                                                        child: nextChild,
+                                                        token: nextChild,
                                                         expected: null,
                                                     })
                                                 },
@@ -3661,9 +3660,9 @@ export function parse<Annotation>(
                                 )
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_import$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -3689,9 +3688,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "IfStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_if",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "IfStatement",
                                 })
                                 return
@@ -3788,9 +3787,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_if$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -3816,9 +3815,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "FunctionDeclaration") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_function",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "FunctionDeclaration",
                                 })
                                 return
@@ -3894,9 +3893,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_function$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -3922,9 +3921,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ForStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_for",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ForStatement",
                                 })
                                 return
@@ -3961,9 +3960,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_for$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -3989,9 +3988,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ExpressionStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_expression",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ExpressionStatement",
                                 })
                                 return
@@ -4010,9 +4009,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_expression$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -4038,9 +4037,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ExportDeclaration") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_export",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ExportDeclaration",
                                 })
                                 return
@@ -4059,9 +4058,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_export$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -4087,9 +4086,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "BreakStatement") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gstatement_break",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "BreakStatement",
                                 })
                                 return
@@ -4124,9 +4123,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gstatement_break$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -4223,9 +4222,9 @@ export function parse<Annotation>(
                         break
                     }
                     default: {
-                        $x.reportUnexpectedChild({
+                        $x.reportUnexpectedToken({
                             path: "Gstatement",
-                            child: nextChild,
+                            token: nextChild,
                             expected: "Block, BreakStatement, ExportDeclaration, ExpressionStatement, ForStatement, FunctionDeclaration, IfStatement, ImportDeclaration, InterfaceDeclaration, LabeledStatement, ReturnStatement, SwitchStatement, ThrowStatement, TryStatement, TypeAliasDeclaration, VariableStatement, WhileStatement",
                         })
                     }
@@ -4248,9 +4247,9 @@ export function parse<Annotation>(
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "Parameter") {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "Gparameter",
-                        child: currentChild,
+                        token: currentChild,
                         expected: "Parameter",
                     })
                     return
@@ -4274,9 +4273,9 @@ export function parse<Annotation>(
                             children.pop(
                                 (currentChild) => {
                                     if (currentChild.kindName !== "QuestionToken") {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gparameter$_questionToken",
-                                            child: currentChild,
+                                            token: currentChild,
                                             expected: "QuestionToken",
                                         })
                                         return
@@ -4290,9 +4289,9 @@ export function parse<Annotation>(
                                         callback($.implementationDetails)
                                         children.pop(
                                             (nextChild) => {
-                                                $x.reportUnexpectedChild({
+                                                $x.reportUnexpectedToken({
                                                     path: "Gparameter$_questionToken$",
-                                                    child: nextChild,
+                                                    token: nextChild,
                                                     expected: null,
                                                 })
                                             },
@@ -4399,9 +4398,9 @@ export function parse<Annotation>(
                     })
                     children.pop(
                         (nextChild) => {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "Gparameter$",
-                                child: nextChild,
+                                token: nextChild,
                                 expected: null,
                             })
                         },
@@ -4431,9 +4430,9 @@ export function parse<Annotation>(
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "NumericLiteral") {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "GnumericLiteral",
-                        child: currentChild,
+                        token: currentChild,
                         expected: "NumericLiteral",
                     })
                     return
@@ -4450,9 +4449,9 @@ export function parse<Annotation>(
                     })
                     children.pop(
                         (nextChild) => {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "GnumericLiteral$",
-                                child: nextChild,
+                                token: nextChild,
                                 expected: null,
                             })
                         },
@@ -4488,9 +4487,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ReadonlyKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gmodifier_readonly",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ReadonlyKeyword",
                                 })
                                 return
@@ -4504,9 +4503,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gmodifier_readonly$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -4532,9 +4531,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ExportKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gmodifier_export",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ExportKeyword",
                                 })
                                 return
@@ -4548,9 +4547,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gmodifier_export$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -4576,9 +4575,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "DeclareKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gmodifier_declare",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "DeclareKeyword",
                                 })
                                 return
@@ -4592,9 +4591,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gmodifier_declare$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -4630,9 +4629,9 @@ export function parse<Annotation>(
                         break
                     }
                     default: {
-                        $x.reportUnexpectedChild({
+                        $x.reportUnexpectedToken({
                             path: "Gmodifier",
-                            child: nextChild,
+                            token: nextChild,
                             expected: "DeclareKeyword, ExportKeyword, ReadonlyKeyword",
                         })
                     }
@@ -4677,9 +4676,9 @@ export function parse<Annotation>(
                         break
                     }
                     default: {
-                        $x.reportUnexpectedChild({
+                        $x.reportUnexpectedToken({
                             path: "GidentifierOrStringLiteral",
-                            child: nextChild,
+                            token: nextChild,
                             expected: "Identifier, StringLiteral",
                         })
                     }
@@ -4702,9 +4701,9 @@ export function parse<Annotation>(
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "Identifier") {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "Gidentifier",
-                        child: currentChild,
+                        token: currentChild,
                         expected: "Identifier",
                     })
                     return
@@ -4721,9 +4720,9 @@ export function parse<Annotation>(
                     })
                     children.pop(
                         (nextChild) => {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "Gidentifier$",
-                                child: nextChild,
+                                token: nextChild,
                                 expected: null,
                             })
                         },
@@ -4877,9 +4876,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "TrueKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_true",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "TrueKeyword",
                                 })
                                 return
@@ -4893,9 +4892,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_true$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -4921,9 +4920,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "TemplateExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_template",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "TemplateExpression",
                                 })
                                 return
@@ -4943,9 +4942,9 @@ export function parse<Annotation>(
                                 children.pop(
                                     (currentChild) => {
                                         if (currentChild.kindName !== "TemplateHead") {
-                                            $x.reportUnexpectedChild({
+                                            $x.reportUnexpectedToken({
                                                 path: "Gexpression_template$_head",
-                                                child: currentChild,
+                                                token: currentChild,
                                                 expected: "TemplateHead",
                                             })
                                             return
@@ -4962,9 +4961,9 @@ export function parse<Annotation>(
                                             })
                                             children.pop(
                                                 (nextChild) => {
-                                                    $x.reportUnexpectedChild({
+                                                    $x.reportUnexpectedToken({
                                                         path: "Gexpression_template$_head$",
-                                                        child: nextChild,
+                                                        token: nextChild,
                                                         expected: null,
                                                     })
                                                 },
@@ -4979,9 +4978,9 @@ export function parse<Annotation>(
                                                     children.pop(
                                                         (currentChild) => {
                                                             if (currentChild.kindName !== "TemplateSpan") {
-                                                                $x.reportUnexpectedChild({
+                                                                $x.reportUnexpectedToken({
                                                                     path: "Gexpression_template$_spans",
-                                                                    child: currentChild,
+                                                                    token: currentChild,
                                                                     expected: "TemplateSpan",
                                                                 })
                                                                 return
@@ -5013,9 +5012,9 @@ export function parse<Annotation>(
                                                                                 children.pop(
                                                                                     (currentChild) => {
                                                                                         if (currentChild.kindName !== "TemplateTail") {
-                                                                                            $x.reportUnexpectedChild({
+                                                                                            $x.reportUnexpectedToken({
                                                                                                 path: "Gexpression_template$_spans$_x_tail",
-                                                                                                child: currentChild,
+                                                                                                token: currentChild,
                                                                                                 expected: "TemplateTail",
                                                                                             })
                                                                                             return
@@ -5032,9 +5031,9 @@ export function parse<Annotation>(
                                                                                             })
                                                                                             children.pop(
                                                                                                 (nextChild) => {
-                                                                                                    $x.reportUnexpectedChild({
+                                                                                                    $x.reportUnexpectedToken({
                                                                                                         path: "Gexpression_template$_spans$_x_tail$",
-                                                                                                        child: nextChild,
+                                                                                                        token: nextChild,
                                                                                                         expected: null,
                                                                                                     })
                                                                                                 },
@@ -5060,9 +5059,9 @@ export function parse<Annotation>(
                                                                                 children.pop(
                                                                                     (currentChild) => {
                                                                                         if (currentChild.kindName !== "TemplateMiddle") {
-                                                                                            $x.reportUnexpectedChild({
+                                                                                            $x.reportUnexpectedToken({
                                                                                                 path: "Gexpression_template$_spans$_x_middle",
-                                                                                                child: currentChild,
+                                                                                                token: currentChild,
                                                                                                 expected: "TemplateMiddle",
                                                                                             })
                                                                                             return
@@ -5079,9 +5078,9 @@ export function parse<Annotation>(
                                                                                             })
                                                                                             children.pop(
                                                                                                 (nextChild) => {
-                                                                                                    $x.reportUnexpectedChild({
+                                                                                                    $x.reportUnexpectedToken({
                                                                                                         path: "Gexpression_template$_spans$_x_middle$",
-                                                                                                        child: nextChild,
+                                                                                                        token: nextChild,
                                                                                                         expected: null,
                                                                                                     })
                                                                                                 },
@@ -5113,9 +5112,9 @@ export function parse<Annotation>(
                                                                                     break
                                                                                 }
                                                                                 default: {
-                                                                                    $x.reportUnexpectedChild({
+                                                                                    $x.reportUnexpectedToken({
                                                                                         path: "Gexpression_template$_spans$_x",
-                                                                                        child: nextChild,
+                                                                                        token: nextChild,
                                                                                         expected: "TemplateMiddle, TemplateTail",
                                                                                     })
                                                                                 }
@@ -5132,9 +5131,9 @@ export function parse<Annotation>(
                                                                 })
                                                                 children.pop(
                                                                     (nextChild) => {
-                                                                        $x.reportUnexpectedChild({
+                                                                        $x.reportUnexpectedToken({
                                                                             path: "Gexpression_template$_spans$",
-                                                                            child: nextChild,
+                                                                            token: nextChild,
                                                                             expected: null,
                                                                         })
                                                                     },
@@ -5187,9 +5186,9 @@ export function parse<Annotation>(
                                 )
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_template$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5220,9 +5219,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "PropertyAccessExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_propertyAccess",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "PropertyAccessExpression",
                                 })
                                 return
@@ -5251,9 +5250,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_propertyAccess$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5279,9 +5278,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "PrefixUnaryExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_prefixUnary",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "PrefixUnaryExpression",
                                 })
                                 return
@@ -5300,9 +5299,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_prefixUnary$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5328,9 +5327,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "PostfixUnaryExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_postfixUnary",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "PostfixUnaryExpression",
                                 })
                                 return
@@ -5349,9 +5348,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_postfixUnary$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5377,9 +5376,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ParenthesizedExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_parenthesizedExpression",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ParenthesizedExpression",
                                 })
                                 return
@@ -5398,9 +5397,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_parenthesizedExpression$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5426,9 +5425,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ObjectLiteralExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_objectLiteral",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ObjectLiteralExpression",
                                 })
                                 return
@@ -5444,9 +5443,9 @@ export function parse<Annotation>(
                                     children.pop(
                                         (currentChild) => {
                                             if (currentChild.kindName !== "PropertyAssignment") {
-                                                $x.reportUnexpectedChild({
+                                                $x.reportUnexpectedToken({
                                                     path: "Gexpression_objectLiteral$",
-                                                    child: currentChild,
+                                                    token: currentChild,
                                                     expected: "PropertyAssignment",
                                                 })
                                                 return
@@ -5504,9 +5503,9 @@ export function parse<Annotation>(
                                                                 break
                                                             }
                                                             default: {
-                                                                $x.reportUnexpectedChild({
+                                                                $x.reportUnexpectedToken({
                                                                     path: "Gexpression_objectLiteral$$_name",
-                                                                    child: nextChild,
+                                                                    token: nextChild,
                                                                     expected: "Identifier, NumericLiteral, StringLiteral",
                                                                 })
                                                             }
@@ -5522,9 +5521,9 @@ export function parse<Annotation>(
                                                 )
                                                 children.pop(
                                                     (nextChild) => {
-                                                        $x.reportUnexpectedChild({
+                                                        $x.reportUnexpectedToken({
                                                             path: "Gexpression_objectLiteral$$",
-                                                            child: nextChild,
+                                                            token: nextChild,
                                                             expected: null,
                                                         })
                                                     },
@@ -5565,9 +5564,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_objectLiteral$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5593,9 +5592,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "NullKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_nullKeyword",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "NullKeyword",
                                 })
                                 return
@@ -5609,9 +5608,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_nullKeyword$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5642,9 +5641,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "NoSubstitutionTemplateLiteral") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_noSubstitutionTemplateLiteral",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "NoSubstitutionTemplateLiteral",
                                 })
                                 return
@@ -5658,9 +5657,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_noSubstitutionTemplateLiteral$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5686,9 +5685,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "NewExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_new",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "NewExpression",
                                 })
                                 return
@@ -5791,9 +5790,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_new$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5824,9 +5823,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "FalseKeyword") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_false",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "FalseKeyword",
                                 })
                                 return
@@ -5840,9 +5839,9 @@ export function parse<Annotation>(
                                 callback($.implementationDetails)
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_false$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5868,9 +5867,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ElementAccessExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_elementAccess",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ElementAccessExpression",
                                 })
                                 return
@@ -5899,9 +5898,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_elementAccess$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -5927,9 +5926,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ConditionalExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_conditional",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ConditionalExpression",
                                 })
                                 return
@@ -5951,9 +5950,9 @@ export function parse<Annotation>(
                                     children.pop(
                                         (currentChild) => {
                                             if (currentChild.kindName !== "QuestionToken") {
-                                                $x.reportUnexpectedChild({
+                                                $x.reportUnexpectedToken({
                                                     path: "Gexpression_conditional$_questionToken",
-                                                    child: currentChild,
+                                                    token: currentChild,
                                                     expected: "QuestionToken",
                                                 })
                                                 return
@@ -5967,9 +5966,9 @@ export function parse<Annotation>(
                                                 callback($.implementationDetails)
                                                 children.pop(
                                                     (nextChild) => {
-                                                        $x.reportUnexpectedChild({
+                                                        $x.reportUnexpectedToken({
                                                             path: "Gexpression_conditional$_questionToken$",
-                                                            child: nextChild,
+                                                            token: nextChild,
                                                             expected: null,
                                                         })
                                                     },
@@ -5984,9 +5983,9 @@ export function parse<Annotation>(
                                                         children.pop(
                                                             (currentChild) => {
                                                                 if (currentChild.kindName !== "ColonToken") {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_conditional$_colonToken",
-                                                                        child: currentChild,
+                                                                        token: currentChild,
                                                                         expected: "ColonToken",
                                                                     })
                                                                     return
@@ -6000,9 +5999,9 @@ export function parse<Annotation>(
                                                                     callback($.implementationDetails)
                                                                     children.pop(
                                                                         (nextChild) => {
-                                                                            $x.reportUnexpectedChild({
+                                                                            $x.reportUnexpectedToken({
                                                                                 path: "Gexpression_conditional$_colonToken$",
-                                                                                child: nextChild,
+                                                                                token: nextChild,
                                                                                 expected: null,
                                                                             })
                                                                         },
@@ -6048,9 +6047,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_conditional$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -6076,9 +6075,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "CallExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_call",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "CallExpression",
                                 })
                                 return
@@ -6247,9 +6246,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_call$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -6275,9 +6274,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "BinaryExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_binary",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "BinaryExpression",
                                 })
                                 return
@@ -6313,9 +6312,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "PlusEqualsToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_plusEquals",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "PlusEqualsToken",
                                                             })
                                                             return
@@ -6329,9 +6328,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_plusEquals$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6357,9 +6356,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "PlusToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_plus",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "PlusToken",
                                                             })
                                                             return
@@ -6373,9 +6372,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_plus$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6401,9 +6400,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "MinusEqualsToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_minusEquals",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "MinusEqualsToken",
                                                             })
                                                             return
@@ -6417,9 +6416,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_minusEquals$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6445,9 +6444,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "MinusToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_minus",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "MinusToken",
                                                             })
                                                             return
@@ -6461,9 +6460,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_minus$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6489,9 +6488,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "LessThanToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_lessThan",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "LessThanToken",
                                                             })
                                                             return
@@ -6505,9 +6504,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_lessThan$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6533,9 +6532,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "GreaterThanToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_greaterThan",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "GreaterThanToken",
                                                             })
                                                             return
@@ -6549,9 +6548,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_greaterThan$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6577,9 +6576,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "ExclamationEqualsEqualsToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_exclamationEqualsEquals",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "ExclamationEqualsEqualsToken",
                                                             })
                                                             return
@@ -6593,9 +6592,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_exclamationEqualsEquals$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6621,9 +6620,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "EqualsEqualsEqualsToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_equalsEqualsEquals",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "EqualsEqualsEqualsToken",
                                                             })
                                                             return
@@ -6637,9 +6636,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_equalsEqualsEquals$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6665,9 +6664,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "EqualsToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_equals",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "EqualsToken",
                                                             })
                                                             return
@@ -6681,9 +6680,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_equals$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6709,9 +6708,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "BarBarToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_barBar",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "BarBarToken",
                                                             })
                                                             return
@@ -6725,9 +6724,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_barBar$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6753,9 +6752,9 @@ export function parse<Annotation>(
                                                 children.pop(
                                                     (currentChild) => {
                                                         if (currentChild.kindName !== "AmpersandAmpersandToken") {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_binary$_operator_ampersandAmpersand",
-                                                                child: currentChild,
+                                                                token: currentChild,
                                                                 expected: "AmpersandAmpersandToken",
                                                             })
                                                             return
@@ -6769,9 +6768,9 @@ export function parse<Annotation>(
                                                             callback($.implementationDetails)
                                                             children.pop(
                                                                 (nextChild) => {
-                                                                    $x.reportUnexpectedChild({
+                                                                    $x.reportUnexpectedToken({
                                                                         path: "Gexpression_binary$_operator_ampersandAmpersand$",
-                                                                        child: nextChild,
+                                                                        token: nextChild,
                                                                         expected: null,
                                                                     })
                                                                 },
@@ -6839,9 +6838,9 @@ export function parse<Annotation>(
                                                     break
                                                 }
                                                 default: {
-                                                    $x.reportUnexpectedChild({
+                                                    $x.reportUnexpectedToken({
                                                         path: "Gexpression_binary$_operator",
-                                                        child: nextChild,
+                                                        token: nextChild,
                                                         expected: "AmpersandAmpersandToken, BarBarToken, EqualsToken, EqualsEqualsEqualsToken, ExclamationEqualsEqualsToken, GreaterThanToken, LessThanToken, MinusToken, MinusEqualsToken, PlusToken, PlusEqualsToken",
                                                     })
                                                 }
@@ -6858,9 +6857,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_binary$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -6886,9 +6885,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ArrowFunction") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_arrowFunction",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ArrowFunction",
                                 })
                                 return
@@ -6990,9 +6989,9 @@ export function parse<Annotation>(
                                         children.pop(
                                             (currentChild) => {
                                                 if (currentChild.kindName !== "EqualsGreaterThanToken") {
-                                                    $x.reportUnexpectedChild({
+                                                    $x.reportUnexpectedToken({
                                                         path: "Gexpression_arrowFunction$_equalsGreaterThan",
-                                                        child: currentChild,
+                                                        token: currentChild,
                                                         expected: "EqualsGreaterThanToken",
                                                     })
                                                     return
@@ -7006,9 +7005,9 @@ export function parse<Annotation>(
                                                     callback($.implementationDetails)
                                                     children.pop(
                                                         (nextChild) => {
-                                                            $x.reportUnexpectedChild({
+                                                            $x.reportUnexpectedToken({
                                                                 path: "Gexpression_arrowFunction$_equalsGreaterThan$",
-                                                                child: nextChild,
+                                                                token: nextChild,
                                                                 expected: null,
                                                             })
                                                         },
@@ -7125,9 +7124,9 @@ export function parse<Annotation>(
                                                                         break
                                                                     }
                                                                     default: {
-                                                                        $x.reportUnexpectedChild({
+                                                                        $x.reportUnexpectedToken({
                                                                             path: "Gexpression_arrowFunction$_implementation",
-                                                                            child: nextChild,
+                                                                            token: nextChild,
                                                                             expected: "Block, ArrayLiteralExpression, ArrowFunction, BinaryExpression, CallExpression, ConditionalExpression, ElementAccessExpression, FalseKeyword, Identifier, NewExpression, NoSubstitutionTemplateLiteral, NumericLiteral, NullKeyword, ObjectLiteralExpression, ParenthesizedExpression, PostfixUnaryExpression, PrefixUnaryExpression, PropertyAccessExpression, StringLiteral, TemplateExpression, TrueKeyword",
                                                                         })
                                                                     }
@@ -7156,9 +7155,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_arrowFunction$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -7184,9 +7183,9 @@ export function parse<Annotation>(
                     children.pop(
                         (currentChild) => {
                             if (currentChild.kindName !== "ArrayLiteralExpression") {
-                                $x.reportUnexpectedChild({
+                                $x.reportUnexpectedToken({
                                     path: "Gexpression_arrayLiteral",
-                                    child: currentChild,
+                                    token: currentChild,
                                     expected: "ArrayLiteralExpression",
                                 })
                                 return
@@ -7279,9 +7278,9 @@ export function parse<Annotation>(
                                 })
                                 children.pop(
                                     (nextChild) => {
-                                        $x.reportUnexpectedChild({
+                                        $x.reportUnexpectedToken({
                                             path: "Gexpression_arrayLiteral$",
-                                            child: nextChild,
+                                            token: nextChild,
                                             expected: null,
                                         })
                                     },
@@ -7385,9 +7384,9 @@ export function parse<Annotation>(
                         break
                     }
                     default: {
-                        $x.reportUnexpectedChild({
+                        $x.reportUnexpectedToken({
                             path: "Gexpression",
-                            child: nextChild,
+                            token: nextChild,
                             expected: "ArrayLiteralExpression, ArrowFunction, BinaryExpression, CallExpression, ConditionalExpression, ElementAccessExpression, FalseKeyword, Identifier, NewExpression, NoSubstitutionTemplateLiteral, NumericLiteral, NullKeyword, ObjectLiteralExpression, ParenthesizedExpression, PostfixUnaryExpression, PrefixUnaryExpression, PropertyAccessExpression, StringLiteral, TemplateExpression, TrueKeyword",
                         })
                     }
@@ -7410,9 +7409,9 @@ export function parse<Annotation>(
         children.pop(
             (currentChild) => {
                 if (currentChild.kindName !== "Block") {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "Gblock",
-                        child: currentChild,
+                        token: currentChild,
                         expected: "Block",
                     })
                     return
@@ -7496,9 +7495,9 @@ export function parse<Annotation>(
                     })
                     children.pop(
                         (nextChild) => {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "Gblock$",
-                                child: nextChild,
+                                token: nextChild,
                                 expected: null,
                             })
                         },
@@ -7521,8 +7520,10 @@ export function parse<Annotation>(
         )
     }
     if ($.kindName !== "SourceFile") {
-        $x.reportUnexpectedRoot({
-            root: $,
+        $x.reportUnexpectedToken({
+            path: "",
+            token: $,
+            expected: "SourceFile",
         })
         return
     } else {
@@ -7608,9 +7609,9 @@ export function parse<Annotation>(
                 children.pop(
                     (currentChild) => {
                         if (currentChild.kindName !== "EndOfFileToken") {
-                            $x.reportUnexpectedChild({
+                            $x.reportUnexpectedToken({
                                 path: "root_endOfFile",
-                                child: currentChild,
+                                token: currentChild,
                                 expected: "EndOfFileToken",
                             })
                             return
@@ -7624,9 +7625,9 @@ export function parse<Annotation>(
                             callback($.implementationDetails)
                             children.pop(
                                 (nextChild) => {
-                                    $x.reportUnexpectedChild({
+                                    $x.reportUnexpectedToken({
                                         path: "root_endOfFile$",
-                                        child: nextChild,
+                                        token: nextChild,
                                         expected: null,
                                     })
                                 },
@@ -7654,9 +7655,9 @@ export function parse<Annotation>(
             })
             children.pop(
                 (nextChild) => {
-                    $x.reportUnexpectedChild({
+                    $x.reportUnexpectedToken({
                         path: "root",
-                        child: nextChild,
+                        token: nextChild,
                         expected: null,
                     })
                 },

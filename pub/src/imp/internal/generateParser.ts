@@ -106,10 +106,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                             $w.snippet(`callback: ($: api.TRoot<Annotation>) => void,`)
                         })
                         $w.line({}, ($w) => {
-                            $w.snippet(`reportUnexpectedRoot: ($: { root: uast.TUntypedNode<Annotation>, }) => void,`)
-                        })
-                        $w.line({}, ($w) => {
-                            $w.snippet(`reportUnexpectedChild: ($: { path: string, child: uast.TUntypedNode<Annotation>, expected: null | string }) => void,`)
+                            $w.snippet(`reportUnexpectedToken: ($: { path: string, token: uast.TUntypedNode<Annotation>, expected: null | string }) => void,`)
                         })
                         $w.line({}, ($w) => {
                             $w.snippet(`reportMissingToken: ($: { parentAnnotation: Annotation, path: string, kindNameOptions: string, }) => void,`)
@@ -225,13 +222,13 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                                         $w.snippet(`(nextChild) => {`)
                                         $w.indent({}, ($w) => {
                                             $w.line({}, ($w) => {
-                                                $w.snippet(`$x.reportUnexpectedChild({`)
+                                                $w.snippet(`$x.reportUnexpectedToken({`)
                                                 $w.indent({}, ($w) => {
                                                     $w.line({}, ($w) => {
                                                         $w.snippet(`path: "${path}",`)
                                                     })
                                                     $w.line({}, ($w) => {
-                                                        $w.snippet(`child: nextChild,`)
+                                                        $w.snippet(`token: nextChild,`)
                                                     })
                                                     $w.line({}, ($w) => {
                                                         $w.snippet(`expected: null,`)
@@ -582,13 +579,13 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                                                             $w.snippet(`default: {`)
                                                             $w.indent({}, ($w) => {
                                                                 $w.line({}, ($w) => {
-                                                                    $w.snippet(`$x.reportUnexpectedChild({`)
+                                                                    $w.snippet(`$x.reportUnexpectedToken({`)
                                                                     $w.indent({}, ($w) => {
                                                                         $w.line({}, ($w) => {
                                                                             $w.snippet(`path: "${path}",`)
                                                                         })
                                                                         $w.line({}, ($w) => {
-                                                                            $w.snippet(`child: nextChild,`)
+                                                                            $w.snippet(`token: nextChild,`)
                                                                         })
                                                                         $w.line({}, ($w) => {
                                                                             $w.snippet(`expected: "${p2.getKeysAsString(possibleTokens.getDictionary())}",`)
@@ -711,13 +708,13 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                                                     $w.snippet(`if (currentChild.kindName !== "${$.name}") {`)
                                                     $w.indent({}, ($w) => {
                                                         $w.line({}, ($w) => {
-                                                            $w.snippet(`$x.reportUnexpectedChild({`)
+                                                            $w.snippet(`$x.reportUnexpectedToken({`)
                                                             $w.indent({}, ($w) => {
                                                                 $w.line({}, ($w) => {
                                                                     $w.snippet(`path: "${path}",`)
                                                                 })
                                                                 $w.line({}, ($w) => {
-                                                                    $w.snippet(`child: currentChild,`)
+                                                                    $w.snippet(`token: currentChild,`)
                                                                 })
                                                                 $w.line({}, ($w) => {
                                                                     $w.snippet(`expected: "${$.name}",`)
@@ -828,10 +825,16 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                     $w.snippet(`if ($.kindName !== "${grammar.root.name}") {`)
                     $w.indent({}, ($w) => {
                         $w.line({}, ($w) => {
-                            $w.snippet(`$x.reportUnexpectedRoot({`)
+                            $w.snippet(`$x.reportUnexpectedToken({`)
                             $w.indent({}, ($w) => {
                                 $w.line({}, ($w) => {
-                                    $w.snippet(`root: $,`)
+                                    $w.snippet(`path: "",`)
+                                })
+                                $w.line({}, ($w) => {
+                                    $w.snippet(`token: $,`)
+                                })
+                                $w.line({}, ($w) => {
+                                    $w.snippet(`expected: "${grammar.root.name}",`)
                                 })
                             })
                             $w.snippet(`})`)

@@ -10,7 +10,7 @@ function doUntil<T>(
     stack: pm.Stack<T>,
     test: ($: T) => boolean,
     //callback: () => void,
-    
+
 ) {
 
     while (true) {
@@ -51,51 +51,54 @@ function lookAhead<T>(
     )
 }
 
-ts.parse({
-    tsconfigPath: [ "test", "data", "out", "tsconfig.json"]
-}).files.forEach((a, b) => false, ($, key) => {
-    const filename = key
-    p.parse(
-        $.root,
-        {
-            callback: ($) => {
-                $.content.statements.forEach(($) => {
-                    // switch ($[0]) {
-                    //     case "block": 
-                    //         pl.cc($[1], ($) => {
-                              
-                    //         })
-                    //         break
-                    //     default: pl.au($[0])
-                    // }
-                    pl.logDebugMessage(`${$[0]}`)
-                })
-            },
-            reportMissingToken: () => {
-                pl.logDebugMessage("missing token")
-            },
-            reportUnexpectedChild: ($) => {
-                const location = ts.getLocation($.child.implementationDetails)
-                pl.logDebugMessage(`${filename}:${location.line}:${location.column} unexpected child: ${$.child.kindName}, expected: ${$.expected}`)
+ts.parse(
+    {
+        tsconfigPath: ["test", "data", "out", "tsconfig.json"]
+    },
+    {
+        callback: ($) => {
+            $.files.forEach((a, b) => false, ($, key) => {
+                const filename = key
+                p.parse(
+                    $.root,
+                    {
+                        callback: ($) => {
+                            $.content.statements.forEach(($) => {
+                                // switch ($[0]) {
+                                //     case "block": 
+                                //         pl.cc($[1], ($) => {
 
-            },
-            reportUnexpectedRoot: ($) => {
-                pl.logDebugMessage("unexpected root")
+                                //         })
+                                //         break
+                                //     default: pl.au($[0])
+                                // }
+                                pl.logDebugMessage(`${$[0]}`)
+                            })
+                        },
+                        reportMissingToken: () => {
+                            pl.logDebugMessage("missing token")
+                        },
+                        reportUnexpectedToken: ($) => {
+                            const location = ts.getLocation($.token.implementationDetails)
+                            pl.logDebugMessage(`${filename}:${location.line}:${location.column} unexpected token: ${$.token.kindName}, expected: ${$.expected}`)
 
-            }
-        },
-        {
-            doUntil: doUntil,
-            lookAhead: lookAhead,
-            // contains: (dict, keyToBeFound) => {
-            //     let found = false
-            //     dict.forEach(() => false, ($, key) => {
-            //         if (key === keyToBeFound) {
-            //             found = true
-            //         }
-            //     })
-            //     return found
-            // }
+                        },
+                    },
+                    {
+                        doUntil: doUntil,
+                        lookAhead: lookAhead,
+                        // contains: (dict, keyToBeFound) => {
+                        //     let found = false
+                        //     dict.forEach(() => false, ($, key) => {
+                        //         if (key === keyToBeFound) {
+                        //             found = true
+                        //         }
+                        //     })
+                        //     return found
+                        // }
+                    }
+                )
+            })
         }
-    )
-})
+    }
+).execute(() => { })
