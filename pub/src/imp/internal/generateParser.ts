@@ -4,14 +4,16 @@ import * as p2 from "pareto-core-tostring"
 import * as pm from "pareto-core-state"
 import * as pr from "pareto-core-raw"
 
-import * as g from "../../interface"
 import * as wapi from "lib-fountain-pen"
+
+import * as api from "../../interface"
+
 import { GenerateImplementationFile } from "../GenerateFile"
 
 export const generateParser: GenerateImplementationFile = ($, $i) => {
     const grammar = $.grammar
     function findNextPossibleTokensInSymbolType(
-        $: g.TValueType,
+        $: api.TValueType,
         onToken: (token: string) => void,
         onEnd: () => void,
     ) {
@@ -74,13 +76,6 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
         }
     }
     pl.cc($i.block, ($w) => {
-
-        $w.line({}, ($w) => {
-            //$w.snippet(`import * as pr from "pareto-runtime"`)
-        })
-        $w.line({}, ($w) => {
-            $w.snippet(`import * as tast from "${$.pathToInterface}"`)
-        })
         $w.line({}, ($w) => {
             $w.snippet(`import * as pl from "pareto-core-lib"`)
         })
@@ -89,6 +84,10 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
         })
         $w.line({}, ($w) => {
             $w.snippet(`import * as uast from "api-untyped-ast"`)
+        })
+
+        $w.line({}, ($w) => {
+            $w.snippet(`import * as api from "${$.pathToInterface}"`)
         })
 
         $w.line({}, ($w) => { })
@@ -104,7 +103,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                     $w.snippet(`$i: {`)
                     $w.indent({}, ($w) => {
                         $w.line({}, ($w) => {
-                            $w.snippet(`callback: ($: tast.TRoot<Annotation>) => void,`)
+                            $w.snippet(`callback: ($: api.TRoot<Annotation>) => void,`)
                         })
                         $w.line({}, ($w) => {
                             $w.snippet(`reportUnexpectedRoot: ($: { root: uast.TUntypedNode<Annotation>, }) => void,`)
@@ -138,7 +137,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                     $w.snippet(`const $x = $i`)
                 })
                 function generateNode(
-                    $: g.TNode2,
+                    $: api.TNode2,
                     path: string,
                     $w: wapi.IBlock,
                     call: ($w: wapi.ILine) => void
@@ -152,7 +151,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                                 $w.snippet(`$: uast.TUntypedNode<Annotation>,`)
                             })
                             $w.line({}, ($w) => {
-                                $w.snippet(`callback: ($: tast.TN${path}<Annotation>) => void,`)
+                                $w.snippet(`callback: ($: api.TN${path}<Annotation>) => void,`)
                             })
                         })
                         $w.snippet(`): void => {`)
@@ -259,7 +258,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
 
                 }
                 function generateValue(
-                    $: g.TValue,
+                    $: api.TValue,
                     path: string,
                     $w: wapi.IBlock,
                     endCallback: (
@@ -279,7 +278,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                             case "array":
                                 pl.cc($.cardinality[1], ($) => {
                                     $w.line({}, ($w) => {
-                                        $w.snippet(`const elements = pm.createArrayBuilder<tast.TVT${path}<Annotation>>()`)
+                                        $w.snippet(`const elements = pm.createArrayBuilder<api.TVT${path}<Annotation>>()`)
                                     })
                                     $w.line({}, ($w) => {
                                         $w.snippet(`const processElement = () => {`)
@@ -377,7 +376,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                             case "optional":
                                 pl.cc($.cardinality[1], ($) => {
                                     $w.line({}, ($w) => {
-                                        $w.snippet(`let optional: null | tast.TVT${path}<Annotation> = null`)
+                                        $w.snippet(`let optional: null | api.TVT${path}<Annotation> = null`)
                                     })
                                     $w.line({}, ($w) => {
                                         $w.snippet(`const setOptional = () => {`)
@@ -476,7 +475,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                     }
                 }
                 function generateValueType(
-                    $: g.TValueType,
+                    $: api.TValueType,
                     path: string,
                     $w: wapi.IBlock,
                     endCallback: (
@@ -505,7 +504,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                                     )
                                 })
                                 $w.line({}, ($w) => {
-                                    $w.snippet(`const choiceEnd_${path} = ($: tast.TVT${path}<Annotation>) => {`)
+                                    $w.snippet(`const choiceEnd_${path} = ($: api.TVT${path}<Annotation>) => {`)
                                     $w.indent({}, ($w) => {
                                         endCallback(
                                             $w,
@@ -649,7 +648,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                         case "sequence":
                             pl.cc($[1], ($) => {
                                 $w.line({}, ($w) => {
-                                    $w.snippet(`const sequenceEnd = ($: tast.TVT${path}<Annotation>) => {`)
+                                    $w.snippet(`const sequenceEnd = ($: api.TVT${path}<Annotation>) => {`)
                                     $w.indent({}, ($w) => {
                                         endCallback(
                                             $w,
@@ -658,7 +657,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                                     $w.snippet(`}`)
                                 })
                                 function generateElements(
-                                    elements: pm.Stack<g.TSequenceElement>,
+                                    elements: pm.Stack<api.TSequenceElement>,
                                     $w: wapi.IBlock,
                                 ) {
                                     elements.pop(
@@ -799,7 +798,7 @@ export const generateParser: GenerateImplementationFile = ($, $i) => {
                                 $w.snippet(`children: pm.Stack<uast.TUntypedNode<Annotation>>,`)
                             })
                             $w.line({}, ($w) => {
-                                $w.snippet(`callback: ($: tast.TG${key}<Annotation>) => void,`)
+                                $w.snippet(`callback: ($: api.TG${key}<Annotation>) => void,`)
                             })
                         })
                         $w.snippet(`): void {`)

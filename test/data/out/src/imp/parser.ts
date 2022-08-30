@@ -1,13 +1,12 @@
-
-import * as tast from "../interface"
 import * as pl from "pareto-core-lib"
 import * as pm from "pareto-core-state"
 import * as uast from "api-untyped-ast"
+import * as api from "../interface"
 
 export function parse<Annotation>(
     $: uast.TUntypedNode<Annotation>,
     $i: {
-        callback: ($: tast.TRoot<Annotation>) => void,
+        callback: ($: api.TRoot<Annotation>) => void,
         reportUnexpectedRoot: ($: { root: uast.TUntypedNode<Annotation>, }) => void,
         reportUnexpectedChild: ($: { path: string, child: uast.TUntypedNode<Annotation>, expected: null | string }) => void,
         reportMissingToken: ($: { parentAnnotation: Annotation, path: string, kindNameOptions: string, }) => void,
@@ -21,7 +20,7 @@ export function parse<Annotation>(
     function GvariableDeclarationList(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGvariableDeclarationList<Annotation>) => void,
+        callback: ($: api.TGvariableDeclarationList<Annotation>) => void,
     ): void {
         children.pop(
             (currentChild) => {
@@ -35,11 +34,11 @@ export function parse<Annotation>(
                 }
                 ((
                     $: uast.TUntypedNode<Annotation>,
-                    callback: ($: tast.TNGvariableDeclarationList$<Annotation>) => void,
+                    callback: ($: api.TNGvariableDeclarationList$<Annotation>) => void,
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    const elements = pm.createArrayBuilder<tast.TVTGvariableDeclarationList$<Annotation>>()
+                    const elements = pm.createArrayBuilder<api.TVTGvariableDeclarationList$<Annotation>>()
                     const processElement = () => {
                         GvariableDeclaration(node, children, ($) => {
                             elements.push($)
@@ -91,7 +90,7 @@ export function parse<Annotation>(
     function GvariableDeclaration(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGvariableDeclaration<Annotation>) => void,
+        callback: ($: api.TGvariableDeclaration<Annotation>) => void,
     ): void {
         children.pop(
             (currentChild) => {
@@ -105,11 +104,11 @@ export function parse<Annotation>(
                 }
                 ((
                     $: uast.TUntypedNode<Annotation>,
-                    callback: ($: tast.TNGvariableDeclaration$<Annotation>) => void,
+                    callback: ($: api.TNGvariableDeclaration$<Annotation>) => void,
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    const sequenceEnd = ($: tast.TVTGvariableDeclaration$<Annotation>) => {
+                    const sequenceEnd = ($: api.TVTGvariableDeclaration$<Annotation>) => {
                         callback({
                             annotation: node.implementationDetails,
                             content: $,
@@ -117,7 +116,7 @@ export function parse<Annotation>(
                     }
                     Gidentifier(node, children, ($) => {
                         const _name = $
-                        let optional: null | tast.TVTGvariableDeclaration$_type<Annotation> = null
+                        let optional: null | api.TVTGvariableDeclaration$_type<Annotation> = null
                         const setOptional = () => {
                             Gtype(node, children, ($) => {
                                 optional = $
@@ -180,7 +179,7 @@ export function parse<Annotation>(
                         )
                         pl.cc(optional, ($) => {
                             const _type = $
-                            let optional: null | tast.TVTGvariableDeclaration$_expression<Annotation> = null
+                            let optional: null | api.TVTGvariableDeclaration$_expression<Annotation> = null
                             const setOptional = () => {
                                 Gexpression(node, children, ($) => {
                                     optional = $
@@ -292,9 +291,9 @@ export function parse<Annotation>(
     function GtypeSignature(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGtypeSignature<Annotation>) => void,
+        callback: ($: api.TGtypeSignature<Annotation>) => void,
     ): void {
-        const choiceEnd_GtypeSignature = ($: tast.TVTGtypeSignature<Annotation>) => {
+        const choiceEnd_GtypeSignature = ($: api.TVTGtypeSignature<Annotation>) => {
             callback($)
         }
         $d.lookAhead(children, 
@@ -312,17 +311,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtypeSignature_property$<Annotation>) => void,
+                                callback: ($: api.TNGtypeSignature_property$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGtypeSignature_property$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGtypeSignature_property$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGtypeSignature_property$_modifiers<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGtypeSignature_property$_modifiers<Annotation>>()
                                 const processElement = () => {
                                     Gmodifier(node, children, ($) => {
                                         elements.push($)
@@ -349,7 +348,7 @@ export function parse<Annotation>(
                                     const _modifiers = $
                                     GidentifierOrStringLiteral(node, children, ($) => {
                                         const _name = $
-                                        let optional: null | tast.TVTGtypeSignature_property$_quesionToken<Annotation> = null
+                                        let optional: null | api.TVTGtypeSignature_property$_quesionToken<Annotation> = null
                                         const setOptional = () => {
                                             children.pop(
                                                 (currentChild) => {
@@ -363,7 +362,7 @@ export function parse<Annotation>(
                                                     }
                                                     ((
                                                         $: uast.TUntypedNode<Annotation>,
-                                                        callback: ($: tast.TNGtypeSignature_property$_quesionToken$<Annotation>) => void,
+                                                        callback: ($: api.TNGtypeSignature_property$_quesionToken$<Annotation>) => void,
                                                     ): void => {
                                                         const node = $
                                                         const children = pm.createStack($.children)
@@ -406,7 +405,7 @@ export function parse<Annotation>(
                                         )
                                         pl.cc(optional, ($) => {
                                             const _quesionToken = $
-                                            let optional: null | tast.TVTGtypeSignature_property$_type<Annotation> = null
+                                            let optional: null | api.TVTGtypeSignature_property$_type<Annotation> = null
                                             const setOptional = () => {
                                                 Gtype(node, children, ($) => {
                                                     optional = $
@@ -518,11 +517,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtypeSignature_method$<Annotation>) => void,
+                                callback: ($: api.TNGtypeSignature_method$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGtypeSignature_method$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGtypeSignature_method$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -577,17 +576,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtypeSignature_index$<Annotation>) => void,
+                                callback: ($: api.TNGtypeSignature_index$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGtypeSignature_index$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGtypeSignature_index$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGtypeSignature_index$_modifiers<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGtypeSignature_index$_modifiers<Annotation>>()
                                 const processElement = () => {
                                     Gmodifier(node, children, ($) => {
                                         elements.push($)
@@ -614,7 +613,7 @@ export function parse<Annotation>(
                                     const _modifiers = $
                                     Gparameter(node, children, ($) => {
                                         const _parameter = $
-                                        let optional: null | tast.TVTGtypeSignature_index$_type<Annotation> = null
+                                        let optional: null | api.TVTGtypeSignature_index$_type<Annotation> = null
                                         const setOptional = () => {
                                             Gtype(node, children, ($) => {
                                                 optional = $
@@ -724,17 +723,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtypeSignature_construct$<Annotation>) => void,
+                                callback: ($: api.TNGtypeSignature_construct$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGtypeSignature_construct$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGtypeSignature_construct$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGtypeSignature_construct$_parameters<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGtypeSignature_construct$_parameters<Annotation>>()
                                 const processElement = () => {
                                     Gparameter(node, children, ($) => {
                                         elements.push($)
@@ -825,7 +824,7 @@ export function parse<Annotation>(
     function GtypeParameter(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGtypeParameter<Annotation>) => void,
+        callback: ($: api.TGtypeParameter<Annotation>) => void,
     ): void {
         children.pop(
             (currentChild) => {
@@ -839,7 +838,7 @@ export function parse<Annotation>(
                 }
                 ((
                     $: uast.TUntypedNode<Annotation>,
-                    callback: ($: tast.TNGtypeParameter$<Annotation>) => void,
+                    callback: ($: api.TNGtypeParameter$<Annotation>) => void,
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
@@ -878,9 +877,9 @@ export function parse<Annotation>(
     function Gtype(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGtype<Annotation>) => void,
+        callback: ($: api.TGtype<Annotation>) => void,
     ): void {
-        const choiceEnd_Gtype = ($: tast.TVTGtype<Annotation>) => {
+        const choiceEnd_Gtype = ($: api.TVTGtype<Annotation>) => {
             callback($)
         }
         $d.lookAhead(children, 
@@ -898,7 +897,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_void$<Annotation>) => void,
+                                callback: ($: api.TNGtype_void$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -942,11 +941,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_union$<Annotation>) => void,
+                                callback: ($: api.TNGtype_union$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<tast.TVTGtype_union$<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGtype_union$<Annotation>>()
                                 const processElement = () => {
                                     Gtype(node, children, ($) => {
                                         elements.push($)
@@ -1053,7 +1052,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_undefined$<Annotation>) => void,
+                                callback: ($: api.TNGtype_undefined$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -1097,19 +1096,19 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_typeReference$<Annotation>) => void,
+                                callback: ($: api.TNGtype_typeReference$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGtype_typeReference$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGtype_typeReference$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const choiceEnd_Gtype_typeReference$_x = ($: tast.TVTGtype_typeReference$_x<Annotation>) => {
+                                const choiceEnd_Gtype_typeReference$_x = ($: api.TVTGtype_typeReference$_x<Annotation>) => {
                                     const _x = $
-                                    const elements = pm.createArrayBuilder<tast.TVTGtype_typeReference$_parameters<Annotation>>()
+                                    const elements = pm.createArrayBuilder<api.TVTGtype_typeReference$_parameters<Annotation>>()
                                     const processElement = () => {
                                         Gtype(node, children, ($) => {
                                             elements.push($)
@@ -1194,11 +1193,11 @@ export function parse<Annotation>(
                                                     }
                                                     ((
                                                         $: uast.TUntypedNode<Annotation>,
-                                                        callback: ($: tast.TNGtype_typeReference$_x_qualifiedName$<Annotation>) => void,
+                                                        callback: ($: api.TNGtype_typeReference$_x_qualifiedName$<Annotation>) => void,
                                                     ): void => {
                                                         const node = $
                                                         const children = pm.createStack($.children)
-                                                        const sequenceEnd = ($: tast.TVTGtype_typeReference$_x_qualifiedName$<Annotation>) => {
+                                                        const sequenceEnd = ($: api.TVTGtype_typeReference$_x_qualifiedName$<Annotation>) => {
                                                             callback({
                                                                 annotation: node.implementationDetails,
                                                                 content: $,
@@ -1310,7 +1309,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_string$<Annotation>) => void,
+                                callback: ($: api.TNGtype_string$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -1354,11 +1353,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_typeLiteral$<Annotation>) => void,
+                                callback: ($: api.TNGtype_typeLiteral$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<tast.TVTGtype_typeLiteral$<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGtype_typeLiteral$<Annotation>>()
                                 const processElement = () => {
                                     GtypeSignature(node, children, ($) => {
                                         elements.push($)
@@ -1429,11 +1428,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_tuple$<Annotation>) => void,
+                                callback: ($: api.TNGtype_tuple$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<tast.TVTGtype_tuple$<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGtype_tuple$<Annotation>>()
                                 const processElement = () => {
                                     Gtype(node, children, ($) => {
                                         elements.push($)
@@ -1540,7 +1539,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_optional$<Annotation>) => void,
+                                callback: ($: api.TNGtype_optional$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -1589,7 +1588,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_number$<Annotation>) => void,
+                                callback: ($: api.TNGtype_number$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -1633,7 +1632,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_never$<Annotation>) => void,
+                                callback: ($: api.TNGtype_never$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -1677,7 +1676,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_parenthesized$<Annotation>) => void,
+                                callback: ($: api.TNGtype_parenthesized$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -1726,11 +1725,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_literal$<Annotation>) => void,
+                                callback: ($: api.TNGtype_literal$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const choiceEnd_Gtype_literal$ = ($: tast.TVTGtype_literal$<Annotation>) => {
+                                const choiceEnd_Gtype_literal$ = ($: api.TVTGtype_literal$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -1756,7 +1755,7 @@ export function parse<Annotation>(
                                                     }
                                                     ((
                                                         $: uast.TUntypedNode<Annotation>,
-                                                        callback: ($: tast.TNGtype_literal$_null$<Annotation>) => void,
+                                                        callback: ($: api.TNGtype_literal$_null$<Annotation>) => void,
                                                     ): void => {
                                                         const node = $
                                                         const children = pm.createStack($.children)
@@ -1852,17 +1851,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_function$<Annotation>) => void,
+                                callback: ($: api.TNGtype_function$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGtype_function$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGtype_function$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGtype_function$_parameters<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGtype_function$_parameters<Annotation>>()
                                 const processElement = () => {
                                     Gparameter(node, children, ($) => {
                                         elements.push($)
@@ -1881,7 +1880,7 @@ export function parse<Annotation>(
                                 )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _parameters = $
-                                    let optional: null | tast.TVTGtype_function$_returnType<Annotation> = null
+                                    let optional: null | api.TVTGtype_function$_returnType<Annotation> = null
                                     const setOptional = () => {
                                         Gtype(node, children, ($) => {
                                             optional = $
@@ -1989,7 +1988,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_boolean$<Annotation>) => void,
+                                callback: ($: api.TNGtype_boolean$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -2033,7 +2032,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_array$<Annotation>) => void,
+                                callback: ($: api.TNGtype_array$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -2082,7 +2081,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGtype_any$<Annotation>) => void,
+                                callback: ($: api.TNGtype_any$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -2199,7 +2198,7 @@ export function parse<Annotation>(
     function GstringLiteral(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGstringLiteral<Annotation>) => void,
+        callback: ($: api.TGstringLiteral<Annotation>) => void,
     ): void {
         children.pop(
             (currentChild) => {
@@ -2213,7 +2212,7 @@ export function parse<Annotation>(
                 }
                 ((
                     $: uast.TUntypedNode<Annotation>,
-                    callback: ($: tast.TNGstringLiteral$<Annotation>) => void,
+                    callback: ($: api.TNGstringLiteral$<Annotation>) => void,
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
@@ -2250,9 +2249,9 @@ export function parse<Annotation>(
     function Gstatement(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGstatement<Annotation>) => void,
+        callback: ($: api.TGstatement<Annotation>) => void,
     ): void {
-        const choiceEnd_Gstatement = ($: tast.TVTGstatement<Annotation>) => {
+        const choiceEnd_Gstatement = ($: api.TVTGstatement<Annotation>) => {
             callback($)
         }
         $d.lookAhead(children, 
@@ -2270,11 +2269,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_while$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_while$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_while$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_while$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -2329,17 +2328,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_variable$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_variable$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_variable$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_variable$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGstatement_variable$_modifiers<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGstatement_variable$_modifiers<Annotation>>()
                                 const processElement = () => {
                                     Gmodifier(node, children, ($) => {
                                         elements.push($)
@@ -2411,17 +2410,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_typeAlias$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_typeAlias$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_typeAlias$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_typeAlias$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGstatement_typeAlias$_modifiers<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGstatement_typeAlias$_modifiers<Annotation>>()
                                 const processElement = () => {
                                     Gmodifier(node, children, ($) => {
                                         elements.push($)
@@ -2448,7 +2447,7 @@ export function parse<Annotation>(
                                     const _modifiers = $
                                     Gidentifier(node, children, ($) => {
                                         const _name = $
-                                        const elements = pm.createArrayBuilder<tast.TVTGstatement_typeAlias$_typeParameters<Annotation>>()
+                                        const elements = pm.createArrayBuilder<api.TVTGstatement_typeAlias$_typeParameters<Annotation>>()
                                         const processElement = () => {
                                             GtypeParameter(node, children, ($) => {
                                                 elements.push($)
@@ -2518,11 +2517,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_try$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_try$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_try$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_try$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -2542,11 +2541,11 @@ export function parse<Annotation>(
                                             }
                                             ((
                                                 $: uast.TUntypedNode<Annotation>,
-                                                callback: ($: tast.TNGstatement_try$_catchClause$<Annotation>) => void,
+                                                callback: ($: api.TNGstatement_try$_catchClause$<Annotation>) => void,
                                             ): void => {
                                                 const node = $
                                                 const children = pm.createStack($.children)
-                                                const sequenceEnd = ($: tast.TVTGstatement_try$_catchClause$<Annotation>) => {
+                                                const sequenceEnd = ($: api.TVTGstatement_try$_catchClause$<Annotation>) => {
                                                     callback({
                                                         annotation: node.implementationDetails,
                                                         content: $,
@@ -2631,7 +2630,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_throw$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_throw$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -2680,11 +2679,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_switch$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_switch$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_switch$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_switch$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -2704,13 +2703,13 @@ export function parse<Annotation>(
                                             }
                                             ((
                                                 $: uast.TUntypedNode<Annotation>,
-                                                callback: ($: tast.TNGstatement_switch$_caseBlock$<Annotation>) => void,
+                                                callback: ($: api.TNGstatement_switch$_caseBlock$<Annotation>) => void,
                                             ): void => {
                                                 const node = $
                                                 const children = pm.createStack($.children)
-                                                const elements = pm.createArrayBuilder<tast.TVTGstatement_switch$_caseBlock$<Annotation>>()
+                                                const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$<Annotation>>()
                                                 const processElement = () => {
-                                                    const choiceEnd_Gstatement_switch$_caseBlock$ = ($: tast.TVTGstatement_switch$_caseBlock$<Annotation>) => {
+                                                    const choiceEnd_Gstatement_switch$_caseBlock$ = ($: api.TVTGstatement_switch$_caseBlock$<Annotation>) => {
                                                         elements.push($)
                                                     }
                                                     $d.lookAhead(children, 
@@ -2728,11 +2727,11 @@ export function parse<Annotation>(
                                                                         }
                                                                         ((
                                                                             $: uast.TUntypedNode<Annotation>,
-                                                                            callback: ($: tast.TNGstatement_switch$_caseBlock$_default$<Annotation>) => void,
+                                                                            callback: ($: api.TNGstatement_switch$_caseBlock$_default$<Annotation>) => void,
                                                                         ): void => {
                                                                             const node = $
                                                                             const children = pm.createStack($.children)
-                                                                            const elements = pm.createArrayBuilder<tast.TVTGstatement_switch$_caseBlock$_default$<Annotation>>()
+                                                                            const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$_default$<Annotation>>()
                                                                             const processElement = () => {
                                                                                 Gstatement(node, children, ($) => {
                                                                                     elements.push($)
@@ -2842,11 +2841,11 @@ export function parse<Annotation>(
                                                                         }
                                                                         ((
                                                                             $: uast.TUntypedNode<Annotation>,
-                                                                            callback: ($: tast.TNGstatement_switch$_caseBlock$_case$<Annotation>) => void,
+                                                                            callback: ($: api.TNGstatement_switch$_caseBlock$_case$<Annotation>) => void,
                                                                         ): void => {
                                                                             const node = $
                                                                             const children = pm.createStack($.children)
-                                                                            const sequenceEnd = ($: tast.TVTGstatement_switch$_caseBlock$_case$<Annotation>) => {
+                                                                            const sequenceEnd = ($: api.TVTGstatement_switch$_caseBlock$_case$<Annotation>) => {
                                                                                 callback({
                                                                                     annotation: node.implementationDetails,
                                                                                     content: $,
@@ -2854,7 +2853,7 @@ export function parse<Annotation>(
                                                                             }
                                                                             Gexpression(node, children, ($) => {
                                                                                 const _case = $
-                                                                                const elements = pm.createArrayBuilder<tast.TVTGstatement_switch$_caseBlock$_case$_statements<Annotation>>()
+                                                                                const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$_case$_statements<Annotation>>()
                                                                                 const processElement = () => {
                                                                                     Gstatement(node, children, ($) => {
                                                                                         elements.push($)
@@ -3069,11 +3068,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_return$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_return$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let optional: null | tast.TVTGstatement_return$<Annotation> = null
+                                let optional: null | api.TVTGstatement_return$<Annotation> = null
                                 const setOptional = () => {
                                     Gexpression(node, children, ($) => {
                                         optional = $
@@ -3191,11 +3190,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_labeled$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_labeled$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_labeled$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_labeled$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -3250,17 +3249,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_interface$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_interface$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_interface$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_interface$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGstatement_interface$_modifiers<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_modifiers<Annotation>>()
                                 const processElement = () => {
                                     Gmodifier(node, children, ($) => {
                                         elements.push($)
@@ -3287,7 +3286,7 @@ export function parse<Annotation>(
                                     const _modifiers = $
                                     Gidentifier(node, children, ($) => {
                                         const _name = $
-                                        const elements = pm.createArrayBuilder<tast.TVTGstatement_interface$_typeParameters<Annotation>>()
+                                        const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_typeParameters<Annotation>>()
                                         const processElement = () => {
                                             GtypeParameter(node, children, ($) => {
                                                 elements.push($)
@@ -3306,7 +3305,7 @@ export function parse<Annotation>(
                                         )
                                         pl.cc(elements.getArray(), ($) => {
                                             const _typeParameters = $
-                                            const elements = pm.createArrayBuilder<tast.TVTGstatement_interface$_signature<Annotation>>()
+                                            const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_signature<Annotation>>()
                                             const processElement = () => {
                                                 GtypeSignature(node, children, ($) => {
                                                     elements.push($)
@@ -3383,11 +3382,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_import$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_import$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_import$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_import$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -3405,11 +3404,11 @@ export function parse<Annotation>(
                                         }
                                         ((
                                             $: uast.TUntypedNode<Annotation>,
-                                            callback: ($: tast.TNGstatement_import$_clause$<Annotation>) => void,
+                                            callback: ($: api.TNGstatement_import$_clause$<Annotation>) => void,
                                         ): void => {
                                             const node = $
                                             const children = pm.createStack($.children)
-                                            const choiceEnd_Gstatement_import$_clause$ = ($: tast.TVTGstatement_import$_clause$<Annotation>) => {
+                                            const choiceEnd_Gstatement_import$_clause$ = ($: api.TVTGstatement_import$_clause$<Annotation>) => {
                                                 callback({
                                                     annotation: node.implementationDetails,
                                                     content: $,
@@ -3430,11 +3429,11 @@ export function parse<Annotation>(
                                                                 }
                                                                 ((
                                                                     $: uast.TUntypedNode<Annotation>,
-                                                                    callback: ($: tast.TNGstatement_import$_clause$_named$<Annotation>) => void,
+                                                                    callback: ($: api.TNGstatement_import$_clause$_named$<Annotation>) => void,
                                                                 ): void => {
                                                                     const node = $
                                                                     const children = pm.createStack($.children)
-                                                                    const elements = pm.createArrayBuilder<tast.TVTGstatement_import$_clause$_named$<Annotation>>()
+                                                                    const elements = pm.createArrayBuilder<api.TVTGstatement_import$_clause$_named$<Annotation>>()
                                                                     const processElement = () => {
                                                                         children.pop(
                                                                             (currentChild) => {
@@ -3448,11 +3447,11 @@ export function parse<Annotation>(
                                                                                 }
                                                                                 ((
                                                                                     $: uast.TUntypedNode<Annotation>,
-                                                                                    callback: ($: tast.TNGstatement_import$_clause$_named$$<Annotation>) => void,
+                                                                                    callback: ($: api.TNGstatement_import$_clause$_named$$<Annotation>) => void,
                                                                                 ): void => {
                                                                                     const node = $
                                                                                     const children = pm.createStack($.children)
-                                                                                    const sequenceEnd = ($: tast.TVTGstatement_import$_clause$_named$$<Annotation>) => {
+                                                                                    const sequenceEnd = ($: api.TVTGstatement_import$_clause$_named$$<Annotation>) => {
                                                                                         callback({
                                                                                             annotation: node.implementationDetails,
                                                                                             content: $,
@@ -3460,7 +3459,7 @@ export function parse<Annotation>(
                                                                                     }
                                                                                     Gidentifier(node, children, ($) => {
                                                                                         const _name = $
-                                                                                        let optional: null | tast.TVTGstatement_import$_clause$_named$$_as<Annotation> = null
+                                                                                        let optional: null | api.TVTGstatement_import$_clause$_named$$_as<Annotation> = null
                                                                                         const setOptional = () => {
                                                                                             Gidentifier(node, children, ($) => {
                                                                                                 optional = $
@@ -3566,7 +3565,7 @@ export function parse<Annotation>(
                                                                 }
                                                                 ((
                                                                     $: uast.TUntypedNode<Annotation>,
-                                                                    callback: ($: tast.TNGstatement_import$_clause$_namespace$<Annotation>) => void,
+                                                                    callback: ($: api.TNGstatement_import$_clause$_namespace$<Annotation>) => void,
                                                                 ): void => {
                                                                     const node = $
                                                                     const children = pm.createStack($.children)
@@ -3699,11 +3698,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_if$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_if$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_if$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_if$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -3713,7 +3712,7 @@ export function parse<Annotation>(
                                     const _expression = $
                                     Gstatement(node, children, ($) => {
                                         const _thenStatement = $
-                                        let optional: null | tast.TVTGstatement_if$_elseStatement<Annotation> = null
+                                        let optional: null | api.TVTGstatement_if$_elseStatement<Annotation> = null
                                         const setOptional = () => {
                                             Gstatement(node, children, ($) => {
                                                 optional = $
@@ -3826,17 +3825,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_function$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_function$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_function$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_function$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGstatement_function$_modifiers<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGstatement_function$_modifiers<Annotation>>()
                                 const processElement = () => {
                                     Gmodifier(node, children, ($) => {
                                         elements.push($)
@@ -3865,7 +3864,7 @@ export function parse<Annotation>(
                                         const _name = $
                                         GfunctionDefinition(node, children, ($) => {
                                             const _definition = $
-                                            let optional: null | tast.TVTGstatement_function$_block<Annotation> = null
+                                            let optional: null | api.TVTGstatement_function$_block<Annotation> = null
                                             const setOptional = () => {
                                                 Gblock(node, children, ($) => {
                                                     optional = $
@@ -3932,11 +3931,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_for$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_for$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGstatement_for$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGstatement_for$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -3999,7 +3998,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_expression$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_expression$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -4048,7 +4047,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_export$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_export$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -4097,11 +4096,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGstatement_break$<Annotation>) => void,
+                                callback: ($: api.TNGstatement_break$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                let optional: null | tast.TVTGstatement_break$<Annotation> = null
+                                let optional: null | api.TVTGstatement_break$<Annotation> = null
                                 const setOptional = () => {
                                     Gidentifier(node, children, ($) => {
                                         optional = $
@@ -4244,7 +4243,7 @@ export function parse<Annotation>(
     function Gparameter(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGparameter<Annotation>) => void,
+        callback: ($: api.TGparameter<Annotation>) => void,
     ): void {
         children.pop(
             (currentChild) => {
@@ -4258,11 +4257,11 @@ export function parse<Annotation>(
                 }
                 ((
                     $: uast.TUntypedNode<Annotation>,
-                    callback: ($: tast.TNGparameter$<Annotation>) => void,
+                    callback: ($: api.TNGparameter$<Annotation>) => void,
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    const sequenceEnd = ($: tast.TVTGparameter$<Annotation>) => {
+                    const sequenceEnd = ($: api.TVTGparameter$<Annotation>) => {
                         callback({
                             annotation: node.implementationDetails,
                             content: $,
@@ -4270,7 +4269,7 @@ export function parse<Annotation>(
                     }
                     Gidentifier(node, children, ($) => {
                         const _name = $
-                        let optional: null | tast.TVTGparameter$_questionToken<Annotation> = null
+                        let optional: null | api.TVTGparameter$_questionToken<Annotation> = null
                         const setOptional = () => {
                             children.pop(
                                 (currentChild) => {
@@ -4284,7 +4283,7 @@ export function parse<Annotation>(
                                     }
                                     ((
                                         $: uast.TUntypedNode<Annotation>,
-                                        callback: ($: tast.TNGparameter$_questionToken$<Annotation>) => void,
+                                        callback: ($: api.TNGparameter$_questionToken$<Annotation>) => void,
                                     ): void => {
                                         const node = $
                                         const children = pm.createStack($.children)
@@ -4327,7 +4326,7 @@ export function parse<Annotation>(
                         )
                         pl.cc(optional, ($) => {
                             const _questionToken = $
-                            let optional: null | tast.TVTGparameter$_type<Annotation> = null
+                            let optional: null | api.TVTGparameter$_type<Annotation> = null
                             const setOptional = () => {
                                 Gtype(node, children, ($) => {
                                     optional = $
@@ -4427,7 +4426,7 @@ export function parse<Annotation>(
     function GnumericLiteral(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGnumericLiteral<Annotation>) => void,
+        callback: ($: api.TGnumericLiteral<Annotation>) => void,
     ): void {
         children.pop(
             (currentChild) => {
@@ -4441,7 +4440,7 @@ export function parse<Annotation>(
                 }
                 ((
                     $: uast.TUntypedNode<Annotation>,
-                    callback: ($: tast.TNGnumericLiteral$<Annotation>) => void,
+                    callback: ($: api.TNGnumericLiteral$<Annotation>) => void,
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
@@ -4478,9 +4477,9 @@ export function parse<Annotation>(
     function Gmodifier(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGmodifier<Annotation>) => void,
+        callback: ($: api.TGmodifier<Annotation>) => void,
     ): void {
-        const choiceEnd_Gmodifier = ($: tast.TVTGmodifier<Annotation>) => {
+        const choiceEnd_Gmodifier = ($: api.TVTGmodifier<Annotation>) => {
             callback($)
         }
         $d.lookAhead(children, 
@@ -4498,7 +4497,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGmodifier_readonly$<Annotation>) => void,
+                                callback: ($: api.TNGmodifier_readonly$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -4542,7 +4541,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGmodifier_export$<Annotation>) => void,
+                                callback: ($: api.TNGmodifier_export$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -4586,7 +4585,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGmodifier_declare$<Annotation>) => void,
+                                callback: ($: api.TNGmodifier_declare$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -4651,9 +4650,9 @@ export function parse<Annotation>(
     function GidentifierOrStringLiteral(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGidentifierOrStringLiteral<Annotation>) => void,
+        callback: ($: api.TGidentifierOrStringLiteral<Annotation>) => void,
     ): void {
-        const choiceEnd_GidentifierOrStringLiteral = ($: tast.TVTGidentifierOrStringLiteral<Annotation>) => {
+        const choiceEnd_GidentifierOrStringLiteral = ($: api.TVTGidentifierOrStringLiteral<Annotation>) => {
             callback($)
         }
         $d.lookAhead(children, 
@@ -4698,7 +4697,7 @@ export function parse<Annotation>(
     function Gidentifier(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGidentifier<Annotation>) => void,
+        callback: ($: api.TGidentifier<Annotation>) => void,
     ): void {
         children.pop(
             (currentChild) => {
@@ -4712,7 +4711,7 @@ export function parse<Annotation>(
                 }
                 ((
                     $: uast.TUntypedNode<Annotation>,
-                    callback: ($: tast.TNGidentifier$<Annotation>) => void,
+                    callback: ($: api.TNGidentifier$<Annotation>) => void,
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
@@ -4749,12 +4748,12 @@ export function parse<Annotation>(
     function GfunctionDefinition(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGfunctionDefinition<Annotation>) => void,
+        callback: ($: api.TGfunctionDefinition<Annotation>) => void,
     ): void {
-        const sequenceEnd = ($: tast.TVTGfunctionDefinition<Annotation>) => {
+        const sequenceEnd = ($: api.TVTGfunctionDefinition<Annotation>) => {
             callback($)
         }
-        const elements = pm.createArrayBuilder<tast.TVTGfunctionDefinition_typeParameters<Annotation>>()
+        const elements = pm.createArrayBuilder<api.TVTGfunctionDefinition_typeParameters<Annotation>>()
         const processElement = () => {
             GtypeParameter(node, children, ($) => {
                 elements.push($)
@@ -4773,7 +4772,7 @@ export function parse<Annotation>(
         )
         pl.cc(elements.getArray(), ($) => {
             const _typeParameters = $
-            const elements = pm.createArrayBuilder<tast.TVTGfunctionDefinition_parameters<Annotation>>()
+            const elements = pm.createArrayBuilder<api.TVTGfunctionDefinition_parameters<Annotation>>()
             const processElement = () => {
                 Gparameter(node, children, ($) => {
                     elements.push($)
@@ -4792,7 +4791,7 @@ export function parse<Annotation>(
             )
             pl.cc(elements.getArray(), ($) => {
                 const _parameters = $
-                let optional: null | tast.TVTGfunctionDefinition_returnType<Annotation> = null
+                let optional: null | api.TVTGfunctionDefinition_returnType<Annotation> = null
                 const setOptional = () => {
                     Gtype(node, children, ($) => {
                         optional = $
@@ -4867,9 +4866,9 @@ export function parse<Annotation>(
     function Gexpression(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGexpression<Annotation>) => void,
+        callback: ($: api.TGexpression<Annotation>) => void,
     ): void {
-        const choiceEnd_Gexpression = ($: tast.TVTGexpression<Annotation>) => {
+        const choiceEnd_Gexpression = ($: api.TVTGexpression<Annotation>) => {
             callback($)
         }
         $d.lookAhead(children, 
@@ -4887,7 +4886,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_true$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_true$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -4931,11 +4930,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_template$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_template$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGexpression_template$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGexpression_template$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -4953,7 +4952,7 @@ export function parse<Annotation>(
                                         }
                                         ((
                                             $: uast.TUntypedNode<Annotation>,
-                                            callback: ($: tast.TNGexpression_template$_head$<Annotation>) => void,
+                                            callback: ($: api.TNGexpression_template$_head$<Annotation>) => void,
                                         ): void => {
                                             const node = $
                                             const children = pm.createStack($.children)
@@ -4975,7 +4974,7 @@ export function parse<Annotation>(
                                             currentChild,
                                             ($) => {
                                                 const _head = $
-                                                const elements = pm.createArrayBuilder<tast.TVTGexpression_template$_spans<Annotation>>()
+                                                const elements = pm.createArrayBuilder<api.TVTGexpression_template$_spans<Annotation>>()
                                                 const processElement = () => {
                                                     children.pop(
                                                         (currentChild) => {
@@ -4989,11 +4988,11 @@ export function parse<Annotation>(
                                                             }
                                                             ((
                                                                 $: uast.TUntypedNode<Annotation>,
-                                                                callback: ($: tast.TNGexpression_template$_spans$<Annotation>) => void,
+                                                                callback: ($: api.TNGexpression_template$_spans$<Annotation>) => void,
                                                             ): void => {
                                                                 const node = $
                                                                 const children = pm.createStack($.children)
-                                                                const sequenceEnd = ($: tast.TVTGexpression_template$_spans$<Annotation>) => {
+                                                                const sequenceEnd = ($: api.TVTGexpression_template$_spans$<Annotation>) => {
                                                                     callback({
                                                                         annotation: node.implementationDetails,
                                                                         content: $,
@@ -5001,7 +5000,7 @@ export function parse<Annotation>(
                                                                 }
                                                                 Gexpression(node, children, ($) => {
                                                                     const _expression = $
-                                                                    const choiceEnd_Gexpression_template$_spans$_x = ($: tast.TVTGexpression_template$_spans$_x<Annotation>) => {
+                                                                    const choiceEnd_Gexpression_template$_spans$_x = ($: api.TVTGexpression_template$_spans$_x<Annotation>) => {
                                                                         const _x = $
                                                                         sequenceEnd({
                                                                             "expression": _expression,
@@ -5023,7 +5022,7 @@ export function parse<Annotation>(
                                                                                         }
                                                                                         ((
                                                                                             $: uast.TUntypedNode<Annotation>,
-                                                                                            callback: ($: tast.TNGexpression_template$_spans$_x_tail$<Annotation>) => void,
+                                                                                            callback: ($: api.TNGexpression_template$_spans$_x_tail$<Annotation>) => void,
                                                                                         ): void => {
                                                                                             const node = $
                                                                                             const children = pm.createStack($.children)
@@ -5070,7 +5069,7 @@ export function parse<Annotation>(
                                                                                         }
                                                                                         ((
                                                                                             $: uast.TUntypedNode<Annotation>,
-                                                                                            callback: ($: tast.TNGexpression_template$_spans$_x_middle$<Annotation>) => void,
+                                                                                            callback: ($: api.TNGexpression_template$_spans$_x_middle$<Annotation>) => void,
                                                                                         ): void => {
                                                                                             const node = $
                                                                                             const children = pm.createStack($.children)
@@ -5230,11 +5229,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_propertyAccess$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_propertyAccess$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGexpression_propertyAccess$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGexpression_propertyAccess$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -5289,7 +5288,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_prefixUnary$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_prefixUnary$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -5338,7 +5337,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_postfixUnary$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_postfixUnary$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -5387,7 +5386,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_parenthesizedExpression$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_parenthesizedExpression$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -5436,11 +5435,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_objectLiteral$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_objectLiteral$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<tast.TVTGexpression_objectLiteral$<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGexpression_objectLiteral$<Annotation>>()
                                 const processElement = () => {
                                     children.pop(
                                         (currentChild) => {
@@ -5454,17 +5453,17 @@ export function parse<Annotation>(
                                             }
                                             ((
                                                 $: uast.TUntypedNode<Annotation>,
-                                                callback: ($: tast.TNGexpression_objectLiteral$$<Annotation>) => void,
+                                                callback: ($: api.TNGexpression_objectLiteral$$<Annotation>) => void,
                                             ): void => {
                                                 const node = $
                                                 const children = pm.createStack($.children)
-                                                const sequenceEnd = ($: tast.TVTGexpression_objectLiteral$$<Annotation>) => {
+                                                const sequenceEnd = ($: api.TVTGexpression_objectLiteral$$<Annotation>) => {
                                                     callback({
                                                         annotation: node.implementationDetails,
                                                         content: $,
                                                     })
                                                 }
-                                                const choiceEnd_Gexpression_objectLiteral$$_name = ($: tast.TVTGexpression_objectLiteral$$_name<Annotation>) => {
+                                                const choiceEnd_Gexpression_objectLiteral$$_name = ($: api.TVTGexpression_objectLiteral$$_name<Annotation>) => {
                                                     const _name = $
                                                     Gexpression(node, children, ($) => {
                                                         const _expression = $
@@ -5603,7 +5602,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_nullKeyword$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_nullKeyword$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -5652,7 +5651,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_noSubstitutionTemplateLiteral$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_noSubstitutionTemplateLiteral$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -5696,11 +5695,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_new$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_new$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGexpression_new$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGexpression_new$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -5708,7 +5707,7 @@ export function parse<Annotation>(
                                 }
                                 Gidentifier(node, children, ($) => {
                                     const _class = $
-                                    const elements = pm.createArrayBuilder<tast.TVTGexpression_new$_parameters<Annotation>>()
+                                    const elements = pm.createArrayBuilder<api.TVTGexpression_new$_parameters<Annotation>>()
                                     const processElement = () => {
                                         Gexpression(node, children, ($) => {
                                             elements.push($)
@@ -5834,7 +5833,7 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_false$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_false$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
@@ -5878,11 +5877,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_elementAccess$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_elementAccess$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGexpression_elementAccess$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGexpression_elementAccess$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -5937,11 +5936,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_conditional$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_conditional$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGexpression_conditional$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGexpression_conditional$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -5961,7 +5960,7 @@ export function parse<Annotation>(
                                             }
                                             ((
                                                 $: uast.TUntypedNode<Annotation>,
-                                                callback: ($: tast.TNGexpression_conditional$_questionToken$<Annotation>) => void,
+                                                callback: ($: api.TNGexpression_conditional$_questionToken$<Annotation>) => void,
                                             ): void => {
                                                 const node = $
                                                 const children = pm.createStack($.children)
@@ -5994,7 +5993,7 @@ export function parse<Annotation>(
                                                                 }
                                                                 ((
                                                                     $: uast.TUntypedNode<Annotation>,
-                                                                    callback: ($: tast.TNGexpression_conditional$_colonToken$<Annotation>) => void,
+                                                                    callback: ($: api.TNGexpression_conditional$_colonToken$<Annotation>) => void,
                                                                 ): void => {
                                                                     const node = $
                                                                     const children = pm.createStack($.children)
@@ -6086,11 +6085,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_call$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_call$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGexpression_call$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGexpression_call$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -6098,7 +6097,7 @@ export function parse<Annotation>(
                                 }
                                 Gexpression(node, children, ($) => {
                                     const _function = $
-                                    const elements = pm.createArrayBuilder<tast.TVTGexpression_call$_typeParameters<Annotation>>()
+                                    const elements = pm.createArrayBuilder<api.TVTGexpression_call$_typeParameters<Annotation>>()
                                     const processElement = () => {
                                         Gtype(node, children, ($) => {
                                             elements.push($)
@@ -6162,7 +6161,7 @@ export function parse<Annotation>(
                                     )
                                     pl.cc(elements.getArray(), ($) => {
                                         const _typeParameters = $
-                                        const elements = pm.createArrayBuilder<tast.TVTGexpression_call$_parameters<Annotation>>()
+                                        const elements = pm.createArrayBuilder<api.TVTGexpression_call$_parameters<Annotation>>()
                                         const processElement = () => {
                                             Gexpression(node, children, ($) => {
                                                 elements.push($)
@@ -6285,11 +6284,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_binary$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_binary$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGexpression_binary$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGexpression_binary$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
@@ -6297,7 +6296,7 @@ export function parse<Annotation>(
                                 }
                                 Gexpression(node, children, ($) => {
                                     const _leftHandSide = $
-                                    const choiceEnd_Gexpression_binary$_operator = ($: tast.TVTGexpression_binary$_operator<Annotation>) => {
+                                    const choiceEnd_Gexpression_binary$_operator = ($: api.TVTGexpression_binary$_operator<Annotation>) => {
                                         const _operator = $
                                         Gexpression(node, children, ($) => {
                                             const _rightHandSide = $
@@ -6323,7 +6322,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_plusEquals$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_plusEquals$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6367,7 +6366,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_plus$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_plus$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6411,7 +6410,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_minusEquals$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_minusEquals$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6455,7 +6454,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_minus$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_minus$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6499,7 +6498,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_lessThan$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_lessThan$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6543,7 +6542,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_greaterThan$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_greaterThan$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6587,7 +6586,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_exclamationEqualsEquals$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_exclamationEqualsEquals$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6631,7 +6630,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_equalsEqualsEquals$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_equalsEqualsEquals$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6675,7 +6674,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_equals$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_equals$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6719,7 +6718,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_barBar$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_barBar$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6763,7 +6762,7 @@ export function parse<Annotation>(
                                                         }
                                                         ((
                                                             $: uast.TUntypedNode<Annotation>,
-                                                            callback: ($: tast.TNGexpression_binary$_operator_ampersandAmpersand$<Annotation>) => void,
+                                                            callback: ($: api.TNGexpression_binary$_operator_ampersandAmpersand$<Annotation>) => void,
                                                         ): void => {
                                                             const node = $
                                                             const children = pm.createStack($.children)
@@ -6896,17 +6895,17 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_arrowFunction$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_arrowFunction$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const sequenceEnd = ($: tast.TVTGexpression_arrowFunction$<Annotation>) => {
+                                const sequenceEnd = ($: api.TVTGexpression_arrowFunction$<Annotation>) => {
                                     callback({
                                         annotation: node.implementationDetails,
                                         content: $,
                                     })
                                 }
-                                const elements = pm.createArrayBuilder<tast.TVTGexpression_arrowFunction$_parameters<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGexpression_arrowFunction$_parameters<Annotation>>()
                                 const processElement = () => {
                                     Gparameter(node, children, ($) => {
                                         elements.push($)
@@ -6925,7 +6924,7 @@ export function parse<Annotation>(
                                 )
                                 pl.cc(elements.getArray(), ($) => {
                                     const _parameters = $
-                                    let optional: null | tast.TVTGexpression_arrowFunction$_returnType<Annotation> = null
+                                    let optional: null | api.TVTGexpression_arrowFunction$_returnType<Annotation> = null
                                     const setOptional = () => {
                                         Gtype(node, children, ($) => {
                                             optional = $
@@ -7000,7 +6999,7 @@ export function parse<Annotation>(
                                                 }
                                                 ((
                                                     $: uast.TUntypedNode<Annotation>,
-                                                    callback: ($: tast.TNGexpression_arrowFunction$_equalsGreaterThan$<Annotation>) => void,
+                                                    callback: ($: api.TNGexpression_arrowFunction$_equalsGreaterThan$<Annotation>) => void,
                                                 ): void => {
                                                     const node = $
                                                     const children = pm.createStack($.children)
@@ -7019,7 +7018,7 @@ export function parse<Annotation>(
                                                     currentChild,
                                                     ($) => {
                                                         const _equalsGreaterThan = $
-                                                        const choiceEnd_Gexpression_arrowFunction$_implementation = ($: tast.TVTGexpression_arrowFunction$_implementation<Annotation>) => {
+                                                        const choiceEnd_Gexpression_arrowFunction$_implementation = ($: api.TVTGexpression_arrowFunction$_implementation<Annotation>) => {
                                                             const _implementation = $
                                                             sequenceEnd({
                                                                 "parameters": _parameters,
@@ -7194,11 +7193,11 @@ export function parse<Annotation>(
                             }
                             ((
                                 $: uast.TUntypedNode<Annotation>,
-                                callback: ($: tast.TNGexpression_arrayLiteral$<Annotation>) => void,
+                                callback: ($: api.TNGexpression_arrayLiteral$<Annotation>) => void,
                             ): void => {
                                 const node = $
                                 const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<tast.TVTGexpression_arrayLiteral$<Annotation>>()
+                                const elements = pm.createArrayBuilder<api.TVTGexpression_arrayLiteral$<Annotation>>()
                                 const processElement = () => {
                                     Gexpression(node, children, ($) => {
                                         elements.push($)
@@ -7406,7 +7405,7 @@ export function parse<Annotation>(
     function Gblock(
         node: uast.TUntypedNode<Annotation>,
         children: pm.Stack<uast.TUntypedNode<Annotation>>,
-        callback: ($: tast.TGblock<Annotation>) => void,
+        callback: ($: api.TGblock<Annotation>) => void,
     ): void {
         children.pop(
             (currentChild) => {
@@ -7420,11 +7419,11 @@ export function parse<Annotation>(
                 }
                 ((
                     $: uast.TUntypedNode<Annotation>,
-                    callback: ($: tast.TNGblock$<Annotation>) => void,
+                    callback: ($: api.TNGblock$<Annotation>) => void,
                 ): void => {
                     const node = $
                     const children = pm.createStack($.children)
-                    const elements = pm.createArrayBuilder<tast.TVTGblock$<Annotation>>()
+                    const elements = pm.createArrayBuilder<api.TVTGblock$<Annotation>>()
                     const processElement = () => {
                         Gstatement(node, children, ($) => {
                             elements.push($)
@@ -7529,17 +7528,17 @@ export function parse<Annotation>(
     } else {
         ((
             $: uast.TUntypedNode<Annotation>,
-            callback: ($: tast.TNroot<Annotation>) => void,
+            callback: ($: api.TNroot<Annotation>) => void,
         ): void => {
             const node = $
             const children = pm.createStack($.children)
-            const sequenceEnd = ($: tast.TVTroot<Annotation>) => {
+            const sequenceEnd = ($: api.TVTroot<Annotation>) => {
                 callback({
                     annotation: node.implementationDetails,
                     content: $,
                 })
             }
-            const elements = pm.createArrayBuilder<tast.TVTroot_statements<Annotation>>()
+            const elements = pm.createArrayBuilder<api.TVTroot_statements<Annotation>>()
             const processElement = () => {
                 Gstatement(node, children, ($) => {
                     elements.push($)
@@ -7618,7 +7617,7 @@ export function parse<Annotation>(
                         }
                         ((
                             $: uast.TUntypedNode<Annotation>,
-                            callback: ($: tast.TNroot_endOfFile$<Annotation>) => void,
+                            callback: ($: api.TNroot_endOfFile$<Annotation>) => void,
                         ): void => {
                             const node = $
                             const children = pm.createStack($.children)
