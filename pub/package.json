@@ -23,7 +23,7 @@
     "pareto-core-tostring": "^0.1.0"
   },
   "name": "exe-generate-typesafe-ast",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "files": [
