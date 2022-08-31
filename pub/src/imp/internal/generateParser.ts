@@ -90,13 +90,6 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
             $w.snippet(`import * as api from "${$.pathToInterface}"`)
         })
 
-        // $w.line({}, ($w) => { 
-        //     $w.snippet(`function isNotUndefined<T>(x: undefined | T) { return x !== undefined }`)
-        // })
-        // $w.line({}, ($w) => { 
-        //     $w.snippet(`function isNotNull<T>(x: null | T): x is T { return x !== null }`)
-        // })
-
         $w.line({}, ($w) => { })
 
         $w.line({}, ($w) => {

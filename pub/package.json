@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "lib-fountain-pen": "^0.4.3",
-    "pareto-core-lib": "^0.7.0",
+    "pareto-core-lib": "^0.8.0",
     "pareto-core-raw": "^0.2.0",
     "pareto-core-state": "^0.6.0",
     "pareto-core-tostring": "^0.2.0"
@@ -30,5 +30,5 @@
     "dist"
   ],
   "interface-fingerprint": "f0730e1480690fbd8937f57018e6831bf876878b",
-  "content-fingerprint": "9b6d240c44317a168c27afc013d6bfd43f72c9df"
+  "content-fingerprint": "22dfe470710df52247714e2899d79f515cbf3aab"
 }

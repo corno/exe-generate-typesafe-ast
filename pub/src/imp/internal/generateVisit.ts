@@ -19,9 +19,6 @@ export const generateVisit: GenerateImplementationFile = ($, $i) => {
         })
 
         $w.line({}, ($w) => { })
-        $w.line({}, ($w) => { 
-            $w.snippet(`function isNotUndefined<T>(x: undefined | T): x is T { return x !== undefined }`)
-        })
     
         $w.line({}, ($w) => { })
         $w.line({}, ($w) => {
@@ -63,7 +60,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i) => {
                                 case "composite":
                                     pl.cc($.type[1], ($) => {
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`if (isNotUndefined($i.visitor["${pathForReporting}"])) { $i.visitor["${pathForReporting}"].begin($) }`)
+                                            $w.snippet(`if (pl.isNotUndefined($i.visitor["${pathForReporting}"])) { $i.visitor["${pathForReporting}"].begin($) }`)
                                         })
                                         $w.line({}, ($w) => {
                                             $w.snippet(`pl.cc($.content, ($) => {`)
@@ -78,14 +75,14 @@ export const generateVisit: GenerateImplementationFile = ($, $i) => {
                                             $w.snippet(`})`)
                                         })
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`if (isNotUndefined($i.visitor["${pathForReporting}"])) { $i.visitor["${pathForReporting}"].end($) }`)
+                                            $w.snippet(`if (pl.isNotUndefined($i.visitor["${pathForReporting}"])) { $i.visitor["${pathForReporting}"].end($) }`)
                                         })
                                     })
                                     break
                                 case "leaf":
                                     pl.cc($.type[1], ($) => {
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`if (isNotUndefined($i.visitor["${pathForReporting}"])) { $i.visitor["${pathForReporting}"]($) }`)
+                                            $w.snippet(`if (pl.isNotUndefined($i.visitor["${pathForReporting}"])) { $i.visitor["${pathForReporting}"]($) }`)
                                         })
                                     })
                                     break
