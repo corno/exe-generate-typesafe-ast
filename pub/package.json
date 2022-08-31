@@ -16,8 +16,8 @@
     "url": "git+https://github.com/corno/exe-generate-typesafe-ast.git"
   },
   "dependencies": {
-    "lib-fountain-pen": "^0.4.2",
-    "pareto-core-lib": "^0.6.0",
+    "lib-fountain-pen": "^0.4.3",
+    "pareto-core-lib": "^0.7.0",
     "pareto-core-raw": "^0.2.0",
     "pareto-core-state": "^0.6.0",
     "pareto-core-tostring": "^0.2.0"
@@ -30,5 +30,5 @@
     "dist"
   ],
   "interface-fingerprint": "f0730e1480690fbd8937f57018e6831bf876878b",
-  "content-fingerprint": "89db8dae8d0ae7436eceb4e790d7beed0461fbe0"
+  "content-fingerprint": "db200bb7cfc3a07caf130a41b49830374b39879b"
 }
