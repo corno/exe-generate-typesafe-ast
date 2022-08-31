@@ -90,6 +90,13 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
             $w.snippet(`import * as api from "${$.pathToInterface}"`)
         })
 
+        // $w.line({}, ($w) => { 
+        //     $w.snippet(`function isNotUndefined<T>(x: undefined | T) { return x !== undefined }`)
+        // })
+        // $w.line({}, ($w) => { 
+        //     $w.snippet(`function isNotNull<T>(x: null | T): x is T { return x !== null }`)
+        // })
+
         $w.line({}, ($w) => { })
 
         $w.line({}, ($w) => {
@@ -122,6 +129,9 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                         })
                         $w.line({}, ($w) => {
                             $w.snippet(`lookAhead: <T>(stack: pm.Stack<T>, exists: ($: T) => void, notExists: () => void) => void,`)
+                        })
+                        $w.line({}, ($w) => {
+                            $w.snippet(`stringsNotEqual: (a: string, b: string) => boolean,`)
                         })
                     })
                     $w.snippet(`},`)
@@ -705,7 +715,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                             $w.snippet(`(currentChild) => {`)
                                             $w.indent({}, ($w) => {
                                                 $w.line({}, ($w) => {
-                                                    $w.snippet(`if (currentChild.kindName !== "${$.name}") {`)
+                                                    $w.snippet(`if ($d.stringsNotEqual(currentChild.kindName, "${$.name}")) {`)
                                                     $w.indent({}, ($w) => {
                                                         $w.line({}, ($w) => {
                                                             $w.snippet(`$x.reportUnexpectedToken({`)
@@ -822,7 +832,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                 })
 
                 $w.line({}, ($w) => {
-                    $w.snippet(`if ($.kindName !== "${grammar.root.name}") {`)
+                    $w.snippet(`if ($d.stringsNotEqual($.kindName, "${grammar.root.name}")) {`)
                     $w.indent({}, ($w) => {
                         $w.line({}, ($w) => {
                             $w.snippet(`$x.reportUnexpectedToken({`)
