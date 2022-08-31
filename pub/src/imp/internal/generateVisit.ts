@@ -224,13 +224,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i) => {
                             case "optional":
                                 pl.cc($.cardinality[1], ($) => {
                                     $w.line({}, ($w) => {
-                                        $w.snippet(`if (isNull($)) {`)
-                                        $w.indent({}, ($w) => {
-                                            $w.line({}, ($w) => {
-                                                $w.snippet(`//FIXME??`)
-                                            })
-                                        })
-                                        $w.snippet(`} else {`)
+                                        $w.snippet(`if (pl.isNotNull($)) {`)
                                         $w.indent({}, ($w) => {
                                             generateValueType(
                                                 symbol.type,
@@ -238,6 +232,12 @@ export const generateVisit: GenerateImplementationFile = ($, $i) => {
                                                 `${pathForCode}`,
                                                 `${pathForReporting}`,
                                             )
+                                        })
+                                        $w.snippet(`} else {`)
+                                        $w.indent({}, ($w) => {
+                                            $w.line({}, ($w) => {
+                                                $w.snippet(`//FIXME??`)
+                                            })
                                         })
                                         $w.snippet(`}`)
                                     })

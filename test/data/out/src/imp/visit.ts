@@ -504,10 +504,10 @@ export function visit<Annotation>(
                                 })
                             })
                             pl.cc($["returnType"], ($) => {
-                                if (isNull($)) {
-                                    //FIXME??
-                                } else {
+                                if (pl.isNotNull($)) {
                                     X_type($)
+                                } else {
+                                    //FIXME??
                                 }
                             })
                             pl.cc($["equalsGreaterThan"], ($) => {
@@ -573,10 +573,10 @@ export function visit<Annotation>(
             })
         })
         pl.cc($["returnType"], ($) => {
-            if (isNull($)) {
-                //FIXME??
-            } else {
+            if (pl.isNotNull($)) {
                 X_type($)
+            } else {
+                //FIXME??
             }
         })
     }
@@ -666,21 +666,21 @@ export function visit<Annotation>(
                     X_identifier($)
                 })
                 pl.cc($["questionToken"], ($) => {
-                    if (isNull($)) {
-                        //FIXME??
-                    } else {
+                    if (pl.isNotNull($)) {
                         ((
                             $: api.TNGparameter$_questionToken$<Annotation>,
                         ) => {
                             if (pl.isNotUndefined($i.visitor["$parameter/*Parameter/.questionToken/*QuestionToken"])) { $i.visitor["$parameter/*Parameter/.questionToken/*QuestionToken"]($) }
                         })($)
+                    } else {
+                        //FIXME??
                     }
                 })
                 pl.cc($["type"], ($) => {
-                    if (isNull($)) {
-                        //FIXME??
-                    } else {
+                    if (pl.isNotNull($)) {
                         X_type($)
+                    } else {
+                        //FIXME??
                     }
                 })
             })
@@ -881,10 +881,10 @@ export function visit<Annotation>(
                     ) => {
                         if (pl.isNotUndefined($i.visitor["$statement/?return/*ReturnStatement"])) { $i.visitor["$statement/?return/*ReturnStatement"].begin($) }
                         pl.cc($.content, ($) => {
-                            if (isNull($)) {
-                                //FIXME??
-                            } else {
+                            if (pl.isNotNull($)) {
                                 X_expression($)
+                            } else {
+                                //FIXME??
                             }
                         })
                         if (pl.isNotUndefined($i.visitor["$statement/?return/*ReturnStatement"])) { $i.visitor["$statement/?return/*ReturnStatement"].end($) }
@@ -973,10 +973,10 @@ export function visit<Annotation>(
                                                                             X_identifier($)
                                                                         })
                                                                         pl.cc($["as"], ($) => {
-                                                                            if (isNull($)) {
-                                                                                //FIXME??
-                                                                            } else {
+                                                                            if (pl.isNotNull($)) {
                                                                                 X_identifier($)
+                                                                            } else {
+                                                                                //FIXME??
                                                                             }
                                                                         })
                                                                     })
@@ -1032,10 +1032,10 @@ export function visit<Annotation>(
                                 X_statement($)
                             })
                             pl.cc($["elseStatement"], ($) => {
-                                if (isNull($)) {
-                                    //FIXME??
-                                } else {
+                                if (pl.isNotNull($)) {
                                     X_statement($)
+                                } else {
+                                    //FIXME??
                                 }
                             })
                         })
@@ -1063,10 +1063,10 @@ export function visit<Annotation>(
                                 X_functionDefinition($)
                             })
                             pl.cc($["block"], ($) => {
-                                if (isNull($)) {
-                                    //FIXME??
-                                } else {
+                                if (pl.isNotNull($)) {
                                     X_block($)
+                                } else {
+                                    //FIXME??
                                 }
                             })
                         })
@@ -1135,10 +1135,10 @@ export function visit<Annotation>(
                     ) => {
                         if (pl.isNotUndefined($i.visitor["$statement/?break/*BreakStatement"])) { $i.visitor["$statement/?break/*BreakStatement"].begin($) }
                         pl.cc($.content, ($) => {
-                            if (isNull($)) {
-                                //FIXME??
-                            } else {
+                            if (pl.isNotNull($)) {
                                 X_identifier($)
+                            } else {
+                                //FIXME??
                             }
                         })
                         if (pl.isNotUndefined($i.visitor["$statement/?break/*BreakStatement"])) { $i.visitor["$statement/?break/*BreakStatement"].end($) }
@@ -1387,10 +1387,10 @@ export function visit<Annotation>(
                                 })
                             })
                             pl.cc($["returnType"], ($) => {
-                                if (isNull($)) {
-                                    //FIXME??
-                                } else {
+                                if (pl.isNotNull($)) {
                                     X_type($)
+                                } else {
+                                    //FIXME??
                                 }
                             })
                         })
@@ -1469,21 +1469,21 @@ export function visit<Annotation>(
                                 X_identifierOrStringLiteral($)
                             })
                             pl.cc($["quesionToken"], ($) => {
-                                if (isNull($)) {
-                                    //FIXME??
-                                } else {
+                                if (pl.isNotNull($)) {
                                     ((
                                         $: api.TNGtypeSignature_property$_quesionToken$<Annotation>,
                                     ) => {
                                         if (pl.isNotUndefined($i.visitor["$typeSignature/?property/*PropertySignature/.quesionToken/*QuestionToken"])) { $i.visitor["$typeSignature/?property/*PropertySignature/.quesionToken/*QuestionToken"]($) }
                                     })($)
+                                } else {
+                                    //FIXME??
                                 }
                             })
                             pl.cc($["type"], ($) => {
-                                if (isNull($)) {
-                                    //FIXME??
-                                } else {
+                                if (pl.isNotNull($)) {
                                     X_type($)
+                                } else {
+                                    //FIXME??
                                 }
                             })
                         })
@@ -1527,10 +1527,10 @@ export function visit<Annotation>(
                                 X_parameter($)
                             })
                             pl.cc($["type"], ($) => {
-                                if (isNull($)) {
-                                    //FIXME??
-                                } else {
+                                if (pl.isNotNull($)) {
                                     X_type($)
+                                } else {
+                                    //FIXME??
                                 }
                             })
                         })
@@ -1575,17 +1575,17 @@ export function visit<Annotation>(
                     X_identifier($)
                 })
                 pl.cc($["type"], ($) => {
-                    if (isNull($)) {
-                        //FIXME??
-                    } else {
+                    if (pl.isNotNull($)) {
                         X_type($)
+                    } else {
+                        //FIXME??
                     }
                 })
                 pl.cc($["expression"], ($) => {
-                    if (isNull($)) {
-                        //FIXME??
-                    } else {
+                    if (pl.isNotNull($)) {
                         X_expression($)
+                    } else {
+                        //FIXME??
                     }
                 })
             })
