@@ -98,23 +98,23 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
         $w.line({}, ($w) => { })
 
         $w.line({}, ($w) => {
-            $w.snippet(`export function parse<Annotation>(`)
+            $w.snippet(`export function parse(`)
             $w.indent({}, ($w) => {
                 $w.line({}, ($w) => {
-                    $w.snippet(`$: uast.TUntypedNode<Annotation>,`)
+                    $w.snippet(`$: uast.TUntypedNode,`)
                 })
 
                 $w.line({}, ($w) => {
                     $w.snippet(`$i: {`)
                     $w.indent({}, ($w) => {
                         $w.line({}, ($w) => {
-                            $w.snippet(`callback: ($: api.TRoot<Annotation>) => void,`)
+                            $w.snippet(`callback: ($: api.TRoot) => void,`)
                         })
                         $w.line({}, ($w) => {
-                            $w.snippet(`reportUnexpectedToken: ($: { path: string, token: uast.TUntypedNode<Annotation>, expected: null | string }) => void,`)
+                            $w.snippet(`reportUnexpectedToken: ($: { path: string, token: uast.TUntypedNode, expected: null | string }) => void,`)
                         })
                         $w.line({}, ($w) => {
-                            $w.snippet(`reportMissingToken: ($: { parentAnnotation: Annotation, path: string, kindNameOptions: string, }) => void,`)
+                            $w.snippet(`reportMissingToken: ($: { parentDetails: uast.TDetails, path: string, kindNameOptions: string, }) => void,`)
                         })
                     })
                     $w.snippet(`},`)
@@ -153,10 +153,10 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                         $w.snippet(`((`)
                         $w.indent({}, ($w) => {
                             $w.line({}, ($w) => {
-                                $w.snippet(`$: uast.TUntypedNode<Annotation>,`)
+                                $w.snippet(`$: uast.TUntypedNode,`)
                             })
                             $w.line({}, ($w) => {
-                                $w.snippet(`callback: ($: api.TN${path}<Annotation>) => void,`)
+                                $w.snippet(`callback: ($: api.TN${path}) => void,`)
                             })
                         })
                         $w.snippet(`): void => {`)
@@ -171,10 +171,10 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                 case "composite":
                                     pl.cc($.type[1], ($) => {
                                         // $w.line({}, ($w) => {
-                                        //     $w.snippet(`let currentChild: uast.TUntypedNode<Annotation> | undefined`)
+                                        //     $w.snippet(`let currentChild: uast.TUntypedNode | undefined`)
                                         // })
                                         // $w.line({}, ($w) => {
-                                        //     $w.snippet(`let nextChild: uast.TUntypedNode<Annotation> | undefined`)
+                                        //     $w.snippet(`let nextChild: uast.TUntypedNode | undefined`)
                                         // })
                                         generateValue(
                                             $,
@@ -185,7 +185,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                     $w.snippet(`callback({`)
                                                     $w.indent({}, ($w) => {
                                                         $w.line({}, ($w) => {
-                                                            $w.snippet(`annotation: node.implementationDetails,`)
+                                                            $w.snippet(`annotation: node.details,`)
                                                         })
                                                         $w.line({}, ($w) => {
                                                             $w.snippet(`content: $,`)
@@ -205,7 +205,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                 $w.snippet(`{`)
                                                 $w.indent({}, ($w) => {
                                                     $w.line({}, ($w) => {
-                                                        $w.snippet(`annotation: $.implementationDetails,`)
+                                                        $w.snippet(`annotation: $.details,`)
                                                     })
                                                     $w.line({}, ($w) => {
                                                         $w.snippet(`value: $.value`)
@@ -213,7 +213,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                 })
                                                 $w.snippet(`}`)
                                             } else {
-                                                $w.snippet(`$.implementationDetails`)
+                                                $w.snippet(`$.details`)
                                             }
                                             $w.snippet(`)`)
                                         })
@@ -276,7 +276,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                             case "array":
                                 pl.cc($.cardinality[1], ($) => {
                                     $w.line({}, ($w) => {
-                                        $w.snippet(`const elements = pm.createArrayBuilder<api.TVT${path}<Annotation>>()`)
+                                        $w.snippet(`const elements = pm.createArrayBuilder<api.TVT${path}>()`)
                                     })
                                     $w.line({}, ($w) => {
                                         $w.snippet(`const processElement = () => {`)
@@ -374,7 +374,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                             case "optional":
                                 pl.cc($.cardinality[1], ($) => {
                                     $w.line({}, ($w) => {
-                                        $w.snippet(`let optional: null | api.TVT${path}<Annotation> = null`)
+                                        $w.snippet(`let optional: null | api.TVT${path} = null`)
                                     })
                                     $w.line({}, ($w) => {
                                         $w.snippet(`const setOptional = () => {`)
@@ -508,7 +508,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                     )
                                 })
                                 $w.line({}, ($w) => {
-                                    $w.snippet(`const choiceEnd_${path} = ($: api.TVT${path}<Annotation>) => {`)
+                                    $w.snippet(`const choiceEnd_${path} = ($: api.TVT${path}) => {`)
                                     $w.indent({}, ($w) => {
                                         endCallback(
                                             $w,
@@ -617,7 +617,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                     $w.snippet(`$x.reportMissingToken({`)
                                                     $w.indent({}, ($w) => {
                                                         $w.line({}, ($w) => {
-                                                            $w.snippet(`parentAnnotation: node.implementationDetails,`)
+                                                            $w.snippet(`parentDetails: node.details,`)
                                                         })
                                                         $w.line({}, ($w) => {
                                                             $w.snippet(`path: "${path}",`)
@@ -652,7 +652,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                         case "sequence":
                             pl.cc($[1], ($) => {
                                 $w.line({}, ($w) => {
-                                    $w.snippet(`const sequenceEnd = ($: api.TVT${path}<Annotation>) => {`)
+                                    $w.snippet(`const sequenceEnd = ($: api.TVT${path}) => {`)
                                     $w.indent({}, ($w) => {
                                         endCallback(
                                             $w,
@@ -766,7 +766,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                     $w.snippet(`$x.reportMissingToken({`)
                                                     $w.indent({}, ($w) => {
                                                         $w.line({}, ($w) => {
-                                                            $w.snippet(`parentAnnotation: node.implementationDetails,`)
+                                                            $w.snippet(`parentDetails: node.details,`)
                                                         })
                                                         $w.line({}, ($w) => {
                                                             $w.snippet(`path: "${path}",`)
@@ -796,22 +796,22 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                         $w.snippet(`function G${key}(`)
                         $w.indent({}, ($w) => {
                             $w.line({}, ($w) => {
-                                $w.snippet(`node: uast.TUntypedNode<Annotation>,`)
+                                $w.snippet(`node: uast.TUntypedNode,`)
                             })
                             $w.line({}, ($w) => {
-                                $w.snippet(`children: pm.Stack<uast.TUntypedNode<Annotation>>,`)
+                                $w.snippet(`children: pm.Stack<uast.TUntypedNode>,`)
                             })
                             $w.line({}, ($w) => {
-                                $w.snippet(`callback: ($: api.TG${key}<Annotation>) => void,`)
+                                $w.snippet(`callback: ($: api.TG${key}) => void,`)
                             })
                         })
                         $w.snippet(`): void {`)
                         $w.indent({}, ($w) => {
                             // $w.line({}, ($w) => {
-                            //     $w.snippet(`let currentChild: uast.TUntypedNode<Annotation> | undefined`)
+                            //     $w.snippet(`let currentChild: uast.TUntypedNode | undefined`)
                             // })
                             // $w.line({}, ($w) => {
-                            //     $w.snippet(`let nextChild: uast.TUntypedNode<Annotation> | undefined`)
+                            //     $w.snippet(`let nextChild: uast.TUntypedNode | undefined`)
                             // })
                             generateValueType(
                                 $,

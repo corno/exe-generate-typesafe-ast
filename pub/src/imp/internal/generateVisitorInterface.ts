@@ -18,7 +18,7 @@ export const generateVisitorInterface: GenerateInterfaceFile = ($, $i) => {
         })
         $w.line({}, ($w) => { })
         $w.line({}, ($w) => {
-            $w.snippet(`export type IVisitor<Annotation> = {`)
+            $w.snippet(`export type IVisitor = {`)
             $w.indent({}, ($w) => {
 
                 function generateNode(
@@ -54,10 +54,10 @@ export const generateVisitorInterface: GenerateInterfaceFile = ($, $i) => {
                                     $w.snippet(`{`)
                                     $w.indent({}, ($w) => {
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`readonly "begin": ($: types.TN${pathForCode}<Annotation>) => void,`)
+                                            $w.snippet(`readonly "begin": ($: types.TN${pathForCode}) => void,`)
                                         })
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`readonly "end": ($: types.TN${pathForCode}<Annotation>) => void,`)
+                                            $w.snippet(`readonly "end": ($: types.TN${pathForCode}) => void,`)
                                         })
                                     })
                                     $w.snippet(`}`)
@@ -65,7 +65,7 @@ export const generateVisitorInterface: GenerateInterfaceFile = ($, $i) => {
                                 break
                             case "leaf":
                                 pl.cc($.type[1], ($) => {
-                                    $w.snippet(`($: types.TN${pathForCode}<Annotation>) => void`)
+                                    $w.snippet(`($: types.TN${pathForCode}) => void`)
                                 })
                                 break
                             default:

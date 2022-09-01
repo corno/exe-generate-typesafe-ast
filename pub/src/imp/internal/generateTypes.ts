@@ -36,19 +36,19 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
             $w.snippet(``)
         })
         $w.line({}, ($w) => {
-            $w.snippet(`export type TN${path}<Annotation> = `)
+            $w.snippet(`export type TN${path} = `)
             switch ($.type[0]) {
                 case "composite":
                     pl.cc($.type[1], ($) => {
-                        $w.snippet(`TAnnotatedType<Annotation, TV${path}<Annotation>>`)
+                        $w.snippet(`TAnnotatedType<Details, TV${path}>`)
                     })
                     break
                 case "leaf":
                     pl.cc($.type[1], ($) => {
                         if ($.hasTextContent) {
-                            $w.snippet(`TAnnotatedString<Annotation>`)
+                            $w.snippet(`TAnnotatedString`)
                         } else {
-                            $w.snippet(`Annotation`)
+                            $w.snippet(`Details`)
 
                         }
                     })
@@ -105,7 +105,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                 pl.au($[0])
         }
         $w.line({}, ($w) => {
-            $w.snippet(`export type TVT${path}<Annotation> = `)
+            $w.snippet(`export type TVT${path} = `)
 
             switch ($[0]) {
                 case "choice":
@@ -114,7 +114,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                         $w.indent({}, ($w) => {
                             $.options.forEach(() => false, (option, key) => {
                                 $w.line({}, ($w) => {
-                                    $w.snippet(`| [ "${key}", TV${path}_${key}<Annotation>]`)
+                                    $w.snippet(`| [ "${key}", TV${path}_${key}]`)
                                 })
                             })
                         })
@@ -122,7 +122,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                     break
                 case "reference":
                     pl.cc($[1], ($) => {
-                        $w.snippet(`TG${$.name}<Annotation>`)
+                        $w.snippet(`TG${$.name}`)
                     })
                     break
                 case "sequence":
@@ -131,7 +131,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                         $w.indent({}, ($w) => {
                             $.elements.forEach(($) => {
                                 $w.line({}, ($w) => {
-                                    $w.snippet(`readonly "${$.name}":  TV${path}_${$.name}<Annotation>`)
+                                    $w.snippet(`readonly "${$.name}":  TV${path}_${$.name}`)
                                 })
                             })
                         })
@@ -140,7 +140,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                     break
                 case "node":
                     pl.cc($[1], ($) => {
-                        $w.snippet(`TN${path}$<Annotation>`)
+                        $w.snippet(`TN${path}$`)
                     })
                     break
                 default:
@@ -159,29 +159,29 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
             path,
         )
         $w.line({}, ($w) => {
-            $w.snippet(`export type TV${path}<Annotation> = `)
+            $w.snippet(`export type TV${path} = `)
             if (pl.isNotUndefined($.cardinality)) {
                 switch ($.cardinality[0]) {
                     case "array":
                         pl.cc($.cardinality[1], ($) => {
-                            $w.snippet(`pt.Array<TVT${path}<Annotation>>`)
+                            $w.snippet(`pt.Array<TVT${path}>`)
                         })
                         break
                     case "one":
                         pl.cc($.cardinality[1], ($) => {
-                            $w.snippet(`TVT${path}<Annotation>`)
+                            $w.snippet(`TVT${path}`)
                         })
                         break
                     case "optional":
                         pl.cc($.cardinality[1], ($) => {
-                            $w.snippet(`null | TVT${path}<Annotation>`)
+                            $w.snippet(`null | TVT${path}`)
                         })
                         break
                     default:
                         pl.au($.cardinality[0])
                 }
             } else {
-                $w.snippet(`TVT${path}<Annotation>`)
+                $w.snippet(`TVT${path}`)
             }
         })
     }
@@ -194,10 +194,10 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
         })
 
         $w.line({}, ($w) => {
-            $w.snippet(`export type TAnnotatedString<Annotation> = { readonly "annotation": Annotation; readonly "value": string }`)
+            $w.snippet(`export type TAnnotatedString = { readonly "annotation": Details; readonly "value": string }`)
         })
         $w.line({}, ($w) => {
-            $w.snippet(`export type TAnnotatedType<Annotation, Type> = { readonly "annotation": Annotation; readonly "content": Type }`)
+            $w.snippet(`export type TAnnotatedType<Details, Type> = { readonly "annotation": Details; readonly "content": Type }`)
         })
 
         grammar.globalValueTypes.forEach(() => false, ($, key) => {
@@ -207,7 +207,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                 `G${key}`,
             )
             $w.line({}, ($w) => {
-                $w.snippet(`export type TG${key}<Annotation> =  TVTG${key}<Annotation>`)
+                $w.snippet(`export type TG${key} =  TVTG${key}`)
             })
         })
         generateTypesForNode(
@@ -217,7 +217,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
         )
 
         $w.line({}, ($w) => {
-            $w.snippet(`export type TRoot<Annotation> = TNroot<Annotation>`)
+            $w.snippet(`export type TRoot = TNroot`)
         })
 
     })

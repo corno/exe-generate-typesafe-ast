@@ -22,16 +22,16 @@ export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
     
         $w.line({}, ($w) => { })
         $w.line({}, ($w) => {
-            $w.snippet(`export function visit<Annotation>(`)
+            $w.snippet(`export function visit(`)
             $w.indent({}, ($w) => {
                 $w.line({}, ($w) => {
-                    $w.snippet(`$: api.TNroot<Annotation>,`)
+                    $w.snippet(`$: api.TNroot,`)
                 })
                 $w.line({}, ($w) => {
                     $w.snippet(`$i: {`)
                     $w.indent({}, ($w) => {
                         $w.line({}, ($w) => {
-                            $w.snippet(`visitor: api.IVisitor<Annotation>,`)
+                            $w.snippet(`visitor: api.IVisitor,`)
                         })
                     })
                     $w.snippet(`}`)
@@ -51,7 +51,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
                         $w.snippet(`((`)
                         $w.indent({}, ($w) => {
                             $w.line({}, ($w) => {
-                                $w.snippet(`$: api.TN${pathForCode}<Annotation>,`)
+                                $w.snippet(`$: api.TN${pathForCode},`)
                             })
                         })
                         $w.snippet(`) => {`)
@@ -255,7 +255,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
                         $w.snippet(`function X_${key}(`)
                         $w.indent({}, ($w) => {
                             $w.line({}, ($w) => {
-                                $w.snippet(`$: api.TG${key}<Annotation>,`)
+                                $w.snippet(`$: api.TG${key},`)
                             })
                         })
                         $w.snippet(`) {`)

@@ -1,8 +1,8 @@
 import * as pl from "pareto-core-lib"
-import * as pr from "pareto-core-raw"
+
+import * as wapi from "lib-fountain-pen"
 
 import * as g from "../../interface/types/types"
-import * as wapi from "lib-fountain-pen"
 import { GenerateImplementationFile } from "../GenerateFile"
 
 export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) => {
@@ -17,7 +17,7 @@ export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) 
         })
         $w.line({}, ($w) => { })
         $w.line({}, ($w) => {
-            $w.snippet(`export function createDefaultVisistor<ImplementationDetails>(`)
+            $w.snippet(`export function createDefaultVisistor(`)
             $w.indent({}, ($w) => {
                 $w.line({}, ($w) => {
                     $w.snippet(`$i: {`)
@@ -29,7 +29,7 @@ export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) 
                     $w.snippet(`}`)
                 })
             })
-            $w.snippet(`): api.IVisitor<ImplementationDetails> {`)
+            $w.snippet(`): api.IVisitor {`)
             $w.indent({}, ($w) => {
                 $w.line({}, ($w) => {
                     $w.snippet(`return {`)
