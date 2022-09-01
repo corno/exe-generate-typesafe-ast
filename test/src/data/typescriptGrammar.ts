@@ -1,7 +1,11 @@
+
+import * as pw from "pareto-core-raw"
+
 import * as gr from "../../../pub"
 
+
 export const _typescriptGrammar: gr.TGrammar = {
-    'globalValueTypes': {
+    'globalValueTypes': pw.wrapRawDictionary<gr.TValueType>({
         'block': ["node", {
             'name': `Block`,
             'type': ["composite", {
@@ -10,7 +14,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             }],
         }],
         'expression': ["choice", {
-            'options': {
+            'options': pw.wrapRawDictionary<gr.TValue>({
                 'arrayLiteral': {
                     'type': ["node", {
                         'name': `ArrayLiteralExpression`,
@@ -55,7 +59,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                         'name': `implementation`,
                                         'value': {
                                             'type': ["choice", {
-                                                'options': {
+                                                'options': pw.wrapRawDictionary<gr.TValue>({
                                                     "block": {
                                                         'type': ["reference", {
                                                             'name': `block`,
@@ -64,7 +68,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                     "expression": {
                                                         'type': ["reference", { 'name': `expression` }],
                                                     },
-                                                }
+                                                })
                                             }]
                                         }
                                     },
@@ -89,7 +93,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                         'name': `operator`,
                                         'value': {
                                             'type': ["choice", {
-                                                'options': {
+                                                'options': pw.wrapRawDictionary<gr.TValue>({
                                                     'ampersandAmpersand': {
                                                         'type': ["node", {
                                                             'name': `AmpersandAmpersandToken`,
@@ -156,7 +160,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                             'type': ["leaf", { 'hasTextContent': false }]
                                                         }]
                                                     }
-                                                }
+                                                })
                                             }],
                                         }
                                     },
@@ -341,7 +345,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                 'name': `name`,
                                                 'value': {
                                                     'type': ["choice", {
-                                                        'options': {
+                                                        'options': pw.wrapRawDictionary<gr.TValue>({
                                                             'identifier': {
                                                                 'type': ["reference", {
                                                                     'name': `identifier`
@@ -357,7 +361,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                                     'name': `stringLiteral`
                                                                 }]
                                                             },
-                                                        }
+                                                        })
                                                     }]
                                                 }
                                             },
@@ -460,7 +464,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                                 'name': `x`,
                                                                 'value': {
                                                                     'type': ["choice", {
-                                                                        'options': {
+                                                                        'options': pw.wrapRawDictionary<gr.TValue>({
                                                                             'middle': {
                                                                                 'type': ["node", {
                                                                                     'name': `TemplateMiddle`,
@@ -473,7 +477,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                                                     'type': ["leaf", { 'hasTextContent': true }]
                                                                                 }],
                                                                             }
-                                                                        }
+                                                                        })
                                                                     }],
                                                                 }
                                                             },
@@ -494,7 +498,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'type': ["leaf", { 'hasTextContent': false }]
                     }]
                 },
-            }
+            })
         }],
         'functionDefinition': ["sequence", {
             'elements': ([
@@ -530,7 +534,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             'type': ["leaf", { 'hasTextContent': true }]
         }],
         'identifierOrStringLiteral': ["choice", {
-            'options': {
+            'options': pw.wrapRawDictionary<gr.TValue>({
                 'identifier': {
                     'type': ["reference", {
                         'name': `identifier`
@@ -541,11 +545,11 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `stringLiteral`
                     }]
                 },
-            }
+            })
         }],
         'modifier': ["choice", {
             //AbstractKeyword | AsyncKeyword | ConstKeyword | DeclareKeyword | DefaultKeyword | ExportKeyword | PrivateKeyword | ProtectedKeyword | PublicKeyword | OverrideKeyword | ReadonlyKeyword | StaticKeyword;
-            'options': {
+            'options': pw.wrapRawDictionary<gr.TValue>({
                 'declare': {
                     'type': ["node", {
                         'name': `DeclareKeyword`,
@@ -564,7 +568,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'type': ["leaf", { 'hasTextContent': false }],
                     }]
                 },
-            }
+            })
         }],
         'numericLiteral': ["node", {
             'name': `NumericLiteral`,
@@ -605,7 +609,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             }]
         }],
         'statement': ["choice", {
-            'options': {
+            'options': pw.wrapRawDictionary<gr.TValue>({
                 'block': {
                     'type': ["reference", {
                         'name': `block`
@@ -769,7 +773,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                 'name': `ImportClause`,
                                                 'type': ["composite", {
                                                     'type': ["choice", {
-                                                        'options': {
+                                                        'options': pw.wrapRawDictionary<gr.TValue>({
                                                             'namespace': {
                                                                 'type': ["node", {
                                                                     'name': `NamespaceImport`,
@@ -814,7 +818,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                                     }]
                                                                 }]
                                                             }
-                                                        }
+                                                        })
                                                     }]
                                                 }]
                                             }]
@@ -929,7 +933,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                 'type': ["composite", {
                                                     'cardinality': ["array", {}],
                                                     'type': ["choice", {
-                                                        'options': {
+                                                        'options': pw.wrapRawDictionary<gr.TValue>({
                                                             "case": {
                                                                 'type': ["node", {
                                                                     'name': `CaseClause`,
@@ -963,7 +967,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                                     }]
                                                                 }]
                                                             },
-                                                        }
+                                                        })
                                                     }]
                                                 }]
                                             }]
@@ -1123,14 +1127,14 @@ export const _typescriptGrammar: gr.TGrammar = {
                         }]
                     }]
                 },
-            }
+            })
         }],
         'stringLiteral': ["node", {
             'name': `StringLiteral`,
             'type': ["leaf", { 'hasTextContent': true }]
         }],
         'type': ["choice", {
-            'options': {
+            'options': pw.wrapRawDictionary<gr.TValue>({
                 'any': {
                     'type': ["node", {
                         'name': `AnyKeyword`,
@@ -1183,7 +1187,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `LiteralType`,
                         'type': ["composite", {
                             'type': ["choice", {
-                                'options': {
+                                'options': pw.wrapRawDictionary<gr.TValue>({
                                     'null': {
                                         'type': ["node", {
                                             'name': `NullKeyword`,
@@ -1195,7 +1199,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                             'name': `stringLiteral`
                                         }],
                                     },
-                                }
+                                })
                             }]
                         }]
                     }]
@@ -1263,7 +1267,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                         'value': {
                                             "cardinality": ["one", {}],
                                             'type': ["choice", {
-                                                'options': {
+                                                'options': pw.wrapRawDictionary<gr.TValue>({
                                                     "identifier": {
                                                         'type': ["reference", {
                                                             'name': `identifier`
@@ -1296,7 +1300,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                             }]
                                                         }]
                                                     }
-                                                }
+                                                })
                                             }]
                                         }
                                     },
@@ -1333,7 +1337,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'type': ["leaf", { 'hasTextContent': false }]
                     }]
                 },
-            }
+            })
         }],
         'typeParameter': ["node", {
             'name': `TypeParameter`,
@@ -1344,7 +1348,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             }]
         }],
         'typeSignature': ["choice", {
-            'options': {
+            'options': pw.wrapRawDictionary<gr.TValue>({
                 'construct': {
                     'type': ["node", {
                         'name': `ConstructSignature`,
@@ -1474,7 +1478,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         }]
                     }]
                 },
-            }
+            })
         }],
         'variableDeclaration': ["node", {
             'name': `VariableDeclaration`,
@@ -1516,7 +1520,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                 }]
             }],
         }]
-    },
+    }),
     'root': {
         'name': `SourceFile`,
         'type': ["composite", {

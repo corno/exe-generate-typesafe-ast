@@ -6,7 +6,9 @@ import * as pe from "pareto-core-exe"
 
 
 import * as fs from "api-pareto-filesystem"
+
 import * as pf from "res-pareto-filesystem"
+import * as uglyStuff from "res-pareto-ugly-stuff"
 
 import * as tsg from "../data/typescriptGrammar"
 import * as gta from "../../../pub/dist"
@@ -41,7 +43,7 @@ function genImp(
             }
         },
         {
-
+            orderStrings: (a, b) => a > b,
             createWriteStream: (
                 $,
                 $c,
@@ -91,7 +93,7 @@ function genInf(
             }
         },
         {
-
+            orderStrings: (a, b) => a > b,
             createWriteStream: (
                 $,
                 $c,

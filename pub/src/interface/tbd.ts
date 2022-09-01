@@ -25,6 +25,7 @@ export type GenerateImplementation = (
             },
             callback: ($: fp.IStreamConsumer) => void
         ) => void
+        orderStrings: (a: string, b: string) => boolean
     }
 ) => void
 
@@ -46,5 +47,6 @@ export type GenerateInterface = (
             },
             callback: ($: fp.IStreamConsumer) => void
         ) => void
+        orderStrings: (a: string, b: string) => boolean
     }
 ) => void

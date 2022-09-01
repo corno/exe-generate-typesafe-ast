@@ -8,7 +8,10 @@ export type GenerateInterfaceFile = (
     },
     $i: {
         block: fp.IBlock,
-    }
+    },
+    $d: {
+        orderStrings: (a: string, b: string) => boolean
+    },
 )  => void
 
 
@@ -19,5 +22,8 @@ export type GenerateImplementationFile = (
     },
     $i: {
         block: fp.IBlock,
-    }
+    },
+    $d: {
+        orderStrings: (a: string, b: string) => boolean
+    },
 )  => void

@@ -28,6 +28,9 @@ export const generateInterface: api.GenerateInterface = ($, $d) => {
                             {
                                 block: $c,
                             },
+                            {
+                                orderStrings: $d.orderStrings,
+                            }
                         )
 
                     },

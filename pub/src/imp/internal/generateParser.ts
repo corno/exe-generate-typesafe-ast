@@ -2,7 +2,8 @@
 import * as pl from "pareto-core-lib"
 import * as p2 from "pareto-core-tostring"
 import * as pm from "pareto-core-state"
-import * as pr from "pareto-core-raw"
+import * as pw from "pareto-core-raw"
+import * as pr from "pareto-core-resolve"
 
 import * as wapi from "lib-fountain-pen"
 
@@ -20,7 +21,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
         switch ($[0]) {
             case "choice":
                 pl.cc($[1], ($) => {
-                    pr.wrapRawDictionary($.options).forEach((a, b) => false, ($, key) => {
+                    $.options.forEach((a, b) => false, ($, key) => {
                         findNextPossibleTokensInSymbolType(
                             $.type,
                             onToken,
@@ -31,20 +32,25 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                 break
             case "reference":
                 pl.cc($[1], ($) => {
-                    const x = grammar.globalValueTypes[$.name]
-                    if (x === undefined) {
-                        pl.panic(`no such value type: '${$.name}'`)
-                    }
-                    findNextPossibleTokensInSymbolType(
-                        x,
-                        onToken,
-                        onEnd,
+                    pr.getEntry(
+                        grammar.globalValueTypes,
+                        $.name,
+                        (x) => {
+                            findNextPossibleTokensInSymbolType(
+                                x,
+                                onToken,
+                                onEnd,
+                            )
+                        },
+                        () => {
+                            pl.panic(`no such value type: '${$.name}'`)
+                        }
                     )
                 })
                 break
             case "sequence":
                 pl.cc($[1], ($) => {
-                    const elementsStack = pm.createStack(pr.wrapRawArray($.elements))
+                    const elementsStack = pm.createStack(pw.wrapRawArray($.elements))
                     function doNextElement() {
                         elementsStack.pop(
                             ($) => {
@@ -266,14 +272,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                     ) => void,
                 ) {
                     const symbol = $
-                    if ($.cardinality === undefined) {
-                        generateValueType(
-                            symbol.type,
-                            path,
-                            $w,
-                            endCallback,
-                        )
-                    } else {
+                    if (pl.isNotUndefined($.cardinality)) {
                         switch ($.cardinality[0]) {
                             case "array":
                                 pl.cc($.cardinality[1], ($) => {
@@ -471,7 +470,13 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                             default:
                                 pl.au($.cardinality[0])
                         }
-
+                    } else {
+                        generateValueType(
+                            symbol.type,
+                            path,
+                            $w,
+                            endCallback,
+                        )
                     }
                 }
                 function generateValueType(
@@ -491,7 +496,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                         pl.panic("tokens are not unique")
                                     }
                                 )
-                                pr.wrapRawDictionary($.options).forEach((a, b) => false, ($, key) => {
+                                $.options.forEach((a, b) => false, ($, key) => {
                                     const option = $
                                     findNextPossibleTokensInSymbolType(
                                         option.type,
@@ -519,7 +524,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                         $w.line({}, ($w) => {
                                             $w.snippet(`(nextChild) => {`)
                                             $w.indent({}, ($w) => {
-                                                pr.wrapRawDictionary($.options).forEach((a, b) => false, ($, key) => {
+                                                $.options.forEach((a, b) => false, ($, key) => {
                                                     const option = $
                                                     $w.line({}, ($w) => {
                                                         $w.snippet(`const choose_${key} = () => {`)
@@ -548,7 +553,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                                 pl.panic("unexpected: duplicate key")
                                                             }
                                                         )
-                                                        pr.wrapRawDictionary($.options).forEach((a, b) => false, ($, key) => {
+                                                        $.options.forEach((a, b) => false, ($, key) => {
                                                             const option = $
                                                             findNextPossibleTokensInSymbolType(
                                                                 option.type,
@@ -682,7 +687,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                             $w.line({}, ($w) => {
                                                 $w.snippet(`sequenceEnd({`)
                                                 $w.indent({}, ($w) => {
-                                                    pr.wrapRawArray($.elements).forEach(($) => {
+                                                    pw.wrapRawArray($.elements).forEach(($) => {
                                                         $w.line({}, ($w) => {
                                                             $w.snippet(`"${$.name}": _${$.name},`)
                                                         })
@@ -694,7 +699,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                     )
                                 }
                                 generateElements(
-                                    pm.createStack(pr.wrapRawArray($.elements)),
+                                    pm.createStack(pw.wrapRawArray($.elements)),
                                     $w,
                                 )
                             })
@@ -785,7 +790,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                             pl.au($[0])
                     }
                 }
-                pr.wrapRawDictionary(grammar.globalValueTypes).forEach(() => false, ($, key) => {
+                grammar.globalValueTypes.forEach(() => false, ($, key) => {
 
                     $w.line({}, ($w) => {
 

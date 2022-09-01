@@ -1,8 +1,7 @@
-//import * as pr from "pareto-runtime"
+import * as pt from "pareto-core-types"
 
-//import * as pa from "pareto-core-types"
+export type TOptions = pt.Dictionary<TValue>
 
-export type TOptions = { [key: string]: TValue }
 
 export type TCardinality =
     | ["one", {}]
@@ -32,9 +31,7 @@ export type TValue = {
 }
 
 export type TGrammar = {
-    readonly "globalValueTypes": {
-        [key: string]: TValueType
-    }
+    readonly "globalValueTypes": pt.Dictionary<TValueType>
     readonly "root": TNode2
 }
 

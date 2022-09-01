@@ -1,12 +1,13 @@
 import * as pl from "pareto-core-lib"
 import * as pr from "pareto-core-raw"
+import * as p2t from "pareto-core-tostring"
 
 
 import * as g from "../../interface/types/types"
 import * as wapi from "lib-fountain-pen"
 import { GenerateInterfaceFile } from "../GenerateFile"
 
-export const generateTypes: GenerateInterfaceFile = ($, $i) => {
+export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
     const grammar = $.grammar
     function generateTypesForNode(
         $: g.TNode2,
@@ -66,11 +67,11 @@ export const generateTypes: GenerateInterfaceFile = ($, $i) => {
         switch ($[0]) {
             case "choice":
                 pl.cc($[1], ($) => {
-                    pr.wrapRawDictionary($.options).forEach(() => false, (option, key) => {
+                    $.options.forEach(() => false, (option, key) => {
                         generateTypesForValue(
                             option,
                             $w,
-                            path + "_" + key
+                            p2t.joinNestedStrings([path, "_", key])
                         )
                     })
                 })
@@ -86,7 +87,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i) => {
                         generateTypesForValue(
                             $.value,
                             $w,
-                            path + "_" + $.name,
+                            p2t.joinNestedStrings([path, "_", $.name])
                         )
                     })
                 })
@@ -111,7 +112,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i) => {
                     pl.cc($[1], ($) => {
 
                         $w.indent({}, ($w) => {
-                            pr.wrapRawDictionary($.options).forEach(() => false, (option, key) => {
+                            $.options.forEach(() => false, (option, key) => {
                                 $w.line({}, ($w) => {
                                     $w.snippet(`| [ "${key}", TV${path}_${key}<Annotation>]`)
                                 })
@@ -159,9 +160,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i) => {
         )
         $w.line({}, ($w) => {
             $w.snippet(`export type TV${path}<Annotation> = `)
-            if ($.cardinality === undefined) {
-                $w.snippet(`TVT${path}<Annotation>`)
-            } else {
+            if (pl.isNotUndefined($.cardinality)) {
                 switch ($.cardinality[0]) {
                     case "array":
                         pl.cc($.cardinality[1], ($) => {
@@ -181,7 +180,8 @@ export const generateTypes: GenerateInterfaceFile = ($, $i) => {
                     default:
                         pl.au($.cardinality[0])
                 }
-
+            } else {
+                $w.snippet(`TVT${path}<Annotation>`)
             }
         })
     }
@@ -200,7 +200,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i) => {
             $w.snippet(`export type TAnnotatedType<Annotation, Type> = { readonly "annotation": Annotation; readonly "content": Type }`)
         })
 
-        pr.wrapRawDictionary(grammar.globalValueTypes).forEach(() => false, ($, key) => {
+        grammar.globalValueTypes.forEach(() => false, ($, key) => {
             generateTypesForValueType(
                 $,
                 $w,

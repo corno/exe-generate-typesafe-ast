@@ -1,2 +1,2 @@
-export { generateImplementation } from "./generateImplementation"
-export { generateInterface } from "./generateInterface"
+export * from "./generateImplementation"
+export * from "./generateInterface"

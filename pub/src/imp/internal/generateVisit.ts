@@ -6,7 +6,7 @@ import * as g from "../../interface/types/types"
 import * as wapi from "lib-fountain-pen"
 import { GenerateImplementationFile } from "../GenerateFile"
 
-export const generateVisit: GenerateImplementationFile = ($, $i) => {
+export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
     const grammar = $.grammar
 
     pl.cc($i.block, ($w) => {
@@ -106,7 +106,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i) => {
     
                                     $w.snippet(`switch ($[0]) {`)
                                     $w.indent({}, ($w) => {
-                                        pr.wrapRawDictionary($.options).forEach(() => false, (option, key) => {
+                                        $.options.forEach(() => false, (option, key) => {
                                             $w.line({}, ($w) => {
                                                 $w.snippet(`case "${key}": {`)
                                                 $w.indent({}, ($w) => {
@@ -185,14 +185,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i) => {
                     pathForReporting: string,
                 ) {
                     const symbol = $
-                    if ($.cardinality === undefined) {
-                        generateValueType(
-                            symbol.type,
-                            $w,
-                            `${pathForCode}`,
-                            `${pathForReporting}`,
-                        )
-                    } else {
+                    if (pl.isNotUndefined($.cardinality)) {
                         switch ($.cardinality[0]) {
                             case "array":
                                 pl.cc($.cardinality[1], ($) => {
@@ -247,9 +240,16 @@ export const generateVisit: GenerateImplementationFile = ($, $i) => {
                                 pl.au($.cardinality[0])
                         }
 
+                    } else {
+                        generateValueType(
+                            symbol.type,
+                            $w,
+                            `${pathForCode}`,
+                            `${pathForReporting}`,
+                        )
                     }
                 }
-                pr.wrapRawDictionary(grammar.globalValueTypes).forEach((a, b) => a > b, ($, key) => {
+                grammar.globalValueTypes.forEach($d.orderStrings, ($, key) => {
                     $w.line({}, ($w) => {
     
                         $w.snippet(`function X_${key}(`)

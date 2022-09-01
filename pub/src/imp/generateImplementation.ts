@@ -31,6 +31,9 @@ export const generateImplementation: api.GenerateImplementation = ($, $d) => {
                             {
                                 block: $c,
                             },
+                            {
+                                orderStrings: $d.orderStrings,
+                            }
                         )
 
                     },

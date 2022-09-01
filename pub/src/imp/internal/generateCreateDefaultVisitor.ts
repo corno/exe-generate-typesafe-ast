@@ -92,7 +92,7 @@ export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) 
                             switch ($[0]) {
                                 case "choice":
                                     pl.cc($[1], ($) => {
-                                        pr.wrapRawDictionary($.options).forEach(() => false, (option, key) => {
+                                        $.options.forEach(() => false, (option, key) => {
                                             generateValue(
                                                 option,
                                                 $w,
@@ -143,7 +143,7 @@ export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) 
                                 path,
                             )
                         }
-                        pr.wrapRawDictionary(grammar.globalValueTypes).forEach(() => false, ($, key) => {
+                        grammar.globalValueTypes.forEach(() => false, ($, key) => {
                             generateValueType(
                                 $,
                                 $w,
