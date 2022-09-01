@@ -147,7 +147,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
                             break
                         case "sequence":
                             pl.cc($[1], ($) => {
-                                pr.wrapRawArray($.elements).forEach(($) => {
+                                $.elements.forEach(($) => {
                                     $w.line({}, ($w) => {
                                         $w.snippet(`pl.cc($["${$.name}"], ($) => {`)
                                         $w.indent({}, ($w) => {

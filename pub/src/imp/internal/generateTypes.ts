@@ -83,7 +83,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                 break
             case "sequence":
                 pl.cc($[1], ($) => {
-                    pr.wrapRawArray($.elements).forEach(($) => {
+                    $.elements.forEach(($) => {
                         generateTypesForValue(
                             $.value,
                             $w,
@@ -129,7 +129,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                     pl.cc($[1], ($) => {
                         $w.snippet(`{`)
                         $w.indent({}, ($w) => {
-                            pr.wrapRawArray($.elements).forEach(($) => {
+                            $.elements.forEach(($) => {
                                 $w.line({}, ($w) => {
                                     $w.snippet(`readonly "${$.name}":  TV${path}_${$.name}<Annotation>`)
                                 })

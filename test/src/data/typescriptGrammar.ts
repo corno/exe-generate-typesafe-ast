@@ -5,7 +5,7 @@ import * as gr from "../../../pub"
 
 
 export const _typescriptGrammar: gr.TGrammar = {
-    'globalValueTypes': pw.wrapRawDictionary<gr.TValueType>({
+    'globalValueTypes': pw.wrapRawDictionary({
         'block': ["node", {
             'name': `Block`,
             'type': ["composite", {
@@ -14,7 +14,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             }],
         }],
         'expression': ["choice", {
-            'options': pw.wrapRawDictionary<gr.TValue>({
+            'options': pw.wrapRawDictionary({
                 'arrayLiteral': {
                     'type': ["node", {
                         'name': `ArrayLiteralExpression`,
@@ -29,7 +29,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `ArrowFunction`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `parameters`,
                                         'value': {
@@ -59,7 +59,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                         'name': `implementation`,
                                         'value': {
                                             'type': ["choice", {
-                                                'options': pw.wrapRawDictionary<gr.TValue>({
+                                                'options': pw.wrapRawDictionary({
                                                     "block": {
                                                         'type': ["reference", {
                                                             'name': `block`,
@@ -82,7 +82,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `BinaryExpression`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `leftHandSide`,
                                         'value': {
@@ -93,7 +93,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                         'name': `operator`,
                                         'value': {
                                             'type': ["choice", {
-                                                'options': pw.wrapRawDictionary<gr.TValue>({
+                                                'options': pw.wrapRawDictionary({
                                                     'ampersandAmpersand': {
                                                         'type': ["node", {
                                                             'name': `AmpersandAmpersandToken`,
@@ -180,7 +180,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `CallExpression`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `function`,
                                         'value': {
@@ -212,7 +212,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `ConditionalExpression`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `test`,
                                         'value': {
@@ -259,7 +259,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `ElementAccessExpression`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `array`,
                                         'value': {
@@ -293,7 +293,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `NewExpression`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `class`,
                                         'value': {
@@ -340,12 +340,12 @@ export const _typescriptGrammar: gr.TGrammar = {
                                 'name': `PropertyAssignment`,
                                 'type': ["composite", {
                                     'type': ["sequence", {
-                                        'elements': ([
+                                        'elements': pw.wrapRawArray([
                                             {
                                                 'name': `name`,
                                                 'value': {
                                                     'type': ["choice", {
-                                                        'options': pw.wrapRawDictionary<gr.TValue>({
+                                                        'options': pw.wrapRawDictionary({
                                                             'identifier': {
                                                                 'type': ["reference", {
                                                                     'name': `identifier`
@@ -407,7 +407,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `PropertyAccessExpression`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `object`,
                                         'value': {
@@ -435,7 +435,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `TemplateExpression`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `head`,
                                         'value': {
@@ -453,7 +453,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                 'name': `TemplateSpan`,
                                                 'type': ["composite", {
                                                     'type': ["sequence", {
-                                                        'elements': ([
+                                                        'elements': pw.wrapRawArray([
                                                             {
                                                                 'name': `expression`,
                                                                 'value': {
@@ -464,7 +464,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                                 'name': `x`,
                                                                 'value': {
                                                                     'type': ["choice", {
-                                                                        'options': pw.wrapRawDictionary<gr.TValue>({
+                                                                        'options': pw.wrapRawDictionary({
                                                                             'middle': {
                                                                                 'type': ["node", {
                                                                                     'name': `TemplateMiddle`,
@@ -501,7 +501,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             })
         }],
         'functionDefinition': ["sequence", {
-            'elements': ([
+            'elements': pw.wrapRawArray([
                 {
                     'name': `typeParameters`,
                     'value': {
@@ -534,7 +534,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             'type': ["leaf", { 'hasTextContent': true }]
         }],
         'identifierOrStringLiteral': ["choice", {
-            'options': pw.wrapRawDictionary<gr.TValue>({
+            'options': pw.wrapRawDictionary({
                 'identifier': {
                     'type': ["reference", {
                         'name': `identifier`
@@ -549,7 +549,7 @@ export const _typescriptGrammar: gr.TGrammar = {
         }],
         'modifier': ["choice", {
             //AbstractKeyword | AsyncKeyword | ConstKeyword | DeclareKeyword | DefaultKeyword | ExportKeyword | PrivateKeyword | ProtectedKeyword | PublicKeyword | OverrideKeyword | ReadonlyKeyword | StaticKeyword;
-            'options': pw.wrapRawDictionary<gr.TValue>({
+            'options': pw.wrapRawDictionary({
                 'declare': {
                     'type': ["node", {
                         'name': `DeclareKeyword`,
@@ -578,7 +578,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             'name': `Parameter`,
             'type': ["composite", {
                 'type': ["sequence", {
-                    'elements': ([
+                    'elements': pw.wrapRawArray([
                         {
                             'name': `name`,
                             'value': {
@@ -609,7 +609,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             }]
         }],
         'statement': ["choice", {
-            'options': pw.wrapRawDictionary<gr.TValue>({
+            'options': pw.wrapRawDictionary({
                 'block': {
                     'type': ["reference", {
                         'name': `block`
@@ -649,7 +649,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `ForStatement`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `initializer`,
                                         'value': {
@@ -692,7 +692,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `FunctionDeclaration`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `modifiers`,
                                         'value': {
@@ -735,7 +735,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `IfStatement`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `expression`,
                                         'value': {
@@ -765,7 +765,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `ImportDeclaration`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `clause`,
                                         'value': {
@@ -773,7 +773,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                 'name': `ImportClause`,
                                                 'type': ["composite", {
                                                     'type': ["choice", {
-                                                        'options': pw.wrapRawDictionary<gr.TValue>({
+                                                        'options': pw.wrapRawDictionary({
                                                             'namespace': {
                                                                 'type': ["node", {
                                                                     'name': `NamespaceImport`,
@@ -793,7 +793,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                                             'name': `ImportSpecifier`,
                                                                             'type': ["composite", {
                                                                                 'type': ["sequence", {
-                                                                                    'elements': ([
+                                                                                    'elements': pw.wrapRawArray([
                                                                                         {
                                                                                             'name': `name`,
                                                                                             'value': {
@@ -842,7 +842,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `InterfaceDeclaration`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `modifiers`,
                                         'value': {
@@ -884,7 +884,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `LabeledStatement`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `label`,
                                         'value': {
@@ -918,7 +918,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `SwitchStatement`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `expression`,
                                         'value': {
@@ -933,13 +933,13 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                 'type': ["composite", {
                                                     'cardinality': ["array", {}],
                                                     'type': ["choice", {
-                                                        'options': pw.wrapRawDictionary<gr.TValue>({
+                                                        'options': pw.wrapRawDictionary({
                                                             "case": {
                                                                 'type': ["node", {
                                                                     'name': `CaseClause`,
                                                                     'type': ["composite", {
                                                                         'type': ["sequence", {
-                                                                            'elements': ([
+                                                                            'elements': pw.wrapRawArray([
                                                                                 {
                                                                                     'name': `case`,
                                                                                     'value': {
@@ -991,7 +991,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `TryStatement`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `block`,
                                         'value': {
@@ -1007,7 +1007,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                 'name': `CatchClause`,
                                                 'type': ["composite", {
                                                     'type': ["sequence", {
-                                                        'elements': ([
+                                                        'elements': pw.wrapRawArray([
                                                             {
                                                                 'name': `variable`,
                                                                 'value': {
@@ -1040,7 +1040,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `TypeAliasDeclaration`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `modifiers`,
                                         'value': {
@@ -1081,7 +1081,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `VariableStatement`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `modifiers`,
                                         'value': {
@@ -1107,7 +1107,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `WhileStatement`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `condition`,
                                         'value': {
@@ -1134,7 +1134,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             'type': ["leaf", { 'hasTextContent': true }]
         }],
         'type': ["choice", {
-            'options': pw.wrapRawDictionary<gr.TValue>({
+            'options': pw.wrapRawDictionary({
                 'any': {
                     'type': ["node", {
                         'name': `AnyKeyword`,
@@ -1160,7 +1160,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `FunctionType`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `parameters`,
                                         'value': {
@@ -1187,7 +1187,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `LiteralType`,
                         'type': ["composite", {
                             'type': ["choice", {
-                                'options': pw.wrapRawDictionary<gr.TValue>({
+                                'options': pw.wrapRawDictionary({
                                     'null': {
                                         'type': ["node", {
                                             'name': `NullKeyword`,
@@ -1261,13 +1261,13 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `TypeReference`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `x`,
                                         'value': {
                                             "cardinality": ["one", {}],
                                             'type': ["choice", {
-                                                'options': pw.wrapRawDictionary<gr.TValue>({
+                                                'options': pw.wrapRawDictionary({
                                                     "identifier": {
                                                         'type': ["reference", {
                                                             'name': `identifier`
@@ -1278,7 +1278,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                                                             'name': `QualifiedName`,
                                                             'type': ["composite", {
                                                                 'type': ["sequence", {
-                                                                    'elements': ([
+                                                                    'elements': pw.wrapRawArray([
                                                                         {
                                                                             'name': `context`,
                                                                             'value': {
@@ -1348,13 +1348,13 @@ export const _typescriptGrammar: gr.TGrammar = {
             }]
         }],
         'typeSignature': ["choice", {
-            'options': pw.wrapRawDictionary<gr.TValue>({
+            'options': pw.wrapRawDictionary({
                 'construct': {
                     'type': ["node", {
                         'name': `ConstructSignature`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `parameters`,
                                         'value': {
@@ -1382,7 +1382,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `IndexSignature`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `modifiers`,
                                         'value': {
@@ -1415,7 +1415,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `MethodSignature`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `name`,
                                         'value': {
@@ -1442,7 +1442,7 @@ export const _typescriptGrammar: gr.TGrammar = {
                         'name': `PropertySignature`,
                         'type': ["composite", {
                             'type': ["sequence", {
-                                'elements': ([
+                                'elements': pw.wrapRawArray([
                                     {
                                         'name': `modifiers`,
                                         'value': {
@@ -1484,7 +1484,7 @@ export const _typescriptGrammar: gr.TGrammar = {
             'name': `VariableDeclaration`,
             'type': ["composite", {
                 'type': ["sequence", {
-                    'elements': ([
+                    'elements': pw.wrapRawArray([
                         {
                             'name': `name`,
                             'value': {
@@ -1525,7 +1525,7 @@ export const _typescriptGrammar: gr.TGrammar = {
         'name': `SourceFile`,
         'type': ["composite", {
             'type': ["sequence", {
-                'elements': ([
+                'elements': pw.wrapRawArray([
                     {
                         'name': `statements`,
                         'value': {

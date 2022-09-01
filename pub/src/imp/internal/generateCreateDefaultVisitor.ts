@@ -108,7 +108,7 @@ export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) 
                                     break
                                 case "sequence":
                                     pl.cc($[1], ($) => {
-                                        pr.wrapRawArray($.elements).forEach(($) => {
+                                        $.elements.forEach(($) => {
                                             generateValue(
                                                 $.value,
                                                 $w,

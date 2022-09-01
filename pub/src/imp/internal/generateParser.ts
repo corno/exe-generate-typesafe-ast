@@ -2,7 +2,6 @@
 import * as pl from "pareto-core-lib"
 import * as p2 from "pareto-core-tostring"
 import * as pm from "pareto-core-state"
-import * as pw from "pareto-core-raw"
 import * as pr from "pareto-core-resolve"
 
 import * as wapi from "lib-fountain-pen"
@@ -50,7 +49,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                 break
             case "sequence":
                 pl.cc($[1], ($) => {
-                    const elementsStack = pm.createStack(pw.wrapRawArray($.elements))
+                    const elementsStack = pm.createStack($.elements)
                     function doNextElement() {
                         elementsStack.pop(
                             ($) => {
@@ -687,7 +686,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                             $w.line({}, ($w) => {
                                                 $w.snippet(`sequenceEnd({`)
                                                 $w.indent({}, ($w) => {
-                                                    pw.wrapRawArray($.elements).forEach(($) => {
+                                                    $.elements.forEach(($) => {
                                                         $w.line({}, ($w) => {
                                                             $w.snippet(`"${$.name}": _${$.name},`)
                                                         })
@@ -699,7 +698,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                     )
                                 }
                                 generateElements(
-                                    pm.createStack(pw.wrapRawArray($.elements)),
+                                    pm.createStack($.elements),
                                     $w,
                                 )
                             })

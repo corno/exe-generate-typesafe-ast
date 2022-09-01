@@ -22,7 +22,7 @@ export type TValueType =
     }]
     | ["node", TNode2]
     | ["sequence", {
-        readonly "elements":TSequenceElement[]
+        readonly "elements": pt.Array<TSequenceElement>
     }]
 
 export type TValue = {
