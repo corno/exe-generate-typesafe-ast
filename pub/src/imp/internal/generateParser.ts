@@ -185,7 +185,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                     $w.snippet(`callback({`)
                                                     $w.indent({}, ($w) => {
                                                         $w.line({}, ($w) => {
-                                                            $w.snippet(`annotation: node.details,`)
+                                                            $w.snippet(`tokenDetails: node.details,`)
                                                         })
                                                         $w.line({}, ($w) => {
                                                             $w.snippet(`content: $,`)
@@ -205,7 +205,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                 $w.snippet(`{`)
                                                 $w.indent({}, ($w) => {
                                                     $w.line({}, ($w) => {
-                                                        $w.snippet(`annotation: $.details,`)
+                                                        $w.snippet(`tokenDetails: $.details,`)
                                                     })
                                                     $w.line({}, ($w) => {
                                                         $w.snippet(`value: $.value`)
