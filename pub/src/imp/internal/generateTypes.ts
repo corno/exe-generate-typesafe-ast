@@ -40,7 +40,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
             switch ($.type[0]) {
                 case "composite":
                     pl.cc($.type[1], ($) => {
-                        $w.snippet(`TAnnotatedType<Details, TV${path}>`)
+                        $w.snippet(`TAnnotatedType<TV${path}>`)
                     })
                     break
                 case "leaf":
@@ -48,7 +48,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                         if ($.hasTextContent) {
                             $w.snippet(`TAnnotatedString`)
                         } else {
-                            $w.snippet(`Details`)
+                            $w.snippet(`uast.TDetails`)
 
                         }
                     })
@@ -194,10 +194,16 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
         })
 
         $w.line({}, ($w) => {
-            $w.snippet(`export type TAnnotatedString = { readonly "annotation": Details; readonly "value": string }`)
+            $w.snippet(`import * as uast from "api-untyped-ast"`)
         })
         $w.line({}, ($w) => {
-            $w.snippet(`export type TAnnotatedType<Details, Type> = { readonly "annotation": Details; readonly "content": Type }`)
+        })
+
+        $w.line({}, ($w) => {
+            $w.snippet(`export type TAnnotatedString = { readonly "tokenDetails": uast.TDetails; readonly "value": string }`)
+        })
+        $w.line({}, ($w) => {
+            $w.snippet(`export type TAnnotatedType<Type> = { readonly "tokenDetails": uast.TDetails; readonly "content": Type }`)
         })
 
         grammar.globalValueTypes.forEach(() => false, ($, key) => {
