@@ -4,19 +4,24 @@ import * as pm from "pareto-core-state"
 import * as pl from "pareto-core-lib"
 
 import * as fs from "api-pareto-filesystem"
-import * as main from "api-pareto-main"
 import * as test from "lib-pareto-test"
 
 import * as tsg from "../data/typescriptGrammar"
+import * as collation from "api-pareto-collation"
+
 
 import * as pub from "../../../pub"
 import { genInf } from "./genInf"
 import { genImp } from "./genImp"
 
-export function createGetTestSet($d: {
+export type Dependencies = {
     createWriteStream: fs.CreateWriteStream
-}): test.GetTestSet {
+    isYinBeforeYang: collation.IsYinBeforeYang
+}
+
+export function createGetTestSet($d: Dependencies): test.GetTestSet {
     const cws = $d.createWriteStream
+    const yinBeforeYang = $d.isYinBeforeYang
     return ($, $d) => {
 
         genInf(
@@ -31,7 +36,8 @@ export function createGetTestSet($d: {
             },
             {
                 startAsync: $d.startAsync,
-                createWriteStream: cws
+                createWriteStream: cws,
+                isYinBeforeYang: yinBeforeYang
             }
         )
         genImp(
@@ -48,6 +54,7 @@ export function createGetTestSet($d: {
             {
                 startAsync: $d.startAsync,
                 createWriteStream: cws,
+                isYinBeforeYang: yinBeforeYang,
             }
         )
 

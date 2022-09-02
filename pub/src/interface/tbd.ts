@@ -2,6 +2,8 @@
 import * as pt from "pareto-core-types"
 
 import * as fp from "lib-fountain-pen"
+import * as collation from "api-pareto-collation"
+
 
 import { TGrammar } from "./types/types"
 
@@ -25,7 +27,7 @@ export type GenerateImplementation = (
             },
             callback: ($: fp.IStreamConsumer) => void
         ) => void
-        orderStrings: (a: string, b: string) => boolean
+        isYinBeforeYang: collation.IsYinBeforeYang
     }
 ) => void
 
@@ -47,6 +49,6 @@ export type GenerateInterface = (
             },
             callback: ($: fp.IStreamConsumer) => void
         ) => void
-        orderStrings: (a: string, b: string) => boolean
+        isYinBeforeYang: collation.IsYinBeforeYang
     }
 ) => void

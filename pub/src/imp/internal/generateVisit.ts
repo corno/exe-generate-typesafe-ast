@@ -1,7 +1,5 @@
 import * as pl from "pareto-core-lib"
 
-import * as pr from "pareto-core-raw"
-
 import * as g from "../../interface/types/types"
 import * as wapi from "lib-fountain-pen"
 import { GenerateImplementationFile } from "../GenerateFile"
@@ -106,7 +104,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
     
                                     $w.snippet(`switch ($[0]) {`)
                                     $w.indent({}, ($w) => {
-                                        $.options.forEach(() => false, (option, key) => {
+                                        $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: a, yang: b}), (option, key) => {
                                             $w.line({}, ($w) => {
                                                 $w.snippet(`case "${key}": {`)
                                                 $w.indent({}, ($w) => {
@@ -249,7 +247,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
                         )
                     }
                 }
-                grammar.globalValueTypes.forEach($d.orderStrings, ($, key) => {
+                grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: a, yang: b}), ($, key) => {
                     $w.line({}, ($w) => {
     
                         $w.snippet(`function X_${key}(`)

@@ -1,5 +1,9 @@
 import * as api from "../interface"
+
+import * as collation from "api-pareto-collation"
+
 import * as fp from "lib-fountain-pen"
+
 
 
 export type GenerateInterfaceFile = (
@@ -10,7 +14,7 @@ export type GenerateInterfaceFile = (
         block: fp.IBlock,
     },
     $d: {
-        orderStrings: (a: string, b: string) => boolean
+        isYinBeforeYang: collation.IsYinBeforeYang
     },
 )  => void
 
@@ -24,6 +28,6 @@ export type GenerateImplementationFile = (
         block: fp.IBlock,
     },
     $d: {
-        orderStrings: (a: string, b: string) => boolean
+        isYinBeforeYang: collation.IsYinBeforeYang
     },
 )  => void

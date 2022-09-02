@@ -21,7 +21,8 @@
     "pareto-core-raw": "^0.2.0",
     "pareto-core-resolve": "^0.2.0",
     "pareto-core-state": "^0.6.0",
-    "pareto-core-tostring": "^0.3.0"
+    "pareto-core-tostring": "^0.3.0",
+    "res-pareto-collation": "^0.1.0"
   },
   "name": "exe-generate-typesafe-ast",
   "version": "0.2.3",
@@ -30,6 +31,6 @@
   "files": [
     "dist"
   ],
-  "interface-fingerprint": "ff5e35a68bb1c2e7dfe5c2b1c90d377c3af2cf4e",
-  "content-fingerprint": "2a280810702770da0004b862817b563941c5078b"
+  "interface-fingerprint": "fd7482836fe0f3a059691f7e6b8e7ac4ad9d0b7c",
+  "content-fingerprint": "cdec16c857044685c6fcf952a00238aaae07a492"
 }

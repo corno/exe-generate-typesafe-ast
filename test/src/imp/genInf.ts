@@ -3,6 +3,7 @@
 import * as pt from "pareto-core-types"
 
 import * as fs from "api-pareto-filesystem"
+import * as collation from "api-pareto-collation"
 
 
 import * as gta from "../../../pub/dist"
@@ -20,6 +21,7 @@ export function genInf(
     $d: {
         startAsync: ($: pt.AsyncNonValue) => void
         createWriteStream: fs.CreateWriteStream
+        isYinBeforeYang: collation.IsYinBeforeYang
     },
 ) {
     const rootPath = $.path
@@ -35,7 +37,7 @@ export function genInf(
             }
         },
         {
-            orderStrings: (a, b) => a > b,
+            isYinBeforeYang: $d.isYinBeforeYang,
             createWriteStream: (
                 $,
                 $c,
