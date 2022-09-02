@@ -3,7 +3,7 @@
         "lib-fountain-pen": "^0.4.4",
         "lib-pareto-exe": "^0.2.4",
         "lib-pareto-test": "^0.4.1",
-        "pareto-core-exe": "^0.8.0",
+        "pareto-core-exe": "^0.9.0",
         "pareto-core-lib": "^0.8.0",
         "pareto-core-raw": "^0.2.0",
         "pareto-core-state": "^0.6.0",
