@@ -67,7 +67,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
         switch ($[0]) {
             case "choice":
                 pl.cc($[1], ($) => {
-                    $.options.forEach(() => false, (option, key) => {
+                    $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), (option, key) => {
                         generateTypesForValue(
                             option,
                             $w,
@@ -112,7 +112,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
                     pl.cc($[1], ($) => {
 
                         $w.indent({}, ($w) => {
-                            $.options.forEach(() => false, (option, key) => {
+                            $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), (option, key) => {
                                 $w.line({}, ($w) => {
                                     $w.snippet(`| [ "${key}", TV${path}_${key}]`)
                                 })
@@ -206,7 +206,7 @@ export const generateTypes: GenerateInterfaceFile = ($, $i, $d) => {
             $w.snippet(`export type TAnnotatedType<Type> = { readonly "tokenDetails": uast.TDetails; readonly "content": Type }`)
         })
 
-        grammar.globalValueTypes.forEach(() => false, ($, key) => {
+        grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
             generateTypesForValueType(
                 $,
                 $w,

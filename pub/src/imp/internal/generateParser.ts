@@ -10,7 +10,7 @@ import * as api from "../../interface"
 
 import { GenerateImplementationFile } from "../GenerateFile"
 
-export const generateParse: GenerateImplementationFile = ($, $i) => {
+export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
     const grammar = $.grammar
     function findNextPossibleTokensInSymbolType(
         $: api.TValueType,
@@ -326,7 +326,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                                     pl.panic("IMPLEMENT ME 4")
                                                                 }
                                                             )
-                                                            possibleTokens.getDictionary().forEach((a, b) => false, ($, key) => {
+                                                            possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
                                                                 $w.line({}, ($w) => {
                                                                     $w.snippet(`case "${key}": //z`)
                                                                     $w.indent({}, ($w) => {
@@ -422,7 +422,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                                     pl.panic("IMPLEMENT ME 5")
                                                                 }
                                                             )
-                                                            possibleTokens.getDictionary().forEach((a, b) => false, ($, key) => {
+                                                            possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
                                                                 $w.line({}, ($w) => {
                                                                     $w.snippet(`case "${key}": //XXX`)
                                                                     $w.indent({}, ($w) => {
@@ -495,7 +495,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                         pl.panic("tokens are not unique")
                                     }
                                 )
-                                $.options.forEach((a, b) => false, ($, key) => {
+                                $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
                                     const option = $
                                     findNextPossibleTokensInSymbolType(
                                         option.type,
@@ -523,7 +523,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                         $w.line({}, ($w) => {
                                             $w.snippet(`(nextChild) => {`)
                                             $w.indent({}, ($w) => {
-                                                $.options.forEach((a, b) => false, ($, key) => {
+                                                $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
                                                     const option = $
                                                     $w.line({}, ($w) => {
                                                         $w.snippet(`const choose_${key} = () => {`)
@@ -552,7 +552,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                                 pl.panic("unexpected: duplicate key")
                                                             }
                                                         )
-                                                        $.options.forEach((a, b) => false, ($, key) => {
+                                                        $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
                                                             const option = $
                                                             findNextPossibleTokensInSymbolType(
                                                                 option.type,
@@ -564,7 +564,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                                                                 }
                                                             )
                                                         })
-                                                        possibleTokens.getDictionary().forEach((a, b) => false, (optionKey, key) => {
+                                                        possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), (optionKey, key) => {
                                                             $w.line({}, ($w) => {
                                                                 $w.snippet(`case "${key}": /*Y*/ {`)
                                                                 $w.indent({}, ($w) => {
@@ -789,7 +789,7 @@ export const generateParse: GenerateImplementationFile = ($, $i) => {
                             pl.au($[0])
                     }
                 }
-                grammar.globalValueTypes.forEach(() => false, ($, key) => {
+                grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
 
                     $w.line({}, ($w) => {
 

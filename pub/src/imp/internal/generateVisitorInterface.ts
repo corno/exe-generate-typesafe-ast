@@ -6,7 +6,7 @@ import * as g from "../../interface/types/types"
 import * as wapi from "lib-fountain-pen"
 import { GenerateInterfaceFile } from "../GenerateFile"
 
-export const generateVisitorInterface: GenerateInterfaceFile = ($, $i) => {
+export const generateVisitorInterface: GenerateInterfaceFile = ($, $i, $d) => {
     const grammar = $.grammar
     pl.cc(($i.block), $w => {
 
@@ -82,7 +82,7 @@ export const generateVisitorInterface: GenerateInterfaceFile = ($, $i) => {
                     switch ($[0]) {
                         case "choice":
                             pl.cc($[1], ($) => {
-                                $.options.forEach(() => false, (option, key) => {
+                                $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), (option, key) => {
                                     generateValue(
                                         option,
                                         $w,
@@ -138,7 +138,7 @@ export const generateVisitorInterface: GenerateInterfaceFile = ($, $i) => {
                         pathForReporting,
                     )
                 }
-                grammar.globalValueTypes.forEach(() => false, ($, key) => {
+                grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
                     generateValueType(
                         $,
                         $w,

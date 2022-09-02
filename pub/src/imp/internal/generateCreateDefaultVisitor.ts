@@ -5,7 +5,7 @@ import * as wapi from "lib-fountain-pen"
 import * as g from "../../interface/types/types"
 import { GenerateImplementationFile } from "../GenerateFile"
 
-export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) => {
+export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i, $d) => {
     const grammar = $.grammar
     pl.cc(($i.block), $w => {
 
@@ -92,7 +92,7 @@ export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) 
                             switch ($[0]) {
                                 case "choice":
                                     pl.cc($[1], ($) => {
-                                        $.options.forEach(() => false, (option, key) => {
+                                        $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), (option, key) => {
                                             generateValue(
                                                 option,
                                                 $w,
@@ -143,7 +143,7 @@ export const generateCreateDefaultVisitor: GenerateImplementationFile = ($, $i) 
                                 path,
                             )
                         }
-                        grammar.globalValueTypes.forEach(() => false, ($, key) => {
+                        grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
                             generateValueType(
                                 $,
                                 $w,

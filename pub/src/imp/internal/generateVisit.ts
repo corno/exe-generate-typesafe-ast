@@ -104,7 +104,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
     
                                     $w.snippet(`switch ($[0]) {`)
                                     $w.indent({}, ($w) => {
-                                        $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: a, yang: b}), (option, key) => {
+                                        $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), (option, key) => {
                                             $w.line({}, ($w) => {
                                                 $w.snippet(`case "${key}": {`)
                                                 $w.indent({}, ($w) => {
@@ -247,7 +247,7 @@ export const generateVisit: GenerateImplementationFile = ($, $i, $d) => {
                         )
                     }
                 }
-                grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: a, yang: b}), ($, key) => {
+                grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
                     $w.line({}, ($w) => {
     
                         $w.snippet(`function X_${key}(`)
