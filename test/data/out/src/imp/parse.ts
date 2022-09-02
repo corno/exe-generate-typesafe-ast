@@ -41,55 +41,55 @@ export function parse(
                             children,
                             (nextChild) => {
                                 switch (nextChild.kindName) {
-                                    case "Block": //z
+                                    case "Block":
                                         processElement()
                                         return true
-                                    case "BreakStatement": //z
+                                    case "BreakStatement":
                                         processElement()
                                         return true
-                                    case "ExportDeclaration": //z
+                                    case "ExportDeclaration":
                                         processElement()
                                         return true
-                                    case "ExpressionStatement": //z
+                                    case "ExpressionStatement":
                                         processElement()
                                         return true
-                                    case "ForStatement": //z
+                                    case "ForStatement":
                                         processElement()
                                         return true
-                                    case "FunctionDeclaration": //z
+                                    case "FunctionDeclaration":
                                         processElement()
                                         return true
-                                    case "IfStatement": //z
+                                    case "IfStatement":
                                         processElement()
                                         return true
-                                    case "ImportDeclaration": //z
+                                    case "ImportDeclaration":
                                         processElement()
                                         return true
-                                    case "InterfaceDeclaration": //z
+                                    case "InterfaceDeclaration":
                                         processElement()
                                         return true
-                                    case "LabeledStatement": //z
+                                    case "LabeledStatement":
                                         processElement()
                                         return true
-                                    case "ReturnStatement": //z
+                                    case "ReturnStatement":
                                         processElement()
                                         return true
-                                    case "SwitchStatement": //z
+                                    case "SwitchStatement":
                                         processElement()
                                         return true
-                                    case "ThrowStatement": //z
+                                    case "ThrowStatement":
                                         processElement()
                                         return true
-                                    case "TryStatement": //z
+                                    case "TryStatement":
                                         processElement()
                                         return true
-                                    case "TypeAliasDeclaration": //z
+                                    case "TypeAliasDeclaration":
                                         processElement()
                                         return true
-                                    case "VariableStatement": //z
+                                    case "VariableStatement":
                                         processElement()
                                         return true
-                                    case "WhileStatement": //z
+                                    case "WhileStatement":
                                         processElement()
                                         return true
                                     default: return false
@@ -165,64 +165,64 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "ArrayLiteralExpression": //z
+                                                case "ArrayLiteralExpression":
                                                     processElement()
                                                     return true
-                                                case "ArrowFunction": //z
+                                                case "ArrowFunction":
                                                     processElement()
                                                     return true
-                                                case "BinaryExpression": //z
+                                                case "BinaryExpression":
                                                     processElement()
                                                     return true
-                                                case "CallExpression": //z
+                                                case "CallExpression":
                                                     processElement()
                                                     return true
-                                                case "ConditionalExpression": //z
+                                                case "ConditionalExpression":
                                                     processElement()
                                                     return true
-                                                case "ElementAccessExpression": //z
+                                                case "ElementAccessExpression":
                                                     processElement()
                                                     return true
-                                                case "FalseKeyword": //z
+                                                case "FalseKeyword":
                                                     processElement()
                                                     return true
-                                                case "Identifier": //z
+                                                case "Identifier":
                                                     processElement()
                                                     return true
-                                                case "NewExpression": //z
+                                                case "NewExpression":
                                                     processElement()
                                                     return true
-                                                case "NoSubstitutionTemplateLiteral": //z
+                                                case "NoSubstitutionTemplateLiteral":
                                                     processElement()
                                                     return true
-                                                case "NullKeyword": //z
+                                                case "NullKeyword":
                                                     processElement()
                                                     return true
-                                                case "NumericLiteral": //z
+                                                case "NumericLiteral":
                                                     processElement()
                                                     return true
-                                                case "ObjectLiteralExpression": //z
+                                                case "ObjectLiteralExpression":
                                                     processElement()
                                                     return true
-                                                case "ParenthesizedExpression": //z
+                                                case "ParenthesizedExpression":
                                                     processElement()
                                                     return true
-                                                case "PostfixUnaryExpression": //z
+                                                case "PostfixUnaryExpression":
                                                     processElement()
                                                     return true
-                                                case "PrefixUnaryExpression": //z
+                                                case "PrefixUnaryExpression":
                                                     processElement()
                                                     return true
-                                                case "PropertyAccessExpression": //z
+                                                case "PropertyAccessExpression":
                                                     processElement()
                                                     return true
-                                                case "StringLiteral": //z
+                                                case "StringLiteral":
                                                     processElement()
                                                     return true
-                                                case "TemplateExpression": //z
+                                                case "TemplateExpression":
                                                     processElement()
                                                     return true
-                                                case "TrueKeyword": //z
+                                                case "TrueKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -294,7 +294,7 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "Parameter": //z
+                                                case "Parameter":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -312,52 +312,52 @@ export function parse(
                                         $d.lookAhead(children, 
                                             (nextChild) => {
                                                 switch (nextChild.kindName) {
-                                                    case "AnyKeyword": //XXX
+                                                    case "AnyKeyword":
                                                         setOptional()
                                                         break
-                                                    case "ArrayType": //XXX
+                                                    case "ArrayType":
                                                         setOptional()
                                                         break
-                                                    case "BooleanKeyword": //XXX
+                                                    case "BooleanKeyword":
                                                         setOptional()
                                                         break
-                                                    case "FunctionType": //XXX
+                                                    case "FunctionType":
                                                         setOptional()
                                                         break
-                                                    case "LiteralType": //XXX
+                                                    case "LiteralType":
                                                         setOptional()
                                                         break
-                                                    case "NeverKeyword": //XXX
+                                                    case "NeverKeyword":
                                                         setOptional()
                                                         break
-                                                    case "NumberKeyword": //XXX
+                                                    case "NumberKeyword":
                                                         setOptional()
                                                         break
-                                                    case "OptionalType": //XXX
+                                                    case "OptionalType":
                                                         setOptional()
                                                         break
-                                                    case "ParenthesizedType": //XXX
+                                                    case "ParenthesizedType":
                                                         setOptional()
                                                         break
-                                                    case "StringKeyword": //XXX
+                                                    case "StringKeyword":
                                                         setOptional()
                                                         break
-                                                    case "TupleType": //XXX
+                                                    case "TupleType":
                                                         setOptional()
                                                         break
-                                                    case "TypeLiteral": //XXX
+                                                    case "TypeLiteral":
                                                         setOptional()
                                                         break
-                                                    case "TypeReference": //XXX
+                                                    case "TypeReference":
                                                         setOptional()
                                                         break
-                                                    case "UndefinedKeyword": //XXX
+                                                    case "UndefinedKeyword":
                                                         setOptional()
                                                         break
-                                                    case "UnionType": //XXX
+                                                    case "UnionType":
                                                         setOptional()
                                                         break
-                                                    case "VoidKeyword": //XXX
+                                                    case "VoidKeyword":
                                                         setOptional()
                                                         break
                                                 }
@@ -505,7 +505,7 @@ export function parse(
                                                                             }
                                                                         }
                                                                     },
-                                                                    () => { //no child
+                                                                    () => { // no child
                                                                         $x.reportMissingToken({
                                                                             parentDetails: node.details,
                                                                             path: "Gexpression_arrowFunction$_implementation",
@@ -1135,7 +1135,7 @@ export function parse(
                                                     }
                                                 }
                                             },
-                                            () => { //no child
+                                            () => { // no child
                                                 $x.reportMissingToken({
                                                     parentDetails: node.details,
                                                     path: "Gexpression_binary$_operator",
@@ -1205,52 +1205,52 @@ export function parse(
                                             children,
                                             (nextChild) => {
                                                 switch (nextChild.kindName) {
-                                                    case "AnyKeyword": //z
+                                                    case "AnyKeyword":
                                                         processElement()
                                                         return true
-                                                    case "ArrayType": //z
+                                                    case "ArrayType":
                                                         processElement()
                                                         return true
-                                                    case "BooleanKeyword": //z
+                                                    case "BooleanKeyword":
                                                         processElement()
                                                         return true
-                                                    case "FunctionType": //z
+                                                    case "FunctionType":
                                                         processElement()
                                                         return true
-                                                    case "LiteralType": //z
+                                                    case "LiteralType":
                                                         processElement()
                                                         return true
-                                                    case "NeverKeyword": //z
+                                                    case "NeverKeyword":
                                                         processElement()
                                                         return true
-                                                    case "NumberKeyword": //z
+                                                    case "NumberKeyword":
                                                         processElement()
                                                         return true
-                                                    case "OptionalType": //z
+                                                    case "OptionalType":
                                                         processElement()
                                                         return true
-                                                    case "ParenthesizedType": //z
+                                                    case "ParenthesizedType":
                                                         processElement()
                                                         return true
-                                                    case "StringKeyword": //z
+                                                    case "StringKeyword":
                                                         processElement()
                                                         return true
-                                                    case "TupleType": //z
+                                                    case "TupleType":
                                                         processElement()
                                                         return true
-                                                    case "TypeLiteral": //z
+                                                    case "TypeLiteral":
                                                         processElement()
                                                         return true
-                                                    case "TypeReference": //z
+                                                    case "TypeReference":
                                                         processElement()
                                                         return true
-                                                    case "UndefinedKeyword": //z
+                                                    case "UndefinedKeyword":
                                                         processElement()
                                                         return true
-                                                    case "UnionType": //z
+                                                    case "UnionType":
                                                         processElement()
                                                         return true
-                                                    case "VoidKeyword": //z
+                                                    case "VoidKeyword":
                                                         processElement()
                                                         return true
                                                     default: return false
@@ -1269,64 +1269,64 @@ export function parse(
                                                 children,
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "ArrayLiteralExpression": //z
+                                                        case "ArrayLiteralExpression":
                                                             processElement()
                                                             return true
-                                                        case "ArrowFunction": //z
+                                                        case "ArrowFunction":
                                                             processElement()
                                                             return true
-                                                        case "BinaryExpression": //z
+                                                        case "BinaryExpression":
                                                             processElement()
                                                             return true
-                                                        case "CallExpression": //z
+                                                        case "CallExpression":
                                                             processElement()
                                                             return true
-                                                        case "ConditionalExpression": //z
+                                                        case "ConditionalExpression":
                                                             processElement()
                                                             return true
-                                                        case "ElementAccessExpression": //z
+                                                        case "ElementAccessExpression":
                                                             processElement()
                                                             return true
-                                                        case "FalseKeyword": //z
+                                                        case "FalseKeyword":
                                                             processElement()
                                                             return true
-                                                        case "Identifier": //z
+                                                        case "Identifier":
                                                             processElement()
                                                             return true
-                                                        case "NewExpression": //z
+                                                        case "NewExpression":
                                                             processElement()
                                                             return true
-                                                        case "NoSubstitutionTemplateLiteral": //z
+                                                        case "NoSubstitutionTemplateLiteral":
                                                             processElement()
                                                             return true
-                                                        case "NullKeyword": //z
+                                                        case "NullKeyword":
                                                             processElement()
                                                             return true
-                                                        case "NumericLiteral": //z
+                                                        case "NumericLiteral":
                                                             processElement()
                                                             return true
-                                                        case "ObjectLiteralExpression": //z
+                                                        case "ObjectLiteralExpression":
                                                             processElement()
                                                             return true
-                                                        case "ParenthesizedExpression": //z
+                                                        case "ParenthesizedExpression":
                                                             processElement()
                                                             return true
-                                                        case "PostfixUnaryExpression": //z
+                                                        case "PostfixUnaryExpression":
                                                             processElement()
                                                             return true
-                                                        case "PrefixUnaryExpression": //z
+                                                        case "PrefixUnaryExpression":
                                                             processElement()
                                                             return true
-                                                        case "PropertyAccessExpression": //z
+                                                        case "PropertyAccessExpression":
                                                             processElement()
                                                             return true
-                                                        case "StringLiteral": //z
+                                                        case "StringLiteral":
                                                             processElement()
                                                             return true
-                                                        case "TemplateExpression": //z
+                                                        case "TemplateExpression":
                                                             processElement()
                                                             return true
-                                                        case "TrueKeyword": //z
+                                                        case "TrueKeyword":
                                                             processElement()
                                                             return true
                                                         default: return false
@@ -1661,64 +1661,64 @@ export function parse(
                                             children,
                                             (nextChild) => {
                                                 switch (nextChild.kindName) {
-                                                    case "ArrayLiteralExpression": //z
+                                                    case "ArrayLiteralExpression":
                                                         processElement()
                                                         return true
-                                                    case "ArrowFunction": //z
+                                                    case "ArrowFunction":
                                                         processElement()
                                                         return true
-                                                    case "BinaryExpression": //z
+                                                    case "BinaryExpression":
                                                         processElement()
                                                         return true
-                                                    case "CallExpression": //z
+                                                    case "CallExpression":
                                                         processElement()
                                                         return true
-                                                    case "ConditionalExpression": //z
+                                                    case "ConditionalExpression":
                                                         processElement()
                                                         return true
-                                                    case "ElementAccessExpression": //z
+                                                    case "ElementAccessExpression":
                                                         processElement()
                                                         return true
-                                                    case "FalseKeyword": //z
+                                                    case "FalseKeyword":
                                                         processElement()
                                                         return true
-                                                    case "Identifier": //z
+                                                    case "Identifier":
                                                         processElement()
                                                         return true
-                                                    case "NewExpression": //z
+                                                    case "NewExpression":
                                                         processElement()
                                                         return true
-                                                    case "NoSubstitutionTemplateLiteral": //z
+                                                    case "NoSubstitutionTemplateLiteral":
                                                         processElement()
                                                         return true
-                                                    case "NullKeyword": //z
+                                                    case "NullKeyword":
                                                         processElement()
                                                         return true
-                                                    case "NumericLiteral": //z
+                                                    case "NumericLiteral":
                                                         processElement()
                                                         return true
-                                                    case "ObjectLiteralExpression": //z
+                                                    case "ObjectLiteralExpression":
                                                         processElement()
                                                         return true
-                                                    case "ParenthesizedExpression": //z
+                                                    case "ParenthesizedExpression":
                                                         processElement()
                                                         return true
-                                                    case "PostfixUnaryExpression": //z
+                                                    case "PostfixUnaryExpression":
                                                         processElement()
                                                         return true
-                                                    case "PrefixUnaryExpression": //z
+                                                    case "PrefixUnaryExpression":
                                                         processElement()
                                                         return true
-                                                    case "PropertyAccessExpression": //z
+                                                    case "PropertyAccessExpression":
                                                         processElement()
                                                         return true
-                                                    case "StringLiteral": //z
+                                                    case "StringLiteral":
                                                         processElement()
                                                         return true
-                                                    case "TemplateExpression": //z
+                                                    case "TemplateExpression":
                                                         processElement()
                                                         return true
-                                                    case "TrueKeyword": //z
+                                                    case "TrueKeyword":
                                                         processElement()
                                                         return true
                                                     default: return false
@@ -1935,7 +1935,7 @@ export function parse(
                                                                     }
                                                                 }
                                                             },
-                                                            () => { //no child
+                                                            () => { // no child
                                                                 $x.reportMissingToken({
                                                                     parentDetails: node.details,
                                                                     path: "Gexpression_objectLiteral$$_name",
@@ -1980,7 +1980,7 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "PropertyAssignment": //z
+                                                case "PropertyAssignment":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -2420,7 +2420,7 @@ export function parse(
                                                                                             }
                                                                                         }
                                                                                     },
-                                                                                    () => { //no child
+                                                                                    () => { // no child
                                                                                         $x.reportMissingToken({
                                                                                             parentDetails: node.details,
                                                                                             path: "Gexpression_template$_spans$_x",
@@ -2466,7 +2466,7 @@ export function parse(
                                                             children,
                                                             (nextChild) => {
                                                                 switch (nextChild.kindName) {
-                                                                    case "TemplateSpan": //z
+                                                                    case "TemplateSpan":
                                                                         processElement()
                                                                         return true
                                                                     default: return false
@@ -2665,7 +2665,7 @@ export function parse(
                     }
                 }
             },
-            () => { //no child
+            () => { // no child
                 $x.reportMissingToken({
                     parentDetails: node.details,
                     path: "Gexpression",
@@ -2692,7 +2692,7 @@ export function parse(
             children,
             (nextChild) => {
                 switch (nextChild.kindName) {
-                    case "TypeParameter": //z
+                    case "TypeParameter":
                         processElement()
                         return true
                     default: return false
@@ -2711,7 +2711,7 @@ export function parse(
                 children,
                 (nextChild) => {
                     switch (nextChild.kindName) {
-                        case "Parameter": //z
+                        case "Parameter":
                             processElement()
                             return true
                         default: return false
@@ -2729,52 +2729,52 @@ export function parse(
                 $d.lookAhead(children, 
                     (nextChild) => {
                         switch (nextChild.kindName) {
-                            case "AnyKeyword": //XXX
+                            case "AnyKeyword":
                                 setOptional()
                                 break
-                            case "ArrayType": //XXX
+                            case "ArrayType":
                                 setOptional()
                                 break
-                            case "BooleanKeyword": //XXX
+                            case "BooleanKeyword":
                                 setOptional()
                                 break
-                            case "FunctionType": //XXX
+                            case "FunctionType":
                                 setOptional()
                                 break
-                            case "LiteralType": //XXX
+                            case "LiteralType":
                                 setOptional()
                                 break
-                            case "NeverKeyword": //XXX
+                            case "NeverKeyword":
                                 setOptional()
                                 break
-                            case "NumberKeyword": //XXX
+                            case "NumberKeyword":
                                 setOptional()
                                 break
-                            case "OptionalType": //XXX
+                            case "OptionalType":
                                 setOptional()
                                 break
-                            case "ParenthesizedType": //XXX
+                            case "ParenthesizedType":
                                 setOptional()
                                 break
-                            case "StringKeyword": //XXX
+                            case "StringKeyword":
                                 setOptional()
                                 break
-                            case "TupleType": //XXX
+                            case "TupleType":
                                 setOptional()
                                 break
-                            case "TypeLiteral": //XXX
+                            case "TypeLiteral":
                                 setOptional()
                                 break
-                            case "TypeReference": //XXX
+                            case "TypeReference":
                                 setOptional()
                                 break
-                            case "UndefinedKeyword": //XXX
+                            case "UndefinedKeyword":
                                 setOptional()
                                 break
-                            case "UnionType": //XXX
+                            case "UnionType":
                                 setOptional()
                                 break
-                            case "VoidKeyword": //XXX
+                            case "VoidKeyword":
                                 setOptional()
                                 break
                         }
@@ -2881,7 +2881,7 @@ export function parse(
                     }
                 }
             },
-            () => { //no child
+            () => { // no child
                 $x.reportMissingToken({
                     parentDetails: node.details,
                     path: "GidentifierOrStringLiteral",
@@ -3054,7 +3054,7 @@ export function parse(
                     }
                 }
             },
-            () => { //no child
+            () => { // no child
                 $x.reportMissingToken({
                     parentDetails: node.details,
                     path: "Gmodifier",
@@ -3184,7 +3184,7 @@ export function parse(
                             $d.lookAhead(children, 
                                 (nextChild) => {
                                     switch (nextChild.kindName) {
-                                        case "QuestionToken": //XXX
+                                        case "QuestionToken":
                                             setOptional()
                                             break
                                     }
@@ -3202,52 +3202,52 @@ export function parse(
                                 $d.lookAhead(children, 
                                     (nextChild) => {
                                         switch (nextChild.kindName) {
-                                            case "AnyKeyword": //XXX
+                                            case "AnyKeyword":
                                                 setOptional()
                                                 break
-                                            case "ArrayType": //XXX
+                                            case "ArrayType":
                                                 setOptional()
                                                 break
-                                            case "BooleanKeyword": //XXX
+                                            case "BooleanKeyword":
                                                 setOptional()
                                                 break
-                                            case "FunctionType": //XXX
+                                            case "FunctionType":
                                                 setOptional()
                                                 break
-                                            case "LiteralType": //XXX
+                                            case "LiteralType":
                                                 setOptional()
                                                 break
-                                            case "NeverKeyword": //XXX
+                                            case "NeverKeyword":
                                                 setOptional()
                                                 break
-                                            case "NumberKeyword": //XXX
+                                            case "NumberKeyword":
                                                 setOptional()
                                                 break
-                                            case "OptionalType": //XXX
+                                            case "OptionalType":
                                                 setOptional()
                                                 break
-                                            case "ParenthesizedType": //XXX
+                                            case "ParenthesizedType":
                                                 setOptional()
                                                 break
-                                            case "StringKeyword": //XXX
+                                            case "StringKeyword":
                                                 setOptional()
                                                 break
-                                            case "TupleType": //XXX
+                                            case "TupleType":
                                                 setOptional()
                                                 break
-                                            case "TypeLiteral": //XXX
+                                            case "TypeLiteral":
                                                 setOptional()
                                                 break
-                                            case "TypeReference": //XXX
+                                            case "TypeReference":
                                                 setOptional()
                                                 break
-                                            case "UndefinedKeyword": //XXX
+                                            case "UndefinedKeyword":
                                                 setOptional()
                                                 break
-                                            case "UnionType": //XXX
+                                            case "UnionType":
                                                 setOptional()
                                                 break
-                                            case "VoidKeyword": //XXX
+                                            case "VoidKeyword":
                                                 setOptional()
                                                 break
                                         }
@@ -3331,7 +3331,7 @@ export function parse(
                                     $d.lookAhead(children, 
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "Identifier": //XXX
+                                                case "Identifier":
                                                     setOptional()
                                                     break
                                             }
@@ -3568,13 +3568,13 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "DeclareKeyword": //z
+                                                case "DeclareKeyword":
                                                     processElement()
                                                     return true
-                                                case "ExportKeyword": //z
+                                                case "ExportKeyword":
                                                     processElement()
                                                     return true
-                                                case "ReadonlyKeyword": //z
+                                                case "ReadonlyKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -3596,7 +3596,7 @@ export function parse(
                                                 $d.lookAhead(children, 
                                                     (nextChild) => {
                                                         switch (nextChild.kindName) {
-                                                            case "Block": //XXX
+                                                            case "Block":
                                                                 setOptional()
                                                                 break
                                                         }
@@ -3677,55 +3677,55 @@ export function parse(
                                             $d.lookAhead(children, 
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "Block": //XXX
+                                                        case "Block":
                                                             setOptional()
                                                             break
-                                                        case "BreakStatement": //XXX
+                                                        case "BreakStatement":
                                                             setOptional()
                                                             break
-                                                        case "ExportDeclaration": //XXX
+                                                        case "ExportDeclaration":
                                                             setOptional()
                                                             break
-                                                        case "ExpressionStatement": //XXX
+                                                        case "ExpressionStatement":
                                                             setOptional()
                                                             break
-                                                        case "ForStatement": //XXX
+                                                        case "ForStatement":
                                                             setOptional()
                                                             break
-                                                        case "FunctionDeclaration": //XXX
+                                                        case "FunctionDeclaration":
                                                             setOptional()
                                                             break
-                                                        case "IfStatement": //XXX
+                                                        case "IfStatement":
                                                             setOptional()
                                                             break
-                                                        case "ImportDeclaration": //XXX
+                                                        case "ImportDeclaration":
                                                             setOptional()
                                                             break
-                                                        case "InterfaceDeclaration": //XXX
+                                                        case "InterfaceDeclaration":
                                                             setOptional()
                                                             break
-                                                        case "LabeledStatement": //XXX
+                                                        case "LabeledStatement":
                                                             setOptional()
                                                             break
-                                                        case "ReturnStatement": //XXX
+                                                        case "ReturnStatement":
                                                             setOptional()
                                                             break
-                                                        case "SwitchStatement": //XXX
+                                                        case "SwitchStatement":
                                                             setOptional()
                                                             break
-                                                        case "ThrowStatement": //XXX
+                                                        case "ThrowStatement":
                                                             setOptional()
                                                             break
-                                                        case "TryStatement": //XXX
+                                                        case "TryStatement":
                                                             setOptional()
                                                             break
-                                                        case "TypeAliasDeclaration": //XXX
+                                                        case "TypeAliasDeclaration":
                                                             setOptional()
                                                             break
-                                                        case "VariableStatement": //XXX
+                                                        case "VariableStatement":
                                                             setOptional()
                                                             break
-                                                        case "WhileStatement": //XXX
+                                                        case "WhileStatement":
                                                             setOptional()
                                                             break
                                                     }
@@ -3846,7 +3846,7 @@ export function parse(
                                                                                                         $d.lookAhead(children, 
                                                                                                             (nextChild) => {
                                                                                                                 switch (nextChild.kindName) {
-                                                                                                                    case "Identifier": //XXX
+                                                                                                                    case "Identifier":
                                                                                                                         setOptional()
                                                                                                                         break
                                                                                                                 }
@@ -3898,7 +3898,7 @@ export function parse(
                                                                                     children,
                                                                                     (nextChild) => {
                                                                                         switch (nextChild.kindName) {
-                                                                                            case "ImportSpecifier": //z
+                                                                                            case "ImportSpecifier":
                                                                                                 processElement()
                                                                                                 return true
                                                                                             default: return false
@@ -4011,7 +4011,7 @@ export function parse(
                                                                 }
                                                             }
                                                         },
-                                                        () => { //no child
+                                                        () => { // no child
                                                             $x.reportMissingToken({
                                                                 parentDetails: node.details,
                                                                 path: "Gstatement_import$_clause$",
@@ -4117,13 +4117,13 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "DeclareKeyword": //z
+                                                case "DeclareKeyword":
                                                     processElement()
                                                     return true
-                                                case "ExportKeyword": //z
+                                                case "ExportKeyword":
                                                     processElement()
                                                     return true
-                                                case "ReadonlyKeyword": //z
+                                                case "ReadonlyKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -4144,7 +4144,7 @@ export function parse(
                                                 children,
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "TypeParameter": //z
+                                                        case "TypeParameter":
                                                             processElement()
                                                             return true
                                                         default: return false
@@ -4163,16 +4163,16 @@ export function parse(
                                                     children,
                                                     (nextChild) => {
                                                         switch (nextChild.kindName) {
-                                                            case "ConstructSignature": //z
+                                                            case "ConstructSignature":
                                                                 processElement()
                                                                 return true
-                                                            case "IndexSignature": //z
+                                                            case "IndexSignature":
                                                                 processElement()
                                                                 return true
-                                                            case "MethodSignature": //z
+                                                            case "MethodSignature":
                                                                 processElement()
                                                                 return true
-                                                            case "PropertySignature": //z
+                                                            case "PropertySignature":
                                                                 processElement()
                                                                 return true
                                                             default: return false
@@ -4302,64 +4302,64 @@ export function parse(
                                     $d.lookAhead(children, 
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "ArrayLiteralExpression": //XXX
+                                                case "ArrayLiteralExpression":
                                                     setOptional()
                                                     break
-                                                case "ArrowFunction": //XXX
+                                                case "ArrowFunction":
                                                     setOptional()
                                                     break
-                                                case "BinaryExpression": //XXX
+                                                case "BinaryExpression":
                                                     setOptional()
                                                     break
-                                                case "CallExpression": //XXX
+                                                case "CallExpression":
                                                     setOptional()
                                                     break
-                                                case "ConditionalExpression": //XXX
+                                                case "ConditionalExpression":
                                                     setOptional()
                                                     break
-                                                case "ElementAccessExpression": //XXX
+                                                case "ElementAccessExpression":
                                                     setOptional()
                                                     break
-                                                case "FalseKeyword": //XXX
+                                                case "FalseKeyword":
                                                     setOptional()
                                                     break
-                                                case "Identifier": //XXX
+                                                case "Identifier":
                                                     setOptional()
                                                     break
-                                                case "NewExpression": //XXX
+                                                case "NewExpression":
                                                     setOptional()
                                                     break
-                                                case "NoSubstitutionTemplateLiteral": //XXX
+                                                case "NoSubstitutionTemplateLiteral":
                                                     setOptional()
                                                     break
-                                                case "NullKeyword": //XXX
+                                                case "NullKeyword":
                                                     setOptional()
                                                     break
-                                                case "NumericLiteral": //XXX
+                                                case "NumericLiteral":
                                                     setOptional()
                                                     break
-                                                case "ObjectLiteralExpression": //XXX
+                                                case "ObjectLiteralExpression":
                                                     setOptional()
                                                     break
-                                                case "ParenthesizedExpression": //XXX
+                                                case "ParenthesizedExpression":
                                                     setOptional()
                                                     break
-                                                case "PostfixUnaryExpression": //XXX
+                                                case "PostfixUnaryExpression":
                                                     setOptional()
                                                     break
-                                                case "PrefixUnaryExpression": //XXX
+                                                case "PrefixUnaryExpression":
                                                     setOptional()
                                                     break
-                                                case "PropertyAccessExpression": //XXX
+                                                case "PropertyAccessExpression":
                                                     setOptional()
                                                     break
-                                                case "StringLiteral": //XXX
+                                                case "StringLiteral":
                                                     setOptional()
                                                     break
-                                                case "TemplateExpression": //XXX
+                                                case "TemplateExpression":
                                                     setOptional()
                                                     break
-                                                case "TrueKeyword": //XXX
+                                                case "TrueKeyword":
                                                     setOptional()
                                                     break
                                             }
@@ -4467,55 +4467,55 @@ export function parse(
                                                                                                 children,
                                                                                                 (nextChild) => {
                                                                                                     switch (nextChild.kindName) {
-                                                                                                        case "Block": //z
+                                                                                                        case "Block":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "BreakStatement": //z
+                                                                                                        case "BreakStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "ExportDeclaration": //z
+                                                                                                        case "ExportDeclaration":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "ExpressionStatement": //z
+                                                                                                        case "ExpressionStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "ForStatement": //z
+                                                                                                        case "ForStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "FunctionDeclaration": //z
+                                                                                                        case "FunctionDeclaration":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "IfStatement": //z
+                                                                                                        case "IfStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "ImportDeclaration": //z
+                                                                                                        case "ImportDeclaration":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "InterfaceDeclaration": //z
+                                                                                                        case "InterfaceDeclaration":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "LabeledStatement": //z
+                                                                                                        case "LabeledStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "ReturnStatement": //z
+                                                                                                        case "ReturnStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "SwitchStatement": //z
+                                                                                                        case "SwitchStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "ThrowStatement": //z
+                                                                                                        case "ThrowStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "TryStatement": //z
+                                                                                                        case "TryStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "TypeAliasDeclaration": //z
+                                                                                                        case "TypeAliasDeclaration":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "VariableStatement": //z
+                                                                                                        case "VariableStatement":
                                                                                                             processElement()
                                                                                                             return true
-                                                                                                        case "WhileStatement": //z
+                                                                                                        case "WhileStatement":
                                                                                                             processElement()
                                                                                                             return true
                                                                                                         default: return false
@@ -4583,55 +4583,55 @@ export function parse(
                                                                                             children,
                                                                                             (nextChild) => {
                                                                                                 switch (nextChild.kindName) {
-                                                                                                    case "Block": //z
+                                                                                                    case "Block":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "BreakStatement": //z
+                                                                                                    case "BreakStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "ExportDeclaration": //z
+                                                                                                    case "ExportDeclaration":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "ExpressionStatement": //z
+                                                                                                    case "ExpressionStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "ForStatement": //z
+                                                                                                    case "ForStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "FunctionDeclaration": //z
+                                                                                                    case "FunctionDeclaration":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "IfStatement": //z
+                                                                                                    case "IfStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "ImportDeclaration": //z
+                                                                                                    case "ImportDeclaration":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "InterfaceDeclaration": //z
+                                                                                                    case "InterfaceDeclaration":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "LabeledStatement": //z
+                                                                                                    case "LabeledStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "ReturnStatement": //z
+                                                                                                    case "ReturnStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "SwitchStatement": //z
+                                                                                                    case "SwitchStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "ThrowStatement": //z
+                                                                                                    case "ThrowStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "TryStatement": //z
+                                                                                                    case "TryStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "TypeAliasDeclaration": //z
+                                                                                                    case "TypeAliasDeclaration":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "VariableStatement": //z
+                                                                                                    case "VariableStatement":
                                                                                                         processElement()
                                                                                                         return true
-                                                                                                    case "WhileStatement": //z
+                                                                                                    case "WhileStatement":
                                                                                                         processElement()
                                                                                                         return true
                                                                                                     default: return false
@@ -4695,7 +4695,7 @@ export function parse(
                                                                         }
                                                                     }
                                                                 },
-                                                                () => { //no child
+                                                                () => { // no child
                                                                     $x.reportMissingToken({
                                                                         parentDetails: node.details,
                                                                         path: "Gstatement_switch$_caseBlock$",
@@ -4708,10 +4708,10 @@ export function parse(
                                                             children,
                                                             (nextChild) => {
                                                                 switch (nextChild.kindName) {
-                                                                    case "CaseClause": //z
+                                                                    case "CaseClause":
                                                                         processElement()
                                                                         return true
-                                                                    case "DefaultClause": //z
+                                                                    case "DefaultClause":
                                                                         processElement()
                                                                         return true
                                                                     default: return false
@@ -4982,13 +4982,13 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "DeclareKeyword": //z
+                                                case "DeclareKeyword":
                                                     processElement()
                                                     return true
-                                                case "ExportKeyword": //z
+                                                case "ExportKeyword":
                                                     processElement()
                                                     return true
-                                                case "ReadonlyKeyword": //z
+                                                case "ReadonlyKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -5009,7 +5009,7 @@ export function parse(
                                                 children,
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "TypeParameter": //z
+                                                        case "TypeParameter":
                                                             processElement()
                                                             return true
                                                         default: return false
@@ -5089,13 +5089,13 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "DeclareKeyword": //z
+                                                case "DeclareKeyword":
                                                     processElement()
                                                     return true
-                                                case "ExportKeyword": //z
+                                                case "ExportKeyword":
                                                     processElement()
                                                     return true
-                                                case "ReadonlyKeyword": //z
+                                                case "ReadonlyKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -5282,7 +5282,7 @@ export function parse(
                     }
                 }
             },
-            () => { //no child
+            () => { // no child
                 $x.reportMissingToken({
                     parentDetails: node.details,
                     path: "Gstatement",
@@ -5515,7 +5515,7 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "Parameter": //z
+                                                case "Parameter":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -5533,52 +5533,52 @@ export function parse(
                                         $d.lookAhead(children, 
                                             (nextChild) => {
                                                 switch (nextChild.kindName) {
-                                                    case "AnyKeyword": //XXX
+                                                    case "AnyKeyword":
                                                         setOptional()
                                                         break
-                                                    case "ArrayType": //XXX
+                                                    case "ArrayType":
                                                         setOptional()
                                                         break
-                                                    case "BooleanKeyword": //XXX
+                                                    case "BooleanKeyword":
                                                         setOptional()
                                                         break
-                                                    case "FunctionType": //XXX
+                                                    case "FunctionType":
                                                         setOptional()
                                                         break
-                                                    case "LiteralType": //XXX
+                                                    case "LiteralType":
                                                         setOptional()
                                                         break
-                                                    case "NeverKeyword": //XXX
+                                                    case "NeverKeyword":
                                                         setOptional()
                                                         break
-                                                    case "NumberKeyword": //XXX
+                                                    case "NumberKeyword":
                                                         setOptional()
                                                         break
-                                                    case "OptionalType": //XXX
+                                                    case "OptionalType":
                                                         setOptional()
                                                         break
-                                                    case "ParenthesizedType": //XXX
+                                                    case "ParenthesizedType":
                                                         setOptional()
                                                         break
-                                                    case "StringKeyword": //XXX
+                                                    case "StringKeyword":
                                                         setOptional()
                                                         break
-                                                    case "TupleType": //XXX
+                                                    case "TupleType":
                                                         setOptional()
                                                         break
-                                                    case "TypeLiteral": //XXX
+                                                    case "TypeLiteral":
                                                         setOptional()
                                                         break
-                                                    case "TypeReference": //XXX
+                                                    case "TypeReference":
                                                         setOptional()
                                                         break
-                                                    case "UndefinedKeyword": //XXX
+                                                    case "UndefinedKeyword":
                                                         setOptional()
                                                         break
-                                                    case "UnionType": //XXX
+                                                    case "UnionType":
                                                         setOptional()
                                                         break
-                                                    case "VoidKeyword": //XXX
+                                                    case "VoidKeyword":
                                                         setOptional()
                                                         break
                                                 }
@@ -5711,7 +5711,7 @@ export function parse(
                                                 }
                                             }
                                         },
-                                        () => { //no child
+                                        () => { // no child
                                             $x.reportMissingToken({
                                                 parentDetails: node.details,
                                                 path: "Gtype_literal$",
@@ -6002,52 +6002,52 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "AnyKeyword": //z
+                                                case "AnyKeyword":
                                                     processElement()
                                                     return true
-                                                case "ArrayType": //z
+                                                case "ArrayType":
                                                     processElement()
                                                     return true
-                                                case "BooleanKeyword": //z
+                                                case "BooleanKeyword":
                                                     processElement()
                                                     return true
-                                                case "FunctionType": //z
+                                                case "FunctionType":
                                                     processElement()
                                                     return true
-                                                case "LiteralType": //z
+                                                case "LiteralType":
                                                     processElement()
                                                     return true
-                                                case "NeverKeyword": //z
+                                                case "NeverKeyword":
                                                     processElement()
                                                     return true
-                                                case "NumberKeyword": //z
+                                                case "NumberKeyword":
                                                     processElement()
                                                     return true
-                                                case "OptionalType": //z
+                                                case "OptionalType":
                                                     processElement()
                                                     return true
-                                                case "ParenthesizedType": //z
+                                                case "ParenthesizedType":
                                                     processElement()
                                                     return true
-                                                case "StringKeyword": //z
+                                                case "StringKeyword":
                                                     processElement()
                                                     return true
-                                                case "TupleType": //z
+                                                case "TupleType":
                                                     processElement()
                                                     return true
-                                                case "TypeLiteral": //z
+                                                case "TypeLiteral":
                                                     processElement()
                                                     return true
-                                                case "TypeReference": //z
+                                                case "TypeReference":
                                                     processElement()
                                                     return true
-                                                case "UndefinedKeyword": //z
+                                                case "UndefinedKeyword":
                                                     processElement()
                                                     return true
-                                                case "UnionType": //z
+                                                case "UnionType":
                                                     processElement()
                                                     return true
-                                                case "VoidKeyword": //z
+                                                case "VoidKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -6113,16 +6113,16 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "ConstructSignature": //z
+                                                case "ConstructSignature":
                                                     processElement()
                                                     return true
-                                                case "IndexSignature": //z
+                                                case "IndexSignature":
                                                     processElement()
                                                     return true
-                                                case "MethodSignature": //z
+                                                case "MethodSignature":
                                                     processElement()
                                                     return true
-                                                case "PropertySignature": //z
+                                                case "PropertySignature":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -6196,52 +6196,52 @@ export function parse(
                                             children,
                                             (nextChild) => {
                                                 switch (nextChild.kindName) {
-                                                    case "AnyKeyword": //z
+                                                    case "AnyKeyword":
                                                         processElement()
                                                         return true
-                                                    case "ArrayType": //z
+                                                    case "ArrayType":
                                                         processElement()
                                                         return true
-                                                    case "BooleanKeyword": //z
+                                                    case "BooleanKeyword":
                                                         processElement()
                                                         return true
-                                                    case "FunctionType": //z
+                                                    case "FunctionType":
                                                         processElement()
                                                         return true
-                                                    case "LiteralType": //z
+                                                    case "LiteralType":
                                                         processElement()
                                                         return true
-                                                    case "NeverKeyword": //z
+                                                    case "NeverKeyword":
                                                         processElement()
                                                         return true
-                                                    case "NumberKeyword": //z
+                                                    case "NumberKeyword":
                                                         processElement()
                                                         return true
-                                                    case "OptionalType": //z
+                                                    case "OptionalType":
                                                         processElement()
                                                         return true
-                                                    case "ParenthesizedType": //z
+                                                    case "ParenthesizedType":
                                                         processElement()
                                                         return true
-                                                    case "StringKeyword": //z
+                                                    case "StringKeyword":
                                                         processElement()
                                                         return true
-                                                    case "TupleType": //z
+                                                    case "TupleType":
                                                         processElement()
                                                         return true
-                                                    case "TypeLiteral": //z
+                                                    case "TypeLiteral":
                                                         processElement()
                                                         return true
-                                                    case "TypeReference": //z
+                                                    case "TypeReference":
                                                         processElement()
                                                         return true
-                                                    case "UndefinedKeyword": //z
+                                                    case "UndefinedKeyword":
                                                         processElement()
                                                         return true
-                                                    case "UnionType": //z
+                                                    case "UnionType":
                                                         processElement()
                                                         return true
-                                                    case "VoidKeyword": //z
+                                                    case "VoidKeyword":
                                                         processElement()
                                                         return true
                                                     default: return false
@@ -6340,7 +6340,7 @@ export function parse(
                                                 }
                                             }
                                         },
-                                        () => { //no child
+                                        () => { // no child
                                             $x.reportMissingToken({
                                                 parentDetails: node.details,
                                                 path: "Gtype_typeReference$_x",
@@ -6445,52 +6445,52 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "AnyKeyword": //z
+                                                case "AnyKeyword":
                                                     processElement()
                                                     return true
-                                                case "ArrayType": //z
+                                                case "ArrayType":
                                                     processElement()
                                                     return true
-                                                case "BooleanKeyword": //z
+                                                case "BooleanKeyword":
                                                     processElement()
                                                     return true
-                                                case "FunctionType": //z
+                                                case "FunctionType":
                                                     processElement()
                                                     return true
-                                                case "LiteralType": //z
+                                                case "LiteralType":
                                                     processElement()
                                                     return true
-                                                case "NeverKeyword": //z
+                                                case "NeverKeyword":
                                                     processElement()
                                                     return true
-                                                case "NumberKeyword": //z
+                                                case "NumberKeyword":
                                                     processElement()
                                                     return true
-                                                case "OptionalType": //z
+                                                case "OptionalType":
                                                     processElement()
                                                     return true
-                                                case "ParenthesizedType": //z
+                                                case "ParenthesizedType":
                                                     processElement()
                                                     return true
-                                                case "StringKeyword": //z
+                                                case "StringKeyword":
                                                     processElement()
                                                     return true
-                                                case "TupleType": //z
+                                                case "TupleType":
                                                     processElement()
                                                     return true
-                                                case "TypeLiteral": //z
+                                                case "TypeLiteral":
                                                     processElement()
                                                     return true
-                                                case "TypeReference": //z
+                                                case "TypeReference":
                                                     processElement()
                                                     return true
-                                                case "UndefinedKeyword": //z
+                                                case "UndefinedKeyword":
                                                     processElement()
                                                     return true
-                                                case "UnionType": //z
+                                                case "UnionType":
                                                     processElement()
                                                     return true
-                                                case "VoidKeyword": //z
+                                                case "VoidKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -6654,7 +6654,7 @@ export function parse(
                     }
                 }
             },
-            () => { //no child
+            () => { // no child
                 $x.reportMissingToken({
                     parentDetails: node.details,
                     path: "Gtype",
@@ -6752,7 +6752,7 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "Parameter": //z
+                                                case "Parameter":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -6828,13 +6828,13 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "DeclareKeyword": //z
+                                                case "DeclareKeyword":
                                                     processElement()
                                                     return true
-                                                case "ExportKeyword": //z
+                                                case "ExportKeyword":
                                                     processElement()
                                                     return true
-                                                case "ReadonlyKeyword": //z
+                                                case "ReadonlyKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -6854,52 +6854,52 @@ export function parse(
                                             $d.lookAhead(children, 
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "AnyKeyword": //XXX
+                                                        case "AnyKeyword":
                                                             setOptional()
                                                             break
-                                                        case "ArrayType": //XXX
+                                                        case "ArrayType":
                                                             setOptional()
                                                             break
-                                                        case "BooleanKeyword": //XXX
+                                                        case "BooleanKeyword":
                                                             setOptional()
                                                             break
-                                                        case "FunctionType": //XXX
+                                                        case "FunctionType":
                                                             setOptional()
                                                             break
-                                                        case "LiteralType": //XXX
+                                                        case "LiteralType":
                                                             setOptional()
                                                             break
-                                                        case "NeverKeyword": //XXX
+                                                        case "NeverKeyword":
                                                             setOptional()
                                                             break
-                                                        case "NumberKeyword": //XXX
+                                                        case "NumberKeyword":
                                                             setOptional()
                                                             break
-                                                        case "OptionalType": //XXX
+                                                        case "OptionalType":
                                                             setOptional()
                                                             break
-                                                        case "ParenthesizedType": //XXX
+                                                        case "ParenthesizedType":
                                                             setOptional()
                                                             break
-                                                        case "StringKeyword": //XXX
+                                                        case "StringKeyword":
                                                             setOptional()
                                                             break
-                                                        case "TupleType": //XXX
+                                                        case "TupleType":
                                                             setOptional()
                                                             break
-                                                        case "TypeLiteral": //XXX
+                                                        case "TypeLiteral":
                                                             setOptional()
                                                             break
-                                                        case "TypeReference": //XXX
+                                                        case "TypeReference":
                                                             setOptional()
                                                             break
-                                                        case "UndefinedKeyword": //XXX
+                                                        case "UndefinedKeyword":
                                                             setOptional()
                                                             break
-                                                        case "UnionType": //XXX
+                                                        case "UnionType":
                                                             setOptional()
                                                             break
-                                                        case "VoidKeyword": //XXX
+                                                        case "VoidKeyword":
                                                             setOptional()
                                                             break
                                                     }
@@ -7034,13 +7034,13 @@ export function parse(
                                         children,
                                         (nextChild) => {
                                             switch (nextChild.kindName) {
-                                                case "DeclareKeyword": //z
+                                                case "DeclareKeyword":
                                                     processElement()
                                                     return true
-                                                case "ExportKeyword": //z
+                                                case "ExportKeyword":
                                                     processElement()
                                                     return true
-                                                case "ReadonlyKeyword": //z
+                                                case "ReadonlyKeyword":
                                                     processElement()
                                                     return true
                                                 default: return false
@@ -7099,7 +7099,7 @@ export function parse(
                                             $d.lookAhead(children, 
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "QuestionToken": //XXX
+                                                        case "QuestionToken":
                                                             setOptional()
                                                             break
                                                     }
@@ -7117,52 +7117,52 @@ export function parse(
                                                 $d.lookAhead(children, 
                                                     (nextChild) => {
                                                         switch (nextChild.kindName) {
-                                                            case "AnyKeyword": //XXX
+                                                            case "AnyKeyword":
                                                                 setOptional()
                                                                 break
-                                                            case "ArrayType": //XXX
+                                                            case "ArrayType":
                                                                 setOptional()
                                                                 break
-                                                            case "BooleanKeyword": //XXX
+                                                            case "BooleanKeyword":
                                                                 setOptional()
                                                                 break
-                                                            case "FunctionType": //XXX
+                                                            case "FunctionType":
                                                                 setOptional()
                                                                 break
-                                                            case "LiteralType": //XXX
+                                                            case "LiteralType":
                                                                 setOptional()
                                                                 break
-                                                            case "NeverKeyword": //XXX
+                                                            case "NeverKeyword":
                                                                 setOptional()
                                                                 break
-                                                            case "NumberKeyword": //XXX
+                                                            case "NumberKeyword":
                                                                 setOptional()
                                                                 break
-                                                            case "OptionalType": //XXX
+                                                            case "OptionalType":
                                                                 setOptional()
                                                                 break
-                                                            case "ParenthesizedType": //XXX
+                                                            case "ParenthesizedType":
                                                                 setOptional()
                                                                 break
-                                                            case "StringKeyword": //XXX
+                                                            case "StringKeyword":
                                                                 setOptional()
                                                                 break
-                                                            case "TupleType": //XXX
+                                                            case "TupleType":
                                                                 setOptional()
                                                                 break
-                                                            case "TypeLiteral": //XXX
+                                                            case "TypeLiteral":
                                                                 setOptional()
                                                                 break
-                                                            case "TypeReference": //XXX
+                                                            case "TypeReference":
                                                                 setOptional()
                                                                 break
-                                                            case "UndefinedKeyword": //XXX
+                                                            case "UndefinedKeyword":
                                                                 setOptional()
                                                                 break
-                                                            case "UnionType": //XXX
+                                                            case "UnionType":
                                                                 setOptional()
                                                                 break
-                                                            case "VoidKeyword": //XXX
+                                                            case "VoidKeyword":
                                                                 setOptional()
                                                                 break
                                                         }
@@ -7240,7 +7240,7 @@ export function parse(
                     }
                 }
             },
-            () => { //no child
+            () => { // no child
                 $x.reportMissingToken({
                     parentDetails: node.details,
                     path: "GtypeSignature",
@@ -7280,52 +7280,52 @@ export function parse(
                             $d.lookAhead(children, 
                                 (nextChild) => {
                                     switch (nextChild.kindName) {
-                                        case "AnyKeyword": //XXX
+                                        case "AnyKeyword":
                                             setOptional()
                                             break
-                                        case "ArrayType": //XXX
+                                        case "ArrayType":
                                             setOptional()
                                             break
-                                        case "BooleanKeyword": //XXX
+                                        case "BooleanKeyword":
                                             setOptional()
                                             break
-                                        case "FunctionType": //XXX
+                                        case "FunctionType":
                                             setOptional()
                                             break
-                                        case "LiteralType": //XXX
+                                        case "LiteralType":
                                             setOptional()
                                             break
-                                        case "NeverKeyword": //XXX
+                                        case "NeverKeyword":
                                             setOptional()
                                             break
-                                        case "NumberKeyword": //XXX
+                                        case "NumberKeyword":
                                             setOptional()
                                             break
-                                        case "OptionalType": //XXX
+                                        case "OptionalType":
                                             setOptional()
                                             break
-                                        case "ParenthesizedType": //XXX
+                                        case "ParenthesizedType":
                                             setOptional()
                                             break
-                                        case "StringKeyword": //XXX
+                                        case "StringKeyword":
                                             setOptional()
                                             break
-                                        case "TupleType": //XXX
+                                        case "TupleType":
                                             setOptional()
                                             break
-                                        case "TypeLiteral": //XXX
+                                        case "TypeLiteral":
                                             setOptional()
                                             break
-                                        case "TypeReference": //XXX
+                                        case "TypeReference":
                                             setOptional()
                                             break
-                                        case "UndefinedKeyword": //XXX
+                                        case "UndefinedKeyword":
                                             setOptional()
                                             break
-                                        case "UnionType": //XXX
+                                        case "UnionType":
                                             setOptional()
                                             break
-                                        case "VoidKeyword": //XXX
+                                        case "VoidKeyword":
                                             setOptional()
                                             break
                                     }
@@ -7343,64 +7343,64 @@ export function parse(
                                 $d.lookAhead(children, 
                                     (nextChild) => {
                                         switch (nextChild.kindName) {
-                                            case "ArrayLiteralExpression": //XXX
+                                            case "ArrayLiteralExpression":
                                                 setOptional()
                                                 break
-                                            case "ArrowFunction": //XXX
+                                            case "ArrowFunction":
                                                 setOptional()
                                                 break
-                                            case "BinaryExpression": //XXX
+                                            case "BinaryExpression":
                                                 setOptional()
                                                 break
-                                            case "CallExpression": //XXX
+                                            case "CallExpression":
                                                 setOptional()
                                                 break
-                                            case "ConditionalExpression": //XXX
+                                            case "ConditionalExpression":
                                                 setOptional()
                                                 break
-                                            case "ElementAccessExpression": //XXX
+                                            case "ElementAccessExpression":
                                                 setOptional()
                                                 break
-                                            case "FalseKeyword": //XXX
+                                            case "FalseKeyword":
                                                 setOptional()
                                                 break
-                                            case "Identifier": //XXX
+                                            case "Identifier":
                                                 setOptional()
                                                 break
-                                            case "NewExpression": //XXX
+                                            case "NewExpression":
                                                 setOptional()
                                                 break
-                                            case "NoSubstitutionTemplateLiteral": //XXX
+                                            case "NoSubstitutionTemplateLiteral":
                                                 setOptional()
                                                 break
-                                            case "NullKeyword": //XXX
+                                            case "NullKeyword":
                                                 setOptional()
                                                 break
-                                            case "NumericLiteral": //XXX
+                                            case "NumericLiteral":
                                                 setOptional()
                                                 break
-                                            case "ObjectLiteralExpression": //XXX
+                                            case "ObjectLiteralExpression":
                                                 setOptional()
                                                 break
-                                            case "ParenthesizedExpression": //XXX
+                                            case "ParenthesizedExpression":
                                                 setOptional()
                                                 break
-                                            case "PostfixUnaryExpression": //XXX
+                                            case "PostfixUnaryExpression":
                                                 setOptional()
                                                 break
-                                            case "PrefixUnaryExpression": //XXX
+                                            case "PrefixUnaryExpression":
                                                 setOptional()
                                                 break
-                                            case "PropertyAccessExpression": //XXX
+                                            case "PropertyAccessExpression":
                                                 setOptional()
                                                 break
-                                            case "StringLiteral": //XXX
+                                            case "StringLiteral":
                                                 setOptional()
                                                 break
-                                            case "TemplateExpression": //XXX
+                                            case "TemplateExpression":
                                                 setOptional()
                                                 break
-                                            case "TrueKeyword": //XXX
+                                            case "TrueKeyword":
                                                 setOptional()
                                                 break
                                         }
@@ -7474,7 +7474,7 @@ export function parse(
                             children,
                             (nextChild) => {
                                 switch (nextChild.kindName) {
-                                    case "VariableDeclaration": //z
+                                    case "VariableDeclaration":
                                         processElement()
                                         return true
                                     default: return false
@@ -7543,55 +7543,55 @@ export function parse(
                 children,
                 (nextChild) => {
                     switch (nextChild.kindName) {
-                        case "Block": //z
+                        case "Block":
                             processElement()
                             return true
-                        case "BreakStatement": //z
+                        case "BreakStatement":
                             processElement()
                             return true
-                        case "ExportDeclaration": //z
+                        case "ExportDeclaration":
                             processElement()
                             return true
-                        case "ExpressionStatement": //z
+                        case "ExpressionStatement":
                             processElement()
                             return true
-                        case "ForStatement": //z
+                        case "ForStatement":
                             processElement()
                             return true
-                        case "FunctionDeclaration": //z
+                        case "FunctionDeclaration":
                             processElement()
                             return true
-                        case "IfStatement": //z
+                        case "IfStatement":
                             processElement()
                             return true
-                        case "ImportDeclaration": //z
+                        case "ImportDeclaration":
                             processElement()
                             return true
-                        case "InterfaceDeclaration": //z
+                        case "InterfaceDeclaration":
                             processElement()
                             return true
-                        case "LabeledStatement": //z
+                        case "LabeledStatement":
                             processElement()
                             return true
-                        case "ReturnStatement": //z
+                        case "ReturnStatement":
                             processElement()
                             return true
-                        case "SwitchStatement": //z
+                        case "SwitchStatement":
                             processElement()
                             return true
-                        case "ThrowStatement": //z
+                        case "ThrowStatement":
                             processElement()
                             return true
-                        case "TryStatement": //z
+                        case "TryStatement":
                             processElement()
                             return true
-                        case "TypeAliasDeclaration": //z
+                        case "TypeAliasDeclaration":
                             processElement()
                             return true
-                        case "VariableStatement": //z
+                        case "VariableStatement":
                             processElement()
                             return true
-                        case "WhileStatement": //z
+                        case "WhileStatement":
                             processElement()
                             return true
                         default: return false

@@ -170,12 +170,6 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                             switch ($.type[0]) {
                                 case "composite":
                                     pl.cc($.type[1], ($) => {
-                                        // $w.line({}, ($w) => {
-                                        //     $w.snippet(`let currentChild: uast.TUntypedNode | undefined`)
-                                        // })
-                                        // $w.line({}, ($w) => {
-                                        //     $w.snippet(`let nextChild: uast.TUntypedNode | undefined`)
-                                        // })
                                         generateValue(
                                             $,
                                             path,
@@ -316,10 +310,6 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                             findNextPossibleTokensInSymbolType(
                                                                 symbol.type,
                                                                 ($) => {
-                                                                    // if (possibleTokens[$] !== undefined) {
-                                                                    //     pl.panic("UNEXPECTED")
-
-                                                                    // }
                                                                     possibleTokens.add($, null)
                                                                 },
                                                                 () => {
@@ -328,7 +318,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                             )
                                                             possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), ($, key) => {
                                                                 $w.line({}, ($w) => {
-                                                                    $w.snippet(`case "${key}": //z`)
+                                                                    $w.snippet(`case "${key}":`)
                                                                     $w.indent({}, ($w) => {
                                                                         $w.line({}, ($w) => {
                                                                             $w.snippet(`processElement()`)
@@ -412,10 +402,6 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                             findNextPossibleTokensInSymbolType(
                                                                 symbol.type,
                                                                 ($) => {
-                                                                    // if (possibleTokens[$] !== undefined) {
-                                                                    //     pl.panic("UNEXPECTED")
-
-                                                                    // }
                                                                     possibleTokens.add($, null)
                                                                 },
                                                                 () => {
@@ -424,11 +410,8 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                             )
                                                             possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), ($, key) => {
                                                                 $w.line({}, ($w) => {
-                                                                    $w.snippet(`case "${key}": //XXX`)
+                                                                    $w.snippet(`case "${key}":`)
                                                                     $w.indent({}, ($w) => {
-                                                                        // $w.line({}, ($w) => {
-                                                                        //     $w.snippet(`children.pop(() => {}, () => {})`)
-                                                                        // })
                                                                         $w.line({}, ($w) => {
                                                                             $w.snippet(`setOptional()`)
                                                                         })
@@ -438,10 +421,6 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                                     })
                                                                 })
                                                             })
-
-                                                            // $w.line({}, ($w) => {
-                                                            //     $w.snippet(`default: processNotSet()`)
-                                                            // })
                                                         })
                                                         $w.snippet(`}`)
                                                     })
@@ -568,10 +547,6 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                             $w.line({}, ($w) => {
                                                                 $w.snippet(`case "${key}": /*Y*/ {`)
                                                                 $w.indent({}, ($w) => {
-
-                                                                    // $w.line({}, ($w) => {
-                                                                    //     $w.snippet(`children.pop(() => {}, () => {})`)
-                                                                    // })
                                                                     $w.line({}, ($w) => {
                                                                         $w.snippet(`choose_${optionKey}()`)
                                                                     })
@@ -611,7 +586,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                             $w.snippet(`},`)
                                         })
                                         $w.line({}, ($w) => {
-                                            $w.snippet(`() => { //no child`)
+                                            $w.snippet(`() => { // no child`)
                                             $w.indent({}, ($w) => {
                                                 $w.line({}, ($w) => {
                                                     $w.snippet(`$x.reportMissingToken({`)
@@ -808,12 +783,6 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                         })
                         $w.snippet(`): void {`)
                         $w.indent({}, ($w) => {
-                            // $w.line({}, ($w) => {
-                            //     $w.snippet(`let currentChild: uast.TUntypedNode | undefined`)
-                            // })
-                            // $w.line({}, ($w) => {
-                            //     $w.snippet(`let nextChild: uast.TUntypedNode | undefined`)
-                            // })
                             generateValueType(
                                 $,
                                 `G${key}`,

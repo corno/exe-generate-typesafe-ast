@@ -11,8 +11,6 @@ import * as collation from "api-pareto-collation"
 
 
 import * as pub from "../../../pub"
-import { genInf } from "./genInf"
-import { genImp } from "./genImp"
 
 export type Dependencies = {
     createWriteStream: fs.CreateWriteStream
@@ -24,33 +22,33 @@ export function createGetTestSet($d: Dependencies): test.GetTestSet {
     const yinBeforeYang = $d.isYinBeforeYang
     return ($, $d) => {
 
-        genInf(
+        pub.generateInterface(
             {
-                path: [$.testDirectory, "out", "src", "interface"],
+                rootPath: [$.testDirectory, "out", "src", "interface"],
                 grammar: tsg._typescriptGrammar,
             },
-            {
-                onError: ($) => {
-                    pl.panic(`write file stream error: ${$.error[0]}, ${$.error[1]}, ${$.path}`)
-                }
-            },
+            // {
+            //     onError: ($) => {
+            //         pl.panic(`write file stream error: ${$.error[0]}, ${$.error[1]}, ${$.path}`)
+            //     }
+            // },
             {
                 startAsync: $d.startAsync,
                 createWriteStream: cws,
                 isYinBeforeYang: yinBeforeYang
             }
         )
-        genImp(
+        pub.generateImplementation(
             {
-                path: [$.testDirectory, "out", "src", "imp"],
+                rootPath: [$.testDirectory, "out", "src", "imp"],
                 grammar: tsg._typescriptGrammar,
-                interfaceReference: "../interface",
+                pathToInterface: "../interface",
             },
-            {
-                onError: ($) => {
-                    pl.panic(`write file stream error: ${$.error[0]}, ${$.error[1]}, ${$.path}`)
-                }
-            },
+            // {
+            //     onError: ($) => {
+            //         pl.panic(`write file stream error: ${$.error[0]}, ${$.error[1]}, ${$.path}`)
+            //     }
+            // },
             {
                 startAsync: $d.startAsync,
                 createWriteStream: cws,
