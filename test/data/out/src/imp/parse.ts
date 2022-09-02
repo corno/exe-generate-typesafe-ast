@@ -13,7 +13,7 @@ export function parse(
     $d: {
         doUntil: <T>(stack: pm.Stack<T>, callback: ($: T) => boolean) => void,
         lookAhead: <T>(stack: pm.Stack<T>, exists: ($: T) => void, notExists: () => void) => void,
-        stringsNotEqual: (a: string, b: string) => boolean,
+        stringsAreEqual: (a: string, b: string) => boolean,
     },
 ): void {
     const $x = $i
@@ -24,107 +24,107 @@ export function parse(
     ): void {
         children.pop(
             (currentChild) => {
-                if ($d.stringsNotEqual(currentChild.kindName, "Block")) {
+                if ($d.stringsAreEqual(currentChild.kindName, "Block")) {
+                    ((
+                        $: uast.TUntypedNode,
+                        callback: ($: api.TNGblock$) => void,
+                    ): void => {
+                        const node = $
+                        const children = pm.createStack($.children)
+                        const elements = pm.createArrayBuilder<api.TVTGblock$>()
+                        const processElement = () => {
+                            Gstatement(node, children, ($) => {
+                                elements.push($)
+                            })
+                        }
+                        $d.doUntil(
+                            children,
+                            (nextChild) => {
+                                switch (nextChild.kindName) {
+                                    case "Block": //z
+                                        processElement()
+                                        return true
+                                    case "BreakStatement": //z
+                                        processElement()
+                                        return true
+                                    case "ExportDeclaration": //z
+                                        processElement()
+                                        return true
+                                    case "ExpressionStatement": //z
+                                        processElement()
+                                        return true
+                                    case "ForStatement": //z
+                                        processElement()
+                                        return true
+                                    case "FunctionDeclaration": //z
+                                        processElement()
+                                        return true
+                                    case "IfStatement": //z
+                                        processElement()
+                                        return true
+                                    case "ImportDeclaration": //z
+                                        processElement()
+                                        return true
+                                    case "InterfaceDeclaration": //z
+                                        processElement()
+                                        return true
+                                    case "LabeledStatement": //z
+                                        processElement()
+                                        return true
+                                    case "ReturnStatement": //z
+                                        processElement()
+                                        return true
+                                    case "SwitchStatement": //z
+                                        processElement()
+                                        return true
+                                    case "ThrowStatement": //z
+                                        processElement()
+                                        return true
+                                    case "TryStatement": //z
+                                        processElement()
+                                        return true
+                                    case "TypeAliasDeclaration": //z
+                                        processElement()
+                                        return true
+                                    case "VariableStatement": //z
+                                        processElement()
+                                        return true
+                                    case "WhileStatement": //z
+                                        processElement()
+                                        return true
+                                    default: return false
+                                }
+                            },
+                        )
+                        pl.cc(elements.getArray(), ($) => {
+                            callback({
+                                tokenDetails: node.details,
+                                content: $,
+                            })
+                        })
+                        children.pop(
+                            (nextChild) => {
+                                $x.reportUnexpectedToken({
+                                    path: "Gblock$",
+                                    token: nextChild,
+                                    expected: null,
+                                })
+                            },
+                            () => {},
+                        )
+                    })(
+                        currentChild,
+                        ($) => {
+                            callback($)
+                        }
+                    )
+                } else {
                     $x.reportUnexpectedToken({
                         path: "Gblock",
                         token: currentChild,
                         expected: "Block",
                     })
-                    return
                 }
-                ((
-                    $: uast.TUntypedNode,
-                    callback: ($: api.TNGblock$) => void,
-                ): void => {
-                    const node = $
-                    const children = pm.createStack($.children)
-                    const elements = pm.createArrayBuilder<api.TVTGblock$>()
-                    const processElement = () => {
-                        Gstatement(node, children, ($) => {
-                            elements.push($)
-                        })
-                    }
-                    $d.doUntil(
-                        children,
-                        (nextChild) => {
-                            switch (nextChild.kindName) {
-                                case "Block": //z
-                                    processElement()
-                                    return true
-                                case "BreakStatement": //z
-                                    processElement()
-                                    return true
-                                case "ExportDeclaration": //z
-                                    processElement()
-                                    return true
-                                case "ExpressionStatement": //z
-                                    processElement()
-                                    return true
-                                case "ForStatement": //z
-                                    processElement()
-                                    return true
-                                case "FunctionDeclaration": //z
-                                    processElement()
-                                    return true
-                                case "IfStatement": //z
-                                    processElement()
-                                    return true
-                                case "ImportDeclaration": //z
-                                    processElement()
-                                    return true
-                                case "InterfaceDeclaration": //z
-                                    processElement()
-                                    return true
-                                case "LabeledStatement": //z
-                                    processElement()
-                                    return true
-                                case "ReturnStatement": //z
-                                    processElement()
-                                    return true
-                                case "SwitchStatement": //z
-                                    processElement()
-                                    return true
-                                case "ThrowStatement": //z
-                                    processElement()
-                                    return true
-                                case "TryStatement": //z
-                                    processElement()
-                                    return true
-                                case "TypeAliasDeclaration": //z
-                                    processElement()
-                                    return true
-                                case "VariableStatement": //z
-                                    processElement()
-                                    return true
-                                case "WhileStatement": //z
-                                    processElement()
-                                    return true
-                                default: return false
-                            }
-                        },
-                    )
-                    pl.cc(elements.getArray(), ($) => {
-                        callback({
-                            tokenDetails: node.details,
-                            content: $,
-                        })
-                    })
-                    children.pop(
-                        (nextChild) => {
-                            $x.reportUnexpectedToken({
-                                path: "Gblock$",
-                                token: nextChild,
-                                expected: null,
-                            })
-                        },
-                        () => {},
-                    )
-                })(
-                    currentChild,
-                    ($) => {
-                        callback($)
-                    }
-                )
             },
             () => { // no child
                 $x.reportMissingToken({
@@ -148,116 +148,116 @@ export function parse(
                 const choose_arrayLiteral = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ArrayLiteralExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ArrayLiteralExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_arrayLiteral$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const elements = pm.createArrayBuilder<api.TVTGexpression_arrayLiteral$>()
+                                    const processElement = () => {
+                                        Gexpression(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "ArrayLiteralExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "ArrowFunction": //z
+                                                    processElement()
+                                                    return true
+                                                case "BinaryExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "CallExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "ConditionalExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "ElementAccessExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "FalseKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "Identifier": //z
+                                                    processElement()
+                                                    return true
+                                                case "NewExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "NoSubstitutionTemplateLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "NullKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "NumericLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "ObjectLiteralExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "ParenthesizedExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "PostfixUnaryExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "PrefixUnaryExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "PropertyAccessExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "StringLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "TemplateExpression": //z
+                                                    processElement()
+                                                    return true
+                                                case "TrueKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_arrayLiteral$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["arrayLiteral", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_arrayLiteral",
                                     token: currentChild,
                                     expected: "ArrayLiteralExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_arrayLiteral$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<api.TVTGexpression_arrayLiteral$>()
-                                const processElement = () => {
-                                    Gexpression(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "ArrayLiteralExpression": //z
-                                                processElement()
-                                                return true
-                                            case "ArrowFunction": //z
-                                                processElement()
-                                                return true
-                                            case "BinaryExpression": //z
-                                                processElement()
-                                                return true
-                                            case "CallExpression": //z
-                                                processElement()
-                                                return true
-                                            case "ConditionalExpression": //z
-                                                processElement()
-                                                return true
-                                            case "ElementAccessExpression": //z
-                                                processElement()
-                                                return true
-                                            case "FalseKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "Identifier": //z
-                                                processElement()
-                                                return true
-                                            case "NewExpression": //z
-                                                processElement()
-                                                return true
-                                            case "NoSubstitutionTemplateLiteral": //z
-                                                processElement()
-                                                return true
-                                            case "NullKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "NumericLiteral": //z
-                                                processElement()
-                                                return true
-                                            case "ObjectLiteralExpression": //z
-                                                processElement()
-                                                return true
-                                            case "ParenthesizedExpression": //z
-                                                processElement()
-                                                return true
-                                            case "PostfixUnaryExpression": //z
-                                                processElement()
-                                                return true
-                                            case "PrefixUnaryExpression": //z
-                                                processElement()
-                                                return true
-                                            case "PropertyAccessExpression": //z
-                                                processElement()
-                                                return true
-                                            case "StringLiteral": //z
-                                                processElement()
-                                                return true
-                                            case "TemplateExpression": //z
-                                                processElement()
-                                                return true
-                                            case "TrueKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_arrayLiteral$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["arrayLiteral", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -271,291 +271,291 @@ export function parse(
                 const choose_arrowFunction = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ArrowFunction")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ArrowFunction")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_arrowFunction$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGexpression_arrowFunction$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGexpression_arrowFunction$_parameters>()
+                                    const processElement = () => {
+                                        Gparameter(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "Parameter": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _parameters = $
+                                        let optional: null | api.TVTGexpression_arrowFunction$_returnType = null
+                                        const setOptional = () => {
+                                            Gtype(node, children, ($) => {
+                                                optional = $
+                                            })
+                                        }
+                                        $d.lookAhead(children, 
+                                            (nextChild) => {
+                                                switch (nextChild.kindName) {
+                                                    case "AnyKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "ArrayType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "BooleanKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "FunctionType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "LiteralType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "NeverKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "NumberKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "OptionalType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "ParenthesizedType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "StringKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "TupleType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "TypeLiteral": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "TypeReference": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "UndefinedKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "UnionType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "VoidKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                }
+                                            },
+                                            () => {},
+                                        )
+                                        pl.cc(optional, ($) => {
+                                            const _returnType = $
+                                            children.pop(
+                                                (currentChild) => {
+                                                    if ($d.stringsAreEqual(currentChild.kindName, "EqualsGreaterThanToken")) {
+                                                        ((
+                                                            $: uast.TUntypedNode,
+                                                            callback: ($: api.TNGexpression_arrowFunction$_equalsGreaterThan$) => void,
+                                                        ): void => {
+                                                            const node = $
+                                                            const children = pm.createStack($.children)
+                                                            callback($.details)
+                                                            children.pop(
+                                                                (nextChild) => {
+                                                                    $x.reportUnexpectedToken({
+                                                                        path: "Gexpression_arrowFunction$_equalsGreaterThan$",
+                                                                        token: nextChild,
+                                                                        expected: null,
+                                                                    })
+                                                                },
+                                                                () => {},
+                                                            )
+                                                        })(
+                                                            currentChild,
+                                                            ($) => {
+                                                                const _equalsGreaterThan = $
+                                                                const choiceEnd_Gexpression_arrowFunction$_implementation = ($: api.TVTGexpression_arrowFunction$_implementation) => {
+                                                                    const _implementation = $
+                                                                    sequenceEnd({
+                                                                        "parameters": _parameters,
+                                                                        "returnType": _returnType,
+                                                                        "equalsGreaterThan": _equalsGreaterThan,
+                                                                        "implementation": _implementation,
+                                                                    })
+                                                                }
+                                                                $d.lookAhead(children, 
+                                                                    (nextChild) => {
+                                                                        const choose_block = () => {
+                                                                            Gblock(node, children, ($) => {
+                                                                                choiceEnd_Gexpression_arrowFunction$_implementation(["block", $])
+                                                                            })
+                                                                        }
+                                                                        const choose_expression = () => {
+                                                                            Gexpression(node, children, ($) => {
+                                                                                choiceEnd_Gexpression_arrowFunction$_implementation(["expression", $])
+                                                                            })
+                                                                        }
+                                                                        switch (nextChild.kindName) {
+                                                                            case "ArrayLiteralExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "ArrowFunction": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "BinaryExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "Block": /*Y*/ {
+                                                                                choose_block()
+                                                                                break
+                                                                            }
+                                                                            case "CallExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "ConditionalExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "ElementAccessExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "FalseKeyword": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "Identifier": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "NewExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "NoSubstitutionTemplateLiteral": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "NullKeyword": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "NumericLiteral": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "ObjectLiteralExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "ParenthesizedExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "PostfixUnaryExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "PrefixUnaryExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "PropertyAccessExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "StringLiteral": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "TemplateExpression": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            case "TrueKeyword": /*Y*/ {
+                                                                                choose_expression()
+                                                                                break
+                                                                            }
+                                                                            default: {
+                                                                                $x.reportUnexpectedToken({
+                                                                                    path: "Gexpression_arrowFunction$_implementation",
+                                                                                    token: nextChild,
+                                                                                    expected: "ArrayLiteralExpression, ArrowFunction, BinaryExpression, CallExpression, ConditionalExpression, ElementAccessExpression, FalseKeyword, Identifier, NewExpression, NoSubstitutionTemplateLiteral, NumericLiteral, NullKeyword, ObjectLiteralExpression, ParenthesizedExpression, PostfixUnaryExpression, PrefixUnaryExpression, PropertyAccessExpression, StringLiteral, TemplateExpression, TrueKeyword, Block",
+                                                                                })
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    () => { //no child
+                                                                        $x.reportMissingToken({
+                                                                            parentDetails: node.details,
+                                                                            path: "Gexpression_arrowFunction$_implementation",
+                                                                            kindNameOptions: "ArrayLiteralExpression, ArrowFunction, BinaryExpression, CallExpression, ConditionalExpression, ElementAccessExpression, FalseKeyword, Identifier, NewExpression, NoSubstitutionTemplateLiteral, NumericLiteral, NullKeyword, ObjectLiteralExpression, ParenthesizedExpression, PostfixUnaryExpression, PrefixUnaryExpression, PropertyAccessExpression, StringLiteral, TemplateExpression, TrueKeyword, Block",
+                                                                        })
+                                                                    },
+                                                                )
+                                                            }
+                                                        )
+                                                    } else {
+                                                        $x.reportUnexpectedToken({
+                                                            path: "Gexpression_arrowFunction$_equalsGreaterThan",
+                                                            token: currentChild,
+                                                            expected: "EqualsGreaterThanToken",
+                                                        })
+                                                    }
+                                                },
+                                                () => { // no child
+                                                    $x.reportMissingToken({
+                                                        parentDetails: node.details,
+                                                        path: "Gexpression_arrowFunction$_equalsGreaterThan",
+                                                        kindNameOptions: "EqualsGreaterThanToken",
+                                                    })
+                                                },
+                                            )
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_arrowFunction$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["arrowFunction", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_arrowFunction",
                                     token: currentChild,
                                     expected: "ArrowFunction",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_arrowFunction$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGexpression_arrowFunction$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGexpression_arrowFunction$_parameters>()
-                                const processElement = () => {
-                                    Gparameter(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "Parameter": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _parameters = $
-                                    let optional: null | api.TVTGexpression_arrowFunction$_returnType = null
-                                    const setOptional = () => {
-                                        Gtype(node, children, ($) => {
-                                            optional = $
-                                        })
-                                    }
-                                    $d.lookAhead(children, 
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "AnyKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "ArrayType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "BooleanKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "FunctionType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "LiteralType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "NeverKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "NumberKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "OptionalType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "ParenthesizedType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "StringKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "TupleType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "TypeLiteral": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "TypeReference": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "UndefinedKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "UnionType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "VoidKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                            }
-                                        },
-                                        () => {},
-                                    )
-                                    pl.cc(optional, ($) => {
-                                        const _returnType = $
-                                        children.pop(
-                                            (currentChild) => {
-                                                if ($d.stringsNotEqual(currentChild.kindName, "EqualsGreaterThanToken")) {
-                                                    $x.reportUnexpectedToken({
-                                                        path: "Gexpression_arrowFunction$_equalsGreaterThan",
-                                                        token: currentChild,
-                                                        expected: "EqualsGreaterThanToken",
-                                                    })
-                                                    return
-                                                }
-                                                ((
-                                                    $: uast.TUntypedNode,
-                                                    callback: ($: api.TNGexpression_arrowFunction$_equalsGreaterThan$) => void,
-                                                ): void => {
-                                                    const node = $
-                                                    const children = pm.createStack($.children)
-                                                    callback($.details)
-                                                    children.pop(
-                                                        (nextChild) => {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_arrowFunction$_equalsGreaterThan$",
-                                                                token: nextChild,
-                                                                expected: null,
-                                                            })
-                                                        },
-                                                        () => {},
-                                                    )
-                                                })(
-                                                    currentChild,
-                                                    ($) => {
-                                                        const _equalsGreaterThan = $
-                                                        const choiceEnd_Gexpression_arrowFunction$_implementation = ($: api.TVTGexpression_arrowFunction$_implementation) => {
-                                                            const _implementation = $
-                                                            sequenceEnd({
-                                                                "parameters": _parameters,
-                                                                "returnType": _returnType,
-                                                                "equalsGreaterThan": _equalsGreaterThan,
-                                                                "implementation": _implementation,
-                                                            })
-                                                        }
-                                                        $d.lookAhead(children, 
-                                                            (nextChild) => {
-                                                                const choose_block = () => {
-                                                                    Gblock(node, children, ($) => {
-                                                                        choiceEnd_Gexpression_arrowFunction$_implementation(["block", $])
-                                                                    })
-                                                                }
-                                                                const choose_expression = () => {
-                                                                    Gexpression(node, children, ($) => {
-                                                                        choiceEnd_Gexpression_arrowFunction$_implementation(["expression", $])
-                                                                    })
-                                                                }
-                                                                switch (nextChild.kindName) {
-                                                                    case "ArrayLiteralExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "ArrowFunction": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "BinaryExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "Block": /*Y*/ {
-                                                                        choose_block()
-                                                                        break
-                                                                    }
-                                                                    case "CallExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "ConditionalExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "ElementAccessExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "FalseKeyword": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "Identifier": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "NewExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "NoSubstitutionTemplateLiteral": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "NullKeyword": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "NumericLiteral": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "ObjectLiteralExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "ParenthesizedExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "PostfixUnaryExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "PrefixUnaryExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "PropertyAccessExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "StringLiteral": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "TemplateExpression": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    case "TrueKeyword": /*Y*/ {
-                                                                        choose_expression()
-                                                                        break
-                                                                    }
-                                                                    default: {
-                                                                        $x.reportUnexpectedToken({
-                                                                            path: "Gexpression_arrowFunction$_implementation",
-                                                                            token: nextChild,
-                                                                            expected: "ArrayLiteralExpression, ArrowFunction, BinaryExpression, CallExpression, ConditionalExpression, ElementAccessExpression, FalseKeyword, Identifier, NewExpression, NoSubstitutionTemplateLiteral, NumericLiteral, NullKeyword, ObjectLiteralExpression, ParenthesizedExpression, PostfixUnaryExpression, PrefixUnaryExpression, PropertyAccessExpression, StringLiteral, TemplateExpression, TrueKeyword, Block",
-                                                                        })
-                                                                    }
-                                                                }
-                                                            },
-                                                            () => { //no child
-                                                                $x.reportMissingToken({
-                                                                    parentDetails: node.details,
-                                                                    path: "Gexpression_arrowFunction$_implementation",
-                                                                    kindNameOptions: "ArrayLiteralExpression, ArrowFunction, BinaryExpression, CallExpression, ConditionalExpression, ElementAccessExpression, FalseKeyword, Identifier, NewExpression, NoSubstitutionTemplateLiteral, NumericLiteral, NullKeyword, ObjectLiteralExpression, ParenthesizedExpression, PostfixUnaryExpression, PrefixUnaryExpression, PropertyAccessExpression, StringLiteral, TemplateExpression, TrueKeyword, Block",
-                                                                })
-                                                            },
-                                                        )
-                                                    }
-                                                )
-                                            },
-                                            () => { // no child
-                                                $x.reportMissingToken({
-                                                    parentDetails: node.details,
-                                                    path: "Gexpression_arrowFunction$_equalsGreaterThan",
-                                                    kindNameOptions: "EqualsGreaterThanToken",
-                                                })
-                                            },
-                                        )
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_arrowFunction$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["arrowFunction", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -569,604 +569,604 @@ export function parse(
                 const choose_binary = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "BinaryExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "BinaryExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_binary$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGexpression_binary$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gexpression(node, children, ($) => {
+                                        const _leftHandSide = $
+                                        const choiceEnd_Gexpression_binary$_operator = ($: api.TVTGexpression_binary$_operator) => {
+                                            const _operator = $
+                                            Gexpression(node, children, ($) => {
+                                                const _rightHandSide = $
+                                                sequenceEnd({
+                                                    "leftHandSide": _leftHandSide,
+                                                    "operator": _operator,
+                                                    "rightHandSide": _rightHandSide,
+                                                })
+                                            })
+                                        }
+                                        $d.lookAhead(children, 
+                                            (nextChild) => {
+                                                const choose_ampersandAmpersand = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "AmpersandAmpersandToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_ampersandAmpersand$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_ampersandAmpersand$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["ampersandAmpersand", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_ampersandAmpersand",
+                                                                    token: currentChild,
+                                                                    expected: "AmpersandAmpersandToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_ampersandAmpersand",
+                                                                kindNameOptions: "AmpersandAmpersandToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_barBar = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "BarBarToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_barBar$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_barBar$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["barBar", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_barBar",
+                                                                    token: currentChild,
+                                                                    expected: "BarBarToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_barBar",
+                                                                kindNameOptions: "BarBarToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_equals = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "EqualsToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_equals$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_equals$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["equals", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_equals",
+                                                                    token: currentChild,
+                                                                    expected: "EqualsToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_equals",
+                                                                kindNameOptions: "EqualsToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_equalsEqualsEquals = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "EqualsEqualsEqualsToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_equalsEqualsEquals$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_equalsEqualsEquals$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["equalsEqualsEquals", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_equalsEqualsEquals",
+                                                                    token: currentChild,
+                                                                    expected: "EqualsEqualsEqualsToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_equalsEqualsEquals",
+                                                                kindNameOptions: "EqualsEqualsEqualsToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_exclamationEqualsEquals = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "ExclamationEqualsEqualsToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_exclamationEqualsEquals$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_exclamationEqualsEquals$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["exclamationEqualsEquals", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_exclamationEqualsEquals",
+                                                                    token: currentChild,
+                                                                    expected: "ExclamationEqualsEqualsToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_exclamationEqualsEquals",
+                                                                kindNameOptions: "ExclamationEqualsEqualsToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_greaterThan = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "GreaterThanToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_greaterThan$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_greaterThan$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["greaterThan", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_greaterThan",
+                                                                    token: currentChild,
+                                                                    expected: "GreaterThanToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_greaterThan",
+                                                                kindNameOptions: "GreaterThanToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_lessThan = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "LessThanToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_lessThan$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_lessThan$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["lessThan", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_lessThan",
+                                                                    token: currentChild,
+                                                                    expected: "LessThanToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_lessThan",
+                                                                kindNameOptions: "LessThanToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_minus = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "MinusToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_minus$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_minus$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["minus", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_minus",
+                                                                    token: currentChild,
+                                                                    expected: "MinusToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_minus",
+                                                                kindNameOptions: "MinusToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_minusEquals = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "MinusEqualsToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_minusEquals$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_minusEquals$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["minusEquals", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_minusEquals",
+                                                                    token: currentChild,
+                                                                    expected: "MinusEqualsToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_minusEquals",
+                                                                kindNameOptions: "MinusEqualsToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_plus = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "PlusToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_plus$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_plus$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["plus", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_plus",
+                                                                    token: currentChild,
+                                                                    expected: "PlusToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_plus",
+                                                                kindNameOptions: "PlusToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                const choose_plusEquals = () => {
+                                                    children.pop(
+                                                        (currentChild) => {
+                                                            if ($d.stringsAreEqual(currentChild.kindName, "PlusEqualsToken")) {
+                                                                ((
+                                                                    $: uast.TUntypedNode,
+                                                                    callback: ($: api.TNGexpression_binary$_operator_plusEquals$) => void,
+                                                                ): void => {
+                                                                    const node = $
+                                                                    const children = pm.createStack($.children)
+                                                                    callback($.details)
+                                                                    children.pop(
+                                                                        (nextChild) => {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_binary$_operator_plusEquals$",
+                                                                                token: nextChild,
+                                                                                expected: null,
+                                                                            })
+                                                                        },
+                                                                        () => {},
+                                                                    )
+                                                                })(
+                                                                    currentChild,
+                                                                    ($) => {
+                                                                        choiceEnd_Gexpression_binary$_operator(["plusEquals", $])
+                                                                    }
+                                                                )
+                                                            } else {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_binary$_operator_plusEquals",
+                                                                    token: currentChild,
+                                                                    expected: "PlusEqualsToken",
+                                                                })
+                                                            }
+                                                        },
+                                                        () => { // no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gexpression_binary$_operator_plusEquals",
+                                                                kindNameOptions: "PlusEqualsToken",
+                                                            })
+                                                        },
+                                                    )
+                                                }
+                                                switch (nextChild.kindName) {
+                                                    case "AmpersandAmpersandToken": /*Y*/ {
+                                                        choose_ampersandAmpersand()
+                                                        break
+                                                    }
+                                                    case "BarBarToken": /*Y*/ {
+                                                        choose_barBar()
+                                                        break
+                                                    }
+                                                    case "EqualsEqualsEqualsToken": /*Y*/ {
+                                                        choose_equalsEqualsEquals()
+                                                        break
+                                                    }
+                                                    case "EqualsToken": /*Y*/ {
+                                                        choose_equals()
+                                                        break
+                                                    }
+                                                    case "ExclamationEqualsEqualsToken": /*Y*/ {
+                                                        choose_exclamationEqualsEquals()
+                                                        break
+                                                    }
+                                                    case "GreaterThanToken": /*Y*/ {
+                                                        choose_greaterThan()
+                                                        break
+                                                    }
+                                                    case "LessThanToken": /*Y*/ {
+                                                        choose_lessThan()
+                                                        break
+                                                    }
+                                                    case "MinusEqualsToken": /*Y*/ {
+                                                        choose_minusEquals()
+                                                        break
+                                                    }
+                                                    case "MinusToken": /*Y*/ {
+                                                        choose_minus()
+                                                        break
+                                                    }
+                                                    case "PlusEqualsToken": /*Y*/ {
+                                                        choose_plusEquals()
+                                                        break
+                                                    }
+                                                    case "PlusToken": /*Y*/ {
+                                                        choose_plus()
+                                                        break
+                                                    }
+                                                    default: {
+                                                        $x.reportUnexpectedToken({
+                                                            path: "Gexpression_binary$_operator",
+                                                            token: nextChild,
+                                                            expected: "PlusEqualsToken, PlusToken, MinusEqualsToken, MinusToken, LessThanToken, GreaterThanToken, ExclamationEqualsEqualsToken, EqualsEqualsEqualsToken, EqualsToken, BarBarToken, AmpersandAmpersandToken",
+                                                        })
+                                                    }
+                                                }
+                                            },
+                                            () => { //no child
+                                                $x.reportMissingToken({
+                                                    parentDetails: node.details,
+                                                    path: "Gexpression_binary$_operator",
+                                                    kindNameOptions: "PlusEqualsToken, PlusToken, MinusEqualsToken, MinusToken, LessThanToken, GreaterThanToken, ExclamationEqualsEqualsToken, EqualsEqualsEqualsToken, EqualsToken, BarBarToken, AmpersandAmpersandToken",
+                                                })
+                                            },
+                                        )
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_binary$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["binary", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_binary",
                                     token: currentChild,
                                     expected: "BinaryExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_binary$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGexpression_binary$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gexpression(node, children, ($) => {
-                                    const _leftHandSide = $
-                                    const choiceEnd_Gexpression_binary$_operator = ($: api.TVTGexpression_binary$_operator) => {
-                                        const _operator = $
-                                        Gexpression(node, children, ($) => {
-                                            const _rightHandSide = $
-                                            sequenceEnd({
-                                                "leftHandSide": _leftHandSide,
-                                                "operator": _operator,
-                                                "rightHandSide": _rightHandSide,
-                                            })
-                                        })
-                                    }
-                                    $d.lookAhead(children, 
-                                        (nextChild) => {
-                                            const choose_ampersandAmpersand = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "AmpersandAmpersandToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_ampersandAmpersand",
-                                                                token: currentChild,
-                                                                expected: "AmpersandAmpersandToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_ampersandAmpersand$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_ampersandAmpersand$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["ampersandAmpersand", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_ampersandAmpersand",
-                                                            kindNameOptions: "AmpersandAmpersandToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_barBar = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "BarBarToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_barBar",
-                                                                token: currentChild,
-                                                                expected: "BarBarToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_barBar$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_barBar$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["barBar", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_barBar",
-                                                            kindNameOptions: "BarBarToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_equals = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "EqualsToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_equals",
-                                                                token: currentChild,
-                                                                expected: "EqualsToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_equals$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_equals$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["equals", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_equals",
-                                                            kindNameOptions: "EqualsToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_equalsEqualsEquals = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "EqualsEqualsEqualsToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_equalsEqualsEquals",
-                                                                token: currentChild,
-                                                                expected: "EqualsEqualsEqualsToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_equalsEqualsEquals$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_equalsEqualsEquals$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["equalsEqualsEquals", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_equalsEqualsEquals",
-                                                            kindNameOptions: "EqualsEqualsEqualsToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_exclamationEqualsEquals = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "ExclamationEqualsEqualsToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_exclamationEqualsEquals",
-                                                                token: currentChild,
-                                                                expected: "ExclamationEqualsEqualsToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_exclamationEqualsEquals$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_exclamationEqualsEquals$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["exclamationEqualsEquals", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_exclamationEqualsEquals",
-                                                            kindNameOptions: "ExclamationEqualsEqualsToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_greaterThan = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "GreaterThanToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_greaterThan",
-                                                                token: currentChild,
-                                                                expected: "GreaterThanToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_greaterThan$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_greaterThan$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["greaterThan", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_greaterThan",
-                                                            kindNameOptions: "GreaterThanToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_lessThan = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "LessThanToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_lessThan",
-                                                                token: currentChild,
-                                                                expected: "LessThanToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_lessThan$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_lessThan$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["lessThan", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_lessThan",
-                                                            kindNameOptions: "LessThanToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_minus = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "MinusToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_minus",
-                                                                token: currentChild,
-                                                                expected: "MinusToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_minus$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_minus$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["minus", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_minus",
-                                                            kindNameOptions: "MinusToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_minusEquals = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "MinusEqualsToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_minusEquals",
-                                                                token: currentChild,
-                                                                expected: "MinusEqualsToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_minusEquals$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_minusEquals$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["minusEquals", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_minusEquals",
-                                                            kindNameOptions: "MinusEqualsToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_plus = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "PlusToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_plus",
-                                                                token: currentChild,
-                                                                expected: "PlusToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_plus$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_plus$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["plus", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_plus",
-                                                            kindNameOptions: "PlusToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            const choose_plusEquals = () => {
-                                                children.pop(
-                                                    (currentChild) => {
-                                                        if ($d.stringsNotEqual(currentChild.kindName, "PlusEqualsToken")) {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gexpression_binary$_operator_plusEquals",
-                                                                token: currentChild,
-                                                                expected: "PlusEqualsToken",
-                                                            })
-                                                            return
-                                                        }
-                                                        ((
-                                                            $: uast.TUntypedNode,
-                                                            callback: ($: api.TNGexpression_binary$_operator_plusEquals$) => void,
-                                                        ): void => {
-                                                            const node = $
-                                                            const children = pm.createStack($.children)
-                                                            callback($.details)
-                                                            children.pop(
-                                                                (nextChild) => {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_binary$_operator_plusEquals$",
-                                                                        token: nextChild,
-                                                                        expected: null,
-                                                                    })
-                                                                },
-                                                                () => {},
-                                                            )
-                                                        })(
-                                                            currentChild,
-                                                            ($) => {
-                                                                choiceEnd_Gexpression_binary$_operator(["plusEquals", $])
-                                                            }
-                                                        )
-                                                    },
-                                                    () => { // no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_binary$_operator_plusEquals",
-                                                            kindNameOptions: "PlusEqualsToken",
-                                                        })
-                                                    },
-                                                )
-                                            }
-                                            switch (nextChild.kindName) {
-                                                case "AmpersandAmpersandToken": /*Y*/ {
-                                                    choose_ampersandAmpersand()
-                                                    break
-                                                }
-                                                case "BarBarToken": /*Y*/ {
-                                                    choose_barBar()
-                                                    break
-                                                }
-                                                case "EqualsEqualsEqualsToken": /*Y*/ {
-                                                    choose_equalsEqualsEquals()
-                                                    break
-                                                }
-                                                case "EqualsToken": /*Y*/ {
-                                                    choose_equals()
-                                                    break
-                                                }
-                                                case "ExclamationEqualsEqualsToken": /*Y*/ {
-                                                    choose_exclamationEqualsEquals()
-                                                    break
-                                                }
-                                                case "GreaterThanToken": /*Y*/ {
-                                                    choose_greaterThan()
-                                                    break
-                                                }
-                                                case "LessThanToken": /*Y*/ {
-                                                    choose_lessThan()
-                                                    break
-                                                }
-                                                case "MinusEqualsToken": /*Y*/ {
-                                                    choose_minusEquals()
-                                                    break
-                                                }
-                                                case "MinusToken": /*Y*/ {
-                                                    choose_minus()
-                                                    break
-                                                }
-                                                case "PlusEqualsToken": /*Y*/ {
-                                                    choose_plusEquals()
-                                                    break
-                                                }
-                                                case "PlusToken": /*Y*/ {
-                                                    choose_plus()
-                                                    break
-                                                }
-                                                default: {
-                                                    $x.reportUnexpectedToken({
-                                                        path: "Gexpression_binary$_operator",
-                                                        token: nextChild,
-                                                        expected: "PlusEqualsToken, PlusToken, MinusEqualsToken, MinusToken, LessThanToken, GreaterThanToken, ExclamationEqualsEqualsToken, EqualsEqualsEqualsToken, EqualsToken, BarBarToken, AmpersandAmpersandToken",
-                                                    })
-                                                }
-                                            }
-                                        },
-                                        () => { //no child
-                                            $x.reportMissingToken({
-                                                parentDetails: node.details,
-                                                path: "Gexpression_binary$_operator",
-                                                kindNameOptions: "PlusEqualsToken, PlusToken, MinusEqualsToken, MinusToken, LessThanToken, GreaterThanToken, ExclamationEqualsEqualsToken, EqualsEqualsEqualsToken, EqualsToken, BarBarToken, AmpersandAmpersandToken",
-                                            })
-                                        },
-                                    )
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_binary$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["binary", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -1180,93 +1180,478 @@ export function parse(
                 const choose_call = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "CallExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "CallExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_call$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGexpression_call$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gexpression(node, children, ($) => {
+                                        const _function = $
+                                        const elements = pm.createArrayBuilder<api.TVTGexpression_call$_typeParameters>()
+                                        const processElement = () => {
+                                            Gtype(node, children, ($) => {
+                                                elements.push($)
+                                            })
+                                        }
+                                        $d.doUntil(
+                                            children,
+                                            (nextChild) => {
+                                                switch (nextChild.kindName) {
+                                                    case "AnyKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ArrayType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "BooleanKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "FunctionType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "LiteralType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "NeverKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "NumberKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "OptionalType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ParenthesizedType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "StringKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "TupleType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "TypeLiteral": //z
+                                                        processElement()
+                                                        return true
+                                                    case "TypeReference": //z
+                                                        processElement()
+                                                        return true
+                                                    case "UndefinedKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "UnionType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "VoidKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    default: return false
+                                                }
+                                            },
+                                        )
+                                        pl.cc(elements.getArray(), ($) => {
+                                            const _typeParameters = $
+                                            const elements = pm.createArrayBuilder<api.TVTGexpression_call$_parameters>()
+                                            const processElement = () => {
+                                                Gexpression(node, children, ($) => {
+                                                    elements.push($)
+                                                })
+                                            }
+                                            $d.doUntil(
+                                                children,
+                                                (nextChild) => {
+                                                    switch (nextChild.kindName) {
+                                                        case "ArrayLiteralExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "ArrowFunction": //z
+                                                            processElement()
+                                                            return true
+                                                        case "BinaryExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "CallExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "ConditionalExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "ElementAccessExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "FalseKeyword": //z
+                                                            processElement()
+                                                            return true
+                                                        case "Identifier": //z
+                                                            processElement()
+                                                            return true
+                                                        case "NewExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "NoSubstitutionTemplateLiteral": //z
+                                                            processElement()
+                                                            return true
+                                                        case "NullKeyword": //z
+                                                            processElement()
+                                                            return true
+                                                        case "NumericLiteral": //z
+                                                            processElement()
+                                                            return true
+                                                        case "ObjectLiteralExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "ParenthesizedExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "PostfixUnaryExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "PrefixUnaryExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "PropertyAccessExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "StringLiteral": //z
+                                                            processElement()
+                                                            return true
+                                                        case "TemplateExpression": //z
+                                                            processElement()
+                                                            return true
+                                                        case "TrueKeyword": //z
+                                                            processElement()
+                                                            return true
+                                                        default: return false
+                                                    }
+                                                },
+                                            )
+                                            pl.cc(elements.getArray(), ($) => {
+                                                const _parameters = $
+                                                sequenceEnd({
+                                                    "function": _function,
+                                                    "typeParameters": _typeParameters,
+                                                    "parameters": _parameters,
+                                                })
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_call$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["call", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_call",
                                     token: currentChild,
                                     expected: "CallExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_call$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGexpression_call$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gexpression(node, children, ($) => {
-                                    const _function = $
-                                    const elements = pm.createArrayBuilder<api.TVTGexpression_call$_typeParameters>()
-                                    const processElement = () => {
-                                        Gtype(node, children, ($) => {
-                                            elements.push($)
+                        },
+                        () => { // no child
+                            $x.reportMissingToken({
+                                parentDetails: node.details,
+                                path: "Gexpression_call",
+                                kindNameOptions: "CallExpression",
+                            })
+                        },
+                    )
+                }
+                const choose_conditional = () => {
+                    children.pop(
+                        (currentChild) => {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ConditionalExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_conditional$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGexpression_conditional$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
                                         })
                                     }
-                                    $d.doUntil(
-                                        children,
+                                    Gexpression(node, children, ($) => {
+                                        const _test = $
+                                        children.pop(
+                                            (currentChild) => {
+                                                if ($d.stringsAreEqual(currentChild.kindName, "QuestionToken")) {
+                                                    ((
+                                                        $: uast.TUntypedNode,
+                                                        callback: ($: api.TNGexpression_conditional$_questionToken$) => void,
+                                                    ): void => {
+                                                        const node = $
+                                                        const children = pm.createStack($.children)
+                                                        callback($.details)
+                                                        children.pop(
+                                                            (nextChild) => {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_conditional$_questionToken$",
+                                                                    token: nextChild,
+                                                                    expected: null,
+                                                                })
+                                                            },
+                                                            () => {},
+                                                        )
+                                                    })(
+                                                        currentChild,
+                                                        ($) => {
+                                                            const _questionToken = $
+                                                            Gexpression(node, children, ($) => {
+                                                                const _ifExpression = $
+                                                                children.pop(
+                                                                    (currentChild) => {
+                                                                        if ($d.stringsAreEqual(currentChild.kindName, "ColonToken")) {
+                                                                            ((
+                                                                                $: uast.TUntypedNode,
+                                                                                callback: ($: api.TNGexpression_conditional$_colonToken$) => void,
+                                                                            ): void => {
+                                                                                const node = $
+                                                                                const children = pm.createStack($.children)
+                                                                                callback($.details)
+                                                                                children.pop(
+                                                                                    (nextChild) => {
+                                                                                        $x.reportUnexpectedToken({
+                                                                                            path: "Gexpression_conditional$_colonToken$",
+                                                                                            token: nextChild,
+                                                                                            expected: null,
+                                                                                        })
+                                                                                    },
+                                                                                    () => {},
+                                                                                )
+                                                                            })(
+                                                                                currentChild,
+                                                                                ($) => {
+                                                                                    const _colonToken = $
+                                                                                    Gexpression(node, children, ($) => {
+                                                                                        const _elseExpression = $
+                                                                                        sequenceEnd({
+                                                                                            "test": _test,
+                                                                                            "questionToken": _questionToken,
+                                                                                            "ifExpression": _ifExpression,
+                                                                                            "colonToken": _colonToken,
+                                                                                            "elseExpression": _elseExpression,
+                                                                                        })
+                                                                                    })
+                                                                                }
+                                                                            )
+                                                                        } else {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gexpression_conditional$_colonToken",
+                                                                                token: currentChild,
+                                                                                expected: "ColonToken",
+                                                                            })
+                                                                        }
+                                                                    },
+                                                                    () => { // no child
+                                                                        $x.reportMissingToken({
+                                                                            parentDetails: node.details,
+                                                                            path: "Gexpression_conditional$_colonToken",
+                                                                            kindNameOptions: "ColonToken",
+                                                                        })
+                                                                    },
+                                                                )
+                                                            })
+                                                        }
+                                                    )
+                                                } else {
+                                                    $x.reportUnexpectedToken({
+                                                        path: "Gexpression_conditional$_questionToken",
+                                                        token: currentChild,
+                                                        expected: "QuestionToken",
+                                                    })
+                                                }
+                                            },
+                                            () => { // no child
+                                                $x.reportMissingToken({
+                                                    parentDetails: node.details,
+                                                    path: "Gexpression_conditional$_questionToken",
+                                                    kindNameOptions: "QuestionToken",
+                                                })
+                                            },
+                                        )
+                                    })
+                                    children.pop(
                                         (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "AnyKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                case "ArrayType": //z
-                                                    processElement()
-                                                    return true
-                                                case "BooleanKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                case "FunctionType": //z
-                                                    processElement()
-                                                    return true
-                                                case "LiteralType": //z
-                                                    processElement()
-                                                    return true
-                                                case "NeverKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                case "NumberKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                case "OptionalType": //z
-                                                    processElement()
-                                                    return true
-                                                case "ParenthesizedType": //z
-                                                    processElement()
-                                                    return true
-                                                case "StringKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                case "TupleType": //z
-                                                    processElement()
-                                                    return true
-                                                case "TypeLiteral": //z
-                                                    processElement()
-                                                    return true
-                                                case "TypeReference": //z
-                                                    processElement()
-                                                    return true
-                                                case "UndefinedKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                case "UnionType": //z
-                                                    processElement()
-                                                    return true
-                                                case "VoidKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                default: return false
-                                            }
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_conditional$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
                                         },
+                                        () => {},
                                     )
-                                    pl.cc(elements.getArray(), ($) => {
-                                        const _typeParameters = $
-                                        const elements = pm.createArrayBuilder<api.TVTGexpression_call$_parameters>()
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["conditional", $])
+                                    }
+                                )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "Gexpression_conditional",
+                                    token: currentChild,
+                                    expected: "ConditionalExpression",
+                                })
+                            }
+                        },
+                        () => { // no child
+                            $x.reportMissingToken({
+                                parentDetails: node.details,
+                                path: "Gexpression_conditional",
+                                kindNameOptions: "ConditionalExpression",
+                            })
+                        },
+                    )
+                }
+                const choose_elementAccess = () => {
+                    children.pop(
+                        (currentChild) => {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ElementAccessExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_elementAccess$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGexpression_elementAccess$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gexpression(node, children, ($) => {
+                                        const _array = $
+                                        Gexpression(node, children, ($) => {
+                                            const _element = $
+                                            sequenceEnd({
+                                                "array": _array,
+                                                "element": _element,
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_elementAccess$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["elementAccess", $])
+                                    }
+                                )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "Gexpression_elementAccess",
+                                    token: currentChild,
+                                    expected: "ElementAccessExpression",
+                                })
+                            }
+                        },
+                        () => { // no child
+                            $x.reportMissingToken({
+                                parentDetails: node.details,
+                                path: "Gexpression_elementAccess",
+                                kindNameOptions: "ElementAccessExpression",
+                            })
+                        },
+                    )
+                }
+                const choose_false = () => {
+                    children.pop(
+                        (currentChild) => {
+                            if ($d.stringsAreEqual(currentChild.kindName, "FalseKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_false$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_false$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["false", $])
+                                    }
+                                )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "Gexpression_false",
+                                    token: currentChild,
+                                    expected: "FalseKeyword",
+                                })
+                            }
+                        },
+                        () => { // no child
+                            $x.reportMissingToken({
+                                parentDetails: node.details,
+                                path: "Gexpression_false",
+                                kindNameOptions: "FalseKeyword",
+                            })
+                        },
+                    )
+                }
+                const choose_identifier = () => {
+                    Gidentifier(node, children, ($) => {
+                        choiceEnd_Gexpression(["identifier", $])
+                    })
+                }
+                const choose_new = () => {
+                    children.pop(
+                        (currentChild) => {
+                            if ($d.stringsAreEqual(currentChild.kindName, "NewExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_new$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGexpression_new$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gidentifier(node, children, ($) => {
+                                        const _class = $
+                                        const elements = pm.createArrayBuilder<api.TVTGexpression_new$_parameters>()
                                         const processElement = () => {
                                             Gexpression(node, children, ($) => {
                                                 elements.push($)
@@ -1343,419 +1728,34 @@ export function parse(
                                         pl.cc(elements.getArray(), ($) => {
                                             const _parameters = $
                                             sequenceEnd({
-                                                "function": _function,
-                                                "typeParameters": _typeParameters,
+                                                "class": _class,
                                                 "parameters": _parameters,
                                             })
                                         })
                                     })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_call$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["call", $])
-                                }
-                            )
-                        },
-                        () => { // no child
-                            $x.reportMissingToken({
-                                parentDetails: node.details,
-                                path: "Gexpression_call",
-                                kindNameOptions: "CallExpression",
-                            })
-                        },
-                    )
-                }
-                const choose_conditional = () => {
-                    children.pop(
-                        (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ConditionalExpression")) {
-                                $x.reportUnexpectedToken({
-                                    path: "Gexpression_conditional",
-                                    token: currentChild,
-                                    expected: "ConditionalExpression",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_conditional$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGexpression_conditional$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gexpression(node, children, ($) => {
-                                    const _test = $
                                     children.pop(
-                                        (currentChild) => {
-                                            if ($d.stringsNotEqual(currentChild.kindName, "QuestionToken")) {
-                                                $x.reportUnexpectedToken({
-                                                    path: "Gexpression_conditional$_questionToken",
-                                                    token: currentChild,
-                                                    expected: "QuestionToken",
-                                                })
-                                                return
-                                            }
-                                            ((
-                                                $: uast.TUntypedNode,
-                                                callback: ($: api.TNGexpression_conditional$_questionToken$) => void,
-                                            ): void => {
-                                                const node = $
-                                                const children = pm.createStack($.children)
-                                                callback($.details)
-                                                children.pop(
-                                                    (nextChild) => {
-                                                        $x.reportUnexpectedToken({
-                                                            path: "Gexpression_conditional$_questionToken$",
-                                                            token: nextChild,
-                                                            expected: null,
-                                                        })
-                                                    },
-                                                    () => {},
-                                                )
-                                            })(
-                                                currentChild,
-                                                ($) => {
-                                                    const _questionToken = $
-                                                    Gexpression(node, children, ($) => {
-                                                        const _ifExpression = $
-                                                        children.pop(
-                                                            (currentChild) => {
-                                                                if ($d.stringsNotEqual(currentChild.kindName, "ColonToken")) {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gexpression_conditional$_colonToken",
-                                                                        token: currentChild,
-                                                                        expected: "ColonToken",
-                                                                    })
-                                                                    return
-                                                                }
-                                                                ((
-                                                                    $: uast.TUntypedNode,
-                                                                    callback: ($: api.TNGexpression_conditional$_colonToken$) => void,
-                                                                ): void => {
-                                                                    const node = $
-                                                                    const children = pm.createStack($.children)
-                                                                    callback($.details)
-                                                                    children.pop(
-                                                                        (nextChild) => {
-                                                                            $x.reportUnexpectedToken({
-                                                                                path: "Gexpression_conditional$_colonToken$",
-                                                                                token: nextChild,
-                                                                                expected: null,
-                                                                            })
-                                                                        },
-                                                                        () => {},
-                                                                    )
-                                                                })(
-                                                                    currentChild,
-                                                                    ($) => {
-                                                                        const _colonToken = $
-                                                                        Gexpression(node, children, ($) => {
-                                                                            const _elseExpression = $
-                                                                            sequenceEnd({
-                                                                                "test": _test,
-                                                                                "questionToken": _questionToken,
-                                                                                "ifExpression": _ifExpression,
-                                                                                "colonToken": _colonToken,
-                                                                                "elseExpression": _elseExpression,
-                                                                            })
-                                                                        })
-                                                                    }
-                                                                )
-                                                            },
-                                                            () => { // no child
-                                                                $x.reportMissingToken({
-                                                                    parentDetails: node.details,
-                                                                    path: "Gexpression_conditional$_colonToken",
-                                                                    kindNameOptions: "ColonToken",
-                                                                })
-                                                            },
-                                                        )
-                                                    })
-                                                }
-                                            )
-                                        },
-                                        () => { // no child
-                                            $x.reportMissingToken({
-                                                parentDetails: node.details,
-                                                path: "Gexpression_conditional$_questionToken",
-                                                kindNameOptions: "QuestionToken",
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_new$",
+                                                token: nextChild,
+                                                expected: null,
                                             })
                                         },
+                                        () => {},
                                     )
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_conditional$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["new", $])
+                                    }
                                 )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["conditional", $])
-                                }
-                            )
-                        },
-                        () => { // no child
-                            $x.reportMissingToken({
-                                parentDetails: node.details,
-                                path: "Gexpression_conditional",
-                                kindNameOptions: "ConditionalExpression",
-                            })
-                        },
-                    )
-                }
-                const choose_elementAccess = () => {
-                    children.pop(
-                        (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ElementAccessExpression")) {
-                                $x.reportUnexpectedToken({
-                                    path: "Gexpression_elementAccess",
-                                    token: currentChild,
-                                    expected: "ElementAccessExpression",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_elementAccess$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGexpression_elementAccess$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gexpression(node, children, ($) => {
-                                    const _array = $
-                                    Gexpression(node, children, ($) => {
-                                        const _element = $
-                                        sequenceEnd({
-                                            "array": _array,
-                                            "element": _element,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_elementAccess$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["elementAccess", $])
-                                }
-                            )
-                        },
-                        () => { // no child
-                            $x.reportMissingToken({
-                                parentDetails: node.details,
-                                path: "Gexpression_elementAccess",
-                                kindNameOptions: "ElementAccessExpression",
-                            })
-                        },
-                    )
-                }
-                const choose_false = () => {
-                    children.pop(
-                        (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "FalseKeyword")) {
-                                $x.reportUnexpectedToken({
-                                    path: "Gexpression_false",
-                                    token: currentChild,
-                                    expected: "FalseKeyword",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_false$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_false$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["false", $])
-                                }
-                            )
-                        },
-                        () => { // no child
-                            $x.reportMissingToken({
-                                parentDetails: node.details,
-                                path: "Gexpression_false",
-                                kindNameOptions: "FalseKeyword",
-                            })
-                        },
-                    )
-                }
-                const choose_identifier = () => {
-                    Gidentifier(node, children, ($) => {
-                        choiceEnd_Gexpression(["identifier", $])
-                    })
-                }
-                const choose_new = () => {
-                    children.pop(
-                        (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "NewExpression")) {
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_new",
                                     token: currentChild,
                                     expected: "NewExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_new$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGexpression_new$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gidentifier(node, children, ($) => {
-                                    const _class = $
-                                    const elements = pm.createArrayBuilder<api.TVTGexpression_new$_parameters>()
-                                    const processElement = () => {
-                                        Gexpression(node, children, ($) => {
-                                            elements.push($)
-                                        })
-                                    }
-                                    $d.doUntil(
-                                        children,
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "ArrayLiteralExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "ArrowFunction": //z
-                                                    processElement()
-                                                    return true
-                                                case "BinaryExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "CallExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "ConditionalExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "ElementAccessExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "FalseKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                case "Identifier": //z
-                                                    processElement()
-                                                    return true
-                                                case "NewExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "NoSubstitutionTemplateLiteral": //z
-                                                    processElement()
-                                                    return true
-                                                case "NullKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                case "NumericLiteral": //z
-                                                    processElement()
-                                                    return true
-                                                case "ObjectLiteralExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "ParenthesizedExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "PostfixUnaryExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "PrefixUnaryExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "PropertyAccessExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "StringLiteral": //z
-                                                    processElement()
-                                                    return true
-                                                case "TemplateExpression": //z
-                                                    processElement()
-                                                    return true
-                                                case "TrueKeyword": //z
-                                                    processElement()
-                                                    return true
-                                                default: return false
-                                            }
-                                        },
-                                    )
-                                    pl.cc(elements.getArray(), ($) => {
-                                        const _parameters = $
-                                        sequenceEnd({
-                                            "class": _class,
-                                            "parameters": _parameters,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_new$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["new", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -1769,37 +1769,37 @@ export function parse(
                 const choose_noSubstitutionTemplateLiteral = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "NoSubstitutionTemplateLiteral")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "NoSubstitutionTemplateLiteral")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_noSubstitutionTemplateLiteral$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_noSubstitutionTemplateLiteral$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["noSubstitutionTemplateLiteral", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_noSubstitutionTemplateLiteral",
                                     token: currentChild,
                                     expected: "NoSubstitutionTemplateLiteral",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_noSubstitutionTemplateLiteral$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_noSubstitutionTemplateLiteral$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["noSubstitutionTemplateLiteral", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -1813,37 +1813,37 @@ export function parse(
                 const choose_nullKeyword = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "NullKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "NullKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_nullKeyword$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_nullKeyword$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["nullKeyword", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_nullKeyword",
                                     token: currentChild,
                                     expected: "NullKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_nullKeyword$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_nullKeyword$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["nullKeyword", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -1862,160 +1862,160 @@ export function parse(
                 const choose_objectLiteral = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ObjectLiteralExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ObjectLiteralExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_objectLiteral$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const elements = pm.createArrayBuilder<api.TVTGexpression_objectLiteral$>()
+                                    const processElement = () => {
+                                        children.pop(
+                                            (currentChild) => {
+                                                if ($d.stringsAreEqual(currentChild.kindName, "PropertyAssignment")) {
+                                                    ((
+                                                        $: uast.TUntypedNode,
+                                                        callback: ($: api.TNGexpression_objectLiteral$$) => void,
+                                                    ): void => {
+                                                        const node = $
+                                                        const children = pm.createStack($.children)
+                                                        const sequenceEnd = ($: api.TVTGexpression_objectLiteral$$) => {
+                                                            callback({
+                                                                tokenDetails: node.details,
+                                                                content: $,
+                                                            })
+                                                        }
+                                                        const choiceEnd_Gexpression_objectLiteral$$_name = ($: api.TVTGexpression_objectLiteral$$_name) => {
+                                                            const _name = $
+                                                            Gexpression(node, children, ($) => {
+                                                                const _expression = $
+                                                                sequenceEnd({
+                                                                    "name": _name,
+                                                                    "expression": _expression,
+                                                                })
+                                                            })
+                                                        }
+                                                        $d.lookAhead(children, 
+                                                            (nextChild) => {
+                                                                const choose_identifier = () => {
+                                                                    Gidentifier(node, children, ($) => {
+                                                                        choiceEnd_Gexpression_objectLiteral$$_name(["identifier", $])
+                                                                    })
+                                                                }
+                                                                const choose_numericLiteral = () => {
+                                                                    GnumericLiteral(node, children, ($) => {
+                                                                        choiceEnd_Gexpression_objectLiteral$$_name(["numericLiteral", $])
+                                                                    })
+                                                                }
+                                                                const choose_stringLiteral = () => {
+                                                                    GstringLiteral(node, children, ($) => {
+                                                                        choiceEnd_Gexpression_objectLiteral$$_name(["stringLiteral", $])
+                                                                    })
+                                                                }
+                                                                switch (nextChild.kindName) {
+                                                                    case "Identifier": /*Y*/ {
+                                                                        choose_identifier()
+                                                                        break
+                                                                    }
+                                                                    case "NumericLiteral": /*Y*/ {
+                                                                        choose_numericLiteral()
+                                                                        break
+                                                                    }
+                                                                    case "StringLiteral": /*Y*/ {
+                                                                        choose_stringLiteral()
+                                                                        break
+                                                                    }
+                                                                    default: {
+                                                                        $x.reportUnexpectedToken({
+                                                                            path: "Gexpression_objectLiteral$$_name",
+                                                                            token: nextChild,
+                                                                            expected: "StringLiteral, NumericLiteral, Identifier",
+                                                                        })
+                                                                    }
+                                                                }
+                                                            },
+                                                            () => { //no child
+                                                                $x.reportMissingToken({
+                                                                    parentDetails: node.details,
+                                                                    path: "Gexpression_objectLiteral$$_name",
+                                                                    kindNameOptions: "StringLiteral, NumericLiteral, Identifier",
+                                                                })
+                                                            },
+                                                        )
+                                                        children.pop(
+                                                            (nextChild) => {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gexpression_objectLiteral$$",
+                                                                    token: nextChild,
+                                                                    expected: null,
+                                                                })
+                                                            },
+                                                            () => {},
+                                                        )
+                                                    })(
+                                                        currentChild,
+                                                        ($) => {
+                                                            elements.push($)
+                                                        }
+                                                    )
+                                                } else {
+                                                    $x.reportUnexpectedToken({
+                                                        path: "Gexpression_objectLiteral$",
+                                                        token: currentChild,
+                                                        expected: "PropertyAssignment",
+                                                    })
+                                                }
+                                            },
+                                            () => { // no child
+                                                $x.reportMissingToken({
+                                                    parentDetails: node.details,
+                                                    path: "Gexpression_objectLiteral$",
+                                                    kindNameOptions: "PropertyAssignment",
+                                                })
+                                            },
+                                        )
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "PropertyAssignment": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_objectLiteral$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["objectLiteral", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_objectLiteral",
                                     token: currentChild,
                                     expected: "ObjectLiteralExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_objectLiteral$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<api.TVTGexpression_objectLiteral$>()
-                                const processElement = () => {
-                                    children.pop(
-                                        (currentChild) => {
-                                            if ($d.stringsNotEqual(currentChild.kindName, "PropertyAssignment")) {
-                                                $x.reportUnexpectedToken({
-                                                    path: "Gexpression_objectLiteral$",
-                                                    token: currentChild,
-                                                    expected: "PropertyAssignment",
-                                                })
-                                                return
-                                            }
-                                            ((
-                                                $: uast.TUntypedNode,
-                                                callback: ($: api.TNGexpression_objectLiteral$$) => void,
-                                            ): void => {
-                                                const node = $
-                                                const children = pm.createStack($.children)
-                                                const sequenceEnd = ($: api.TVTGexpression_objectLiteral$$) => {
-                                                    callback({
-                                                        tokenDetails: node.details,
-                                                        content: $,
-                                                    })
-                                                }
-                                                const choiceEnd_Gexpression_objectLiteral$$_name = ($: api.TVTGexpression_objectLiteral$$_name) => {
-                                                    const _name = $
-                                                    Gexpression(node, children, ($) => {
-                                                        const _expression = $
-                                                        sequenceEnd({
-                                                            "name": _name,
-                                                            "expression": _expression,
-                                                        })
-                                                    })
-                                                }
-                                                $d.lookAhead(children, 
-                                                    (nextChild) => {
-                                                        const choose_identifier = () => {
-                                                            Gidentifier(node, children, ($) => {
-                                                                choiceEnd_Gexpression_objectLiteral$$_name(["identifier", $])
-                                                            })
-                                                        }
-                                                        const choose_numericLiteral = () => {
-                                                            GnumericLiteral(node, children, ($) => {
-                                                                choiceEnd_Gexpression_objectLiteral$$_name(["numericLiteral", $])
-                                                            })
-                                                        }
-                                                        const choose_stringLiteral = () => {
-                                                            GstringLiteral(node, children, ($) => {
-                                                                choiceEnd_Gexpression_objectLiteral$$_name(["stringLiteral", $])
-                                                            })
-                                                        }
-                                                        switch (nextChild.kindName) {
-                                                            case "Identifier": /*Y*/ {
-                                                                choose_identifier()
-                                                                break
-                                                            }
-                                                            case "NumericLiteral": /*Y*/ {
-                                                                choose_numericLiteral()
-                                                                break
-                                                            }
-                                                            case "StringLiteral": /*Y*/ {
-                                                                choose_stringLiteral()
-                                                                break
-                                                            }
-                                                            default: {
-                                                                $x.reportUnexpectedToken({
-                                                                    path: "Gexpression_objectLiteral$$_name",
-                                                                    token: nextChild,
-                                                                    expected: "StringLiteral, NumericLiteral, Identifier",
-                                                                })
-                                                            }
-                                                        }
-                                                    },
-                                                    () => { //no child
-                                                        $x.reportMissingToken({
-                                                            parentDetails: node.details,
-                                                            path: "Gexpression_objectLiteral$$_name",
-                                                            kindNameOptions: "StringLiteral, NumericLiteral, Identifier",
-                                                        })
-                                                    },
-                                                )
-                                                children.pop(
-                                                    (nextChild) => {
-                                                        $x.reportUnexpectedToken({
-                                                            path: "Gexpression_objectLiteral$$",
-                                                            token: nextChild,
-                                                            expected: null,
-                                                        })
-                                                    },
-                                                    () => {},
-                                                )
-                                            })(
-                                                currentChild,
-                                                ($) => {
-                                                    elements.push($)
-                                                }
-                                            )
-                                        },
-                                        () => { // no child
-                                            $x.reportMissingToken({
-                                                parentDetails: node.details,
-                                                path: "Gexpression_objectLiteral$",
-                                                kindNameOptions: "PropertyAssignment",
-                                            })
-                                        },
-                                    )
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "PropertyAssignment": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_objectLiteral$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["objectLiteral", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2029,42 +2029,42 @@ export function parse(
                 const choose_parenthesizedExpression = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ParenthesizedExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ParenthesizedExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_parenthesizedExpression$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    Gexpression(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_parenthesizedExpression$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["parenthesizedExpression", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_parenthesizedExpression",
                                     token: currentChild,
                                     expected: "ParenthesizedExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_parenthesizedExpression$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                Gexpression(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_parenthesizedExpression$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["parenthesizedExpression", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2078,42 +2078,42 @@ export function parse(
                 const choose_postfixUnary = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "PostfixUnaryExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "PostfixUnaryExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_postfixUnary$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    Gexpression(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_postfixUnary$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["postfixUnary", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_postfixUnary",
                                     token: currentChild,
                                     expected: "PostfixUnaryExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_postfixUnary$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                Gexpression(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_postfixUnary$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["postfixUnary", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2127,42 +2127,42 @@ export function parse(
                 const choose_prefixUnary = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "PrefixUnaryExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "PrefixUnaryExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_prefixUnary$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    Gexpression(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_prefixUnary$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["prefixUnary", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_prefixUnary",
                                     token: currentChild,
                                     expected: "PrefixUnaryExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_prefixUnary$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                Gexpression(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_prefixUnary$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["prefixUnary", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2176,52 +2176,52 @@ export function parse(
                 const choose_propertyAccess = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "PropertyAccessExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "PropertyAccessExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_propertyAccess$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGexpression_propertyAccess$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gexpression(node, children, ($) => {
+                                        const _object = $
+                                        Gexpression(node, children, ($) => {
+                                            const _property = $
+                                            sequenceEnd({
+                                                "object": _object,
+                                                "property": _property,
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_propertyAccess$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["propertyAccess", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_propertyAccess",
                                     token: currentChild,
                                     expected: "PropertyAccessExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_propertyAccess$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGexpression_propertyAccess$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gexpression(node, children, ($) => {
-                                    const _object = $
-                                    Gexpression(node, children, ($) => {
-                                        const _property = $
-                                        sequenceEnd({
-                                            "object": _object,
-                                            "property": _property,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_propertyAccess$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["propertyAccess", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2240,287 +2240,287 @@ export function parse(
                 const choose_template = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "TemplateExpression")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "TemplateExpression")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_template$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGexpression_template$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    children.pop(
+                                        (currentChild) => {
+                                            if ($d.stringsAreEqual(currentChild.kindName, "TemplateHead")) {
+                                                ((
+                                                    $: uast.TUntypedNode,
+                                                    callback: ($: api.TNGexpression_template$_head$) => void,
+                                                ): void => {
+                                                    const node = $
+                                                    const children = pm.createStack($.children)
+                                                    callback({
+                                                        tokenDetails: $.details,
+                                                        value: $.value
+                                                    })
+                                                    children.pop(
+                                                        (nextChild) => {
+                                                            $x.reportUnexpectedToken({
+                                                                path: "Gexpression_template$_head$",
+                                                                token: nextChild,
+                                                                expected: null,
+                                                            })
+                                                        },
+                                                        () => {},
+                                                    )
+                                                })(
+                                                    currentChild,
+                                                    ($) => {
+                                                        const _head = $
+                                                        const elements = pm.createArrayBuilder<api.TVTGexpression_template$_spans>()
+                                                        const processElement = () => {
+                                                            children.pop(
+                                                                (currentChild) => {
+                                                                    if ($d.stringsAreEqual(currentChild.kindName, "TemplateSpan")) {
+                                                                        ((
+                                                                            $: uast.TUntypedNode,
+                                                                            callback: ($: api.TNGexpression_template$_spans$) => void,
+                                                                        ): void => {
+                                                                            const node = $
+                                                                            const children = pm.createStack($.children)
+                                                                            const sequenceEnd = ($: api.TVTGexpression_template$_spans$) => {
+                                                                                callback({
+                                                                                    tokenDetails: node.details,
+                                                                                    content: $,
+                                                                                })
+                                                                            }
+                                                                            Gexpression(node, children, ($) => {
+                                                                                const _expression = $
+                                                                                const choiceEnd_Gexpression_template$_spans$_x = ($: api.TVTGexpression_template$_spans$_x) => {
+                                                                                    const _x = $
+                                                                                    sequenceEnd({
+                                                                                        "expression": _expression,
+                                                                                        "x": _x,
+                                                                                    })
+                                                                                }
+                                                                                $d.lookAhead(children, 
+                                                                                    (nextChild) => {
+                                                                                        const choose_middle = () => {
+                                                                                            children.pop(
+                                                                                                (currentChild) => {
+                                                                                                    if ($d.stringsAreEqual(currentChild.kindName, "TemplateMiddle")) {
+                                                                                                        ((
+                                                                                                            $: uast.TUntypedNode,
+                                                                                                            callback: ($: api.TNGexpression_template$_spans$_x_middle$) => void,
+                                                                                                        ): void => {
+                                                                                                            const node = $
+                                                                                                            const children = pm.createStack($.children)
+                                                                                                            callback({
+                                                                                                                tokenDetails: $.details,
+                                                                                                                value: $.value
+                                                                                                            })
+                                                                                                            children.pop(
+                                                                                                                (nextChild) => {
+                                                                                                                    $x.reportUnexpectedToken({
+                                                                                                                        path: "Gexpression_template$_spans$_x_middle$",
+                                                                                                                        token: nextChild,
+                                                                                                                        expected: null,
+                                                                                                                    })
+                                                                                                                },
+                                                                                                                () => {},
+                                                                                                            )
+                                                                                                        })(
+                                                                                                            currentChild,
+                                                                                                            ($) => {
+                                                                                                                choiceEnd_Gexpression_template$_spans$_x(["middle", $])
+                                                                                                            }
+                                                                                                        )
+                                                                                                    } else {
+                                                                                                        $x.reportUnexpectedToken({
+                                                                                                            path: "Gexpression_template$_spans$_x_middle",
+                                                                                                            token: currentChild,
+                                                                                                            expected: "TemplateMiddle",
+                                                                                                        })
+                                                                                                    }
+                                                                                                },
+                                                                                                () => { // no child
+                                                                                                    $x.reportMissingToken({
+                                                                                                        parentDetails: node.details,
+                                                                                                        path: "Gexpression_template$_spans$_x_middle",
+                                                                                                        kindNameOptions: "TemplateMiddle",
+                                                                                                    })
+                                                                                                },
+                                                                                            )
+                                                                                        }
+                                                                                        const choose_tail = () => {
+                                                                                            children.pop(
+                                                                                                (currentChild) => {
+                                                                                                    if ($d.stringsAreEqual(currentChild.kindName, "TemplateTail")) {
+                                                                                                        ((
+                                                                                                            $: uast.TUntypedNode,
+                                                                                                            callback: ($: api.TNGexpression_template$_spans$_x_tail$) => void,
+                                                                                                        ): void => {
+                                                                                                            const node = $
+                                                                                                            const children = pm.createStack($.children)
+                                                                                                            callback({
+                                                                                                                tokenDetails: $.details,
+                                                                                                                value: $.value
+                                                                                                            })
+                                                                                                            children.pop(
+                                                                                                                (nextChild) => {
+                                                                                                                    $x.reportUnexpectedToken({
+                                                                                                                        path: "Gexpression_template$_spans$_x_tail$",
+                                                                                                                        token: nextChild,
+                                                                                                                        expected: null,
+                                                                                                                    })
+                                                                                                                },
+                                                                                                                () => {},
+                                                                                                            )
+                                                                                                        })(
+                                                                                                            currentChild,
+                                                                                                            ($) => {
+                                                                                                                choiceEnd_Gexpression_template$_spans$_x(["tail", $])
+                                                                                                            }
+                                                                                                        )
+                                                                                                    } else {
+                                                                                                        $x.reportUnexpectedToken({
+                                                                                                            path: "Gexpression_template$_spans$_x_tail",
+                                                                                                            token: currentChild,
+                                                                                                            expected: "TemplateTail",
+                                                                                                        })
+                                                                                                    }
+                                                                                                },
+                                                                                                () => { // no child
+                                                                                                    $x.reportMissingToken({
+                                                                                                        parentDetails: node.details,
+                                                                                                        path: "Gexpression_template$_spans$_x_tail",
+                                                                                                        kindNameOptions: "TemplateTail",
+                                                                                                    })
+                                                                                                },
+                                                                                            )
+                                                                                        }
+                                                                                        switch (nextChild.kindName) {
+                                                                                            case "TemplateMiddle": /*Y*/ {
+                                                                                                choose_middle()
+                                                                                                break
+                                                                                            }
+                                                                                            case "TemplateTail": /*Y*/ {
+                                                                                                choose_tail()
+                                                                                                break
+                                                                                            }
+                                                                                            default: {
+                                                                                                $x.reportUnexpectedToken({
+                                                                                                    path: "Gexpression_template$_spans$_x",
+                                                                                                    token: nextChild,
+                                                                                                    expected: "TemplateTail, TemplateMiddle",
+                                                                                                })
+                                                                                            }
+                                                                                        }
+                                                                                    },
+                                                                                    () => { //no child
+                                                                                        $x.reportMissingToken({
+                                                                                            parentDetails: node.details,
+                                                                                            path: "Gexpression_template$_spans$_x",
+                                                                                            kindNameOptions: "TemplateTail, TemplateMiddle",
+                                                                                        })
+                                                                                    },
+                                                                                )
+                                                                            })
+                                                                            children.pop(
+                                                                                (nextChild) => {
+                                                                                    $x.reportUnexpectedToken({
+                                                                                        path: "Gexpression_template$_spans$",
+                                                                                        token: nextChild,
+                                                                                        expected: null,
+                                                                                    })
+                                                                                },
+                                                                                () => {},
+                                                                            )
+                                                                        })(
+                                                                            currentChild,
+                                                                            ($) => {
+                                                                                elements.push($)
+                                                                            }
+                                                                        )
+                                                                    } else {
+                                                                        $x.reportUnexpectedToken({
+                                                                            path: "Gexpression_template$_spans",
+                                                                            token: currentChild,
+                                                                            expected: "TemplateSpan",
+                                                                        })
+                                                                    }
+                                                                },
+                                                                () => { // no child
+                                                                    $x.reportMissingToken({
+                                                                        parentDetails: node.details,
+                                                                        path: "Gexpression_template$_spans",
+                                                                        kindNameOptions: "TemplateSpan",
+                                                                    })
+                                                                },
+                                                            )
+                                                        }
+                                                        $d.doUntil(
+                                                            children,
+                                                            (nextChild) => {
+                                                                switch (nextChild.kindName) {
+                                                                    case "TemplateSpan": //z
+                                                                        processElement()
+                                                                        return true
+                                                                    default: return false
+                                                                }
+                                                            },
+                                                        )
+                                                        pl.cc(elements.getArray(), ($) => {
+                                                            const _spans = $
+                                                            sequenceEnd({
+                                                                "head": _head,
+                                                                "spans": _spans,
+                                                            })
+                                                        })
+                                                    }
+                                                )
+                                            } else {
+                                                $x.reportUnexpectedToken({
+                                                    path: "Gexpression_template$_head",
+                                                    token: currentChild,
+                                                    expected: "TemplateHead",
+                                                })
+                                            }
+                                        },
+                                        () => { // no child
+                                            $x.reportMissingToken({
+                                                parentDetails: node.details,
+                                                path: "Gexpression_template$_head",
+                                                kindNameOptions: "TemplateHead",
+                                            })
+                                        },
+                                    )
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_template$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["template", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_template",
                                     token: currentChild,
                                     expected: "TemplateExpression",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_template$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGexpression_template$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                children.pop(
-                                    (currentChild) => {
-                                        if ($d.stringsNotEqual(currentChild.kindName, "TemplateHead")) {
-                                            $x.reportUnexpectedToken({
-                                                path: "Gexpression_template$_head",
-                                                token: currentChild,
-                                                expected: "TemplateHead",
-                                            })
-                                            return
-                                        }
-                                        ((
-                                            $: uast.TUntypedNode,
-                                            callback: ($: api.TNGexpression_template$_head$) => void,
-                                        ): void => {
-                                            const node = $
-                                            const children = pm.createStack($.children)
-                                            callback({
-                                                tokenDetails: $.details,
-                                                value: $.value
-                                            })
-                                            children.pop(
-                                                (nextChild) => {
-                                                    $x.reportUnexpectedToken({
-                                                        path: "Gexpression_template$_head$",
-                                                        token: nextChild,
-                                                        expected: null,
-                                                    })
-                                                },
-                                                () => {},
-                                            )
-                                        })(
-                                            currentChild,
-                                            ($) => {
-                                                const _head = $
-                                                const elements = pm.createArrayBuilder<api.TVTGexpression_template$_spans>()
-                                                const processElement = () => {
-                                                    children.pop(
-                                                        (currentChild) => {
-                                                            if ($d.stringsNotEqual(currentChild.kindName, "TemplateSpan")) {
-                                                                $x.reportUnexpectedToken({
-                                                                    path: "Gexpression_template$_spans",
-                                                                    token: currentChild,
-                                                                    expected: "TemplateSpan",
-                                                                })
-                                                                return
-                                                            }
-                                                            ((
-                                                                $: uast.TUntypedNode,
-                                                                callback: ($: api.TNGexpression_template$_spans$) => void,
-                                                            ): void => {
-                                                                const node = $
-                                                                const children = pm.createStack($.children)
-                                                                const sequenceEnd = ($: api.TVTGexpression_template$_spans$) => {
-                                                                    callback({
-                                                                        tokenDetails: node.details,
-                                                                        content: $,
-                                                                    })
-                                                                }
-                                                                Gexpression(node, children, ($) => {
-                                                                    const _expression = $
-                                                                    const choiceEnd_Gexpression_template$_spans$_x = ($: api.TVTGexpression_template$_spans$_x) => {
-                                                                        const _x = $
-                                                                        sequenceEnd({
-                                                                            "expression": _expression,
-                                                                            "x": _x,
-                                                                        })
-                                                                    }
-                                                                    $d.lookAhead(children, 
-                                                                        (nextChild) => {
-                                                                            const choose_middle = () => {
-                                                                                children.pop(
-                                                                                    (currentChild) => {
-                                                                                        if ($d.stringsNotEqual(currentChild.kindName, "TemplateMiddle")) {
-                                                                                            $x.reportUnexpectedToken({
-                                                                                                path: "Gexpression_template$_spans$_x_middle",
-                                                                                                token: currentChild,
-                                                                                                expected: "TemplateMiddle",
-                                                                                            })
-                                                                                            return
-                                                                                        }
-                                                                                        ((
-                                                                                            $: uast.TUntypedNode,
-                                                                                            callback: ($: api.TNGexpression_template$_spans$_x_middle$) => void,
-                                                                                        ): void => {
-                                                                                            const node = $
-                                                                                            const children = pm.createStack($.children)
-                                                                                            callback({
-                                                                                                tokenDetails: $.details,
-                                                                                                value: $.value
-                                                                                            })
-                                                                                            children.pop(
-                                                                                                (nextChild) => {
-                                                                                                    $x.reportUnexpectedToken({
-                                                                                                        path: "Gexpression_template$_spans$_x_middle$",
-                                                                                                        token: nextChild,
-                                                                                                        expected: null,
-                                                                                                    })
-                                                                                                },
-                                                                                                () => {},
-                                                                                            )
-                                                                                        })(
-                                                                                            currentChild,
-                                                                                            ($) => {
-                                                                                                choiceEnd_Gexpression_template$_spans$_x(["middle", $])
-                                                                                            }
-                                                                                        )
-                                                                                    },
-                                                                                    () => { // no child
-                                                                                        $x.reportMissingToken({
-                                                                                            parentDetails: node.details,
-                                                                                            path: "Gexpression_template$_spans$_x_middle",
-                                                                                            kindNameOptions: "TemplateMiddle",
-                                                                                        })
-                                                                                    },
-                                                                                )
-                                                                            }
-                                                                            const choose_tail = () => {
-                                                                                children.pop(
-                                                                                    (currentChild) => {
-                                                                                        if ($d.stringsNotEqual(currentChild.kindName, "TemplateTail")) {
-                                                                                            $x.reportUnexpectedToken({
-                                                                                                path: "Gexpression_template$_spans$_x_tail",
-                                                                                                token: currentChild,
-                                                                                                expected: "TemplateTail",
-                                                                                            })
-                                                                                            return
-                                                                                        }
-                                                                                        ((
-                                                                                            $: uast.TUntypedNode,
-                                                                                            callback: ($: api.TNGexpression_template$_spans$_x_tail$) => void,
-                                                                                        ): void => {
-                                                                                            const node = $
-                                                                                            const children = pm.createStack($.children)
-                                                                                            callback({
-                                                                                                tokenDetails: $.details,
-                                                                                                value: $.value
-                                                                                            })
-                                                                                            children.pop(
-                                                                                                (nextChild) => {
-                                                                                                    $x.reportUnexpectedToken({
-                                                                                                        path: "Gexpression_template$_spans$_x_tail$",
-                                                                                                        token: nextChild,
-                                                                                                        expected: null,
-                                                                                                    })
-                                                                                                },
-                                                                                                () => {},
-                                                                                            )
-                                                                                        })(
-                                                                                            currentChild,
-                                                                                            ($) => {
-                                                                                                choiceEnd_Gexpression_template$_spans$_x(["tail", $])
-                                                                                            }
-                                                                                        )
-                                                                                    },
-                                                                                    () => { // no child
-                                                                                        $x.reportMissingToken({
-                                                                                            parentDetails: node.details,
-                                                                                            path: "Gexpression_template$_spans$_x_tail",
-                                                                                            kindNameOptions: "TemplateTail",
-                                                                                        })
-                                                                                    },
-                                                                                )
-                                                                            }
-                                                                            switch (nextChild.kindName) {
-                                                                                case "TemplateMiddle": /*Y*/ {
-                                                                                    choose_middle()
-                                                                                    break
-                                                                                }
-                                                                                case "TemplateTail": /*Y*/ {
-                                                                                    choose_tail()
-                                                                                    break
-                                                                                }
-                                                                                default: {
-                                                                                    $x.reportUnexpectedToken({
-                                                                                        path: "Gexpression_template$_spans$_x",
-                                                                                        token: nextChild,
-                                                                                        expected: "TemplateTail, TemplateMiddle",
-                                                                                    })
-                                                                                }
-                                                                            }
-                                                                        },
-                                                                        () => { //no child
-                                                                            $x.reportMissingToken({
-                                                                                parentDetails: node.details,
-                                                                                path: "Gexpression_template$_spans$_x",
-                                                                                kindNameOptions: "TemplateTail, TemplateMiddle",
-                                                                            })
-                                                                        },
-                                                                    )
-                                                                })
-                                                                children.pop(
-                                                                    (nextChild) => {
-                                                                        $x.reportUnexpectedToken({
-                                                                            path: "Gexpression_template$_spans$",
-                                                                            token: nextChild,
-                                                                            expected: null,
-                                                                        })
-                                                                    },
-                                                                    () => {},
-                                                                )
-                                                            })(
-                                                                currentChild,
-                                                                ($) => {
-                                                                    elements.push($)
-                                                                }
-                                                            )
-                                                        },
-                                                        () => { // no child
-                                                            $x.reportMissingToken({
-                                                                parentDetails: node.details,
-                                                                path: "Gexpression_template$_spans",
-                                                                kindNameOptions: "TemplateSpan",
-                                                            })
-                                                        },
-                                                    )
-                                                }
-                                                $d.doUntil(
-                                                    children,
-                                                    (nextChild) => {
-                                                        switch (nextChild.kindName) {
-                                                            case "TemplateSpan": //z
-                                                                processElement()
-                                                                return true
-                                                            default: return false
-                                                        }
-                                                    },
-                                                )
-                                                pl.cc(elements.getArray(), ($) => {
-                                                    const _spans = $
-                                                    sequenceEnd({
-                                                        "head": _head,
-                                                        "spans": _spans,
-                                                    })
-                                                })
-                                            }
-                                        )
-                                    },
-                                    () => { // no child
-                                        $x.reportMissingToken({
-                                            parentDetails: node.details,
-                                            path: "Gexpression_template$_head",
-                                            kindNameOptions: "TemplateHead",
-                                        })
-                                    },
-                                )
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_template$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["template", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2534,37 +2534,37 @@ export function parse(
                 const choose_true = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "TrueKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "TrueKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGexpression_true$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gexpression_true$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gexpression(["true", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gexpression_true",
                                     token: currentChild,
                                     expected: "TrueKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGexpression_true$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gexpression_true$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gexpression(["true", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2799,40 +2799,40 @@ export function parse(
     ): void {
         children.pop(
             (currentChild) => {
-                if ($d.stringsNotEqual(currentChild.kindName, "Identifier")) {
+                if ($d.stringsAreEqual(currentChild.kindName, "Identifier")) {
+                    ((
+                        $: uast.TUntypedNode,
+                        callback: ($: api.TNGidentifier$) => void,
+                    ): void => {
+                        const node = $
+                        const children = pm.createStack($.children)
+                        callback({
+                            tokenDetails: $.details,
+                            value: $.value
+                        })
+                        children.pop(
+                            (nextChild) => {
+                                $x.reportUnexpectedToken({
+                                    path: "Gidentifier$",
+                                    token: nextChild,
+                                    expected: null,
+                                })
+                            },
+                            () => {},
+                        )
+                    })(
+                        currentChild,
+                        ($) => {
+                            callback($)
+                        }
+                    )
+                } else {
                     $x.reportUnexpectedToken({
                         path: "Gidentifier",
                         token: currentChild,
                         expected: "Identifier",
                     })
-                    return
                 }
-                ((
-                    $: uast.TUntypedNode,
-                    callback: ($: api.TNGidentifier$) => void,
-                ): void => {
-                    const node = $
-                    const children = pm.createStack($.children)
-                    callback({
-                        tokenDetails: $.details,
-                        value: $.value
-                    })
-                    children.pop(
-                        (nextChild) => {
-                            $x.reportUnexpectedToken({
-                                path: "Gidentifier$",
-                                token: nextChild,
-                                expected: null,
-                            })
-                        },
-                        () => {},
-                    )
-                })(
-                    currentChild,
-                    ($) => {
-                        callback($)
-                    }
-                )
             },
             () => { // no child
                 $x.reportMissingToken({
@@ -2903,37 +2903,37 @@ export function parse(
                 const choose_declare = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "DeclareKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "DeclareKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGmodifier_declare$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gmodifier_declare$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gmodifier(["declare", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gmodifier_declare",
                                     token: currentChild,
                                     expected: "DeclareKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGmodifier_declare$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gmodifier_declare$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gmodifier(["declare", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2947,37 +2947,37 @@ export function parse(
                 const choose_export = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ExportKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ExportKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGmodifier_export$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gmodifier_export$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gmodifier(["export", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gmodifier_export",
                                     token: currentChild,
                                     expected: "ExportKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGmodifier_export$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gmodifier_export$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gmodifier(["export", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -2991,37 +2991,37 @@ export function parse(
                 const choose_readonly = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ReadonlyKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ReadonlyKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGmodifier_readonly$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gmodifier_readonly$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gmodifier(["readonly", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gmodifier_readonly",
                                     token: currentChild,
                                     expected: "ReadonlyKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGmodifier_readonly$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gmodifier_readonly$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gmodifier(["readonly", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -3070,40 +3070,40 @@ export function parse(
     ): void {
         children.pop(
             (currentChild) => {
-                if ($d.stringsNotEqual(currentChild.kindName, "NumericLiteral")) {
+                if ($d.stringsAreEqual(currentChild.kindName, "NumericLiteral")) {
+                    ((
+                        $: uast.TUntypedNode,
+                        callback: ($: api.TNGnumericLiteral$) => void,
+                    ): void => {
+                        const node = $
+                        const children = pm.createStack($.children)
+                        callback({
+                            tokenDetails: $.details,
+                            value: $.value
+                        })
+                        children.pop(
+                            (nextChild) => {
+                                $x.reportUnexpectedToken({
+                                    path: "GnumericLiteral$",
+                                    token: nextChild,
+                                    expected: null,
+                                })
+                            },
+                            () => {},
+                        )
+                    })(
+                        currentChild,
+                        ($) => {
+                            callback($)
+                        }
+                    )
+                } else {
                     $x.reportUnexpectedToken({
                         path: "GnumericLiteral",
                         token: currentChild,
                         expected: "NumericLiteral",
                     })
-                    return
                 }
-                ((
-                    $: uast.TUntypedNode,
-                    callback: ($: api.TNGnumericLiteral$) => void,
-                ): void => {
-                    const node = $
-                    const children = pm.createStack($.children)
-                    callback({
-                        tokenDetails: $.details,
-                        value: $.value
-                    })
-                    children.pop(
-                        (nextChild) => {
-                            $x.reportUnexpectedToken({
-                                path: "GnumericLiteral$",
-                                token: nextChild,
-                                expected: null,
-                            })
-                        },
-                        () => {},
-                    )
-                })(
-                    currentChild,
-                    ($) => {
-                        callback($)
-                    }
-                )
             },
             () => { // no child
                 $x.reportMissingToken({
@@ -3121,140 +3121,70 @@ export function parse(
     ): void {
         children.pop(
             (currentChild) => {
-                if ($d.stringsNotEqual(currentChild.kindName, "Parameter")) {
-                    $x.reportUnexpectedToken({
-                        path: "Gparameter",
-                        token: currentChild,
-                        expected: "Parameter",
-                    })
-                    return
-                }
-                ((
-                    $: uast.TUntypedNode,
-                    callback: ($: api.TNGparameter$) => void,
-                ): void => {
-                    const node = $
-                    const children = pm.createStack($.children)
-                    const sequenceEnd = ($: api.TVTGparameter$) => {
-                        callback({
-                            tokenDetails: node.details,
-                            content: $,
-                        })
-                    }
-                    Gidentifier(node, children, ($) => {
-                        const _name = $
-                        let optional: null | api.TVTGparameter$_questionToken = null
-                        const setOptional = () => {
-                            children.pop(
-                                (currentChild) => {
-                                    if ($d.stringsNotEqual(currentChild.kindName, "QuestionToken")) {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gparameter$_questionToken",
-                                            token: currentChild,
-                                            expected: "QuestionToken",
-                                        })
-                                        return
-                                    }
-                                    ((
-                                        $: uast.TUntypedNode,
-                                        callback: ($: api.TNGparameter$_questionToken$) => void,
-                                    ): void => {
-                                        const node = $
-                                        const children = pm.createStack($.children)
-                                        callback($.details)
-                                        children.pop(
-                                            (nextChild) => {
-                                                $x.reportUnexpectedToken({
-                                                    path: "Gparameter$_questionToken$",
-                                                    token: nextChild,
-                                                    expected: null,
-                                                })
-                                            },
-                                            () => {},
-                                        )
-                                    })(
-                                        currentChild,
-                                        ($) => {
-                                            optional = $
-                                        }
-                                    )
-                                },
-                                () => { // no child
-                                    $x.reportMissingToken({
-                                        parentDetails: node.details,
-                                        path: "Gparameter$_questionToken",
-                                        kindNameOptions: "QuestionToken",
-                                    })
-                                },
-                            )
+                if ($d.stringsAreEqual(currentChild.kindName, "Parameter")) {
+                    ((
+                        $: uast.TUntypedNode,
+                        callback: ($: api.TNGparameter$) => void,
+                    ): void => {
+                        const node = $
+                        const children = pm.createStack($.children)
+                        const sequenceEnd = ($: api.TVTGparameter$) => {
+                            callback({
+                                tokenDetails: node.details,
+                                content: $,
+                            })
                         }
-                        $d.lookAhead(children, 
-                            (nextChild) => {
-                                switch (nextChild.kindName) {
-                                    case "QuestionToken": //XXX
-                                        setOptional()
-                                        break
-                                }
-                            },
-                            () => {},
-                        )
-                        pl.cc(optional, ($) => {
-                            const _questionToken = $
-                            let optional: null | api.TVTGparameter$_type = null
+                        Gidentifier(node, children, ($) => {
+                            const _name = $
+                            let optional: null | api.TVTGparameter$_questionToken = null
                             const setOptional = () => {
-                                Gtype(node, children, ($) => {
-                                    optional = $
-                                })
+                                children.pop(
+                                    (currentChild) => {
+                                        if ($d.stringsAreEqual(currentChild.kindName, "QuestionToken")) {
+                                            ((
+                                                $: uast.TUntypedNode,
+                                                callback: ($: api.TNGparameter$_questionToken$) => void,
+                                            ): void => {
+                                                const node = $
+                                                const children = pm.createStack($.children)
+                                                callback($.details)
+                                                children.pop(
+                                                    (nextChild) => {
+                                                        $x.reportUnexpectedToken({
+                                                            path: "Gparameter$_questionToken$",
+                                                            token: nextChild,
+                                                            expected: null,
+                                                        })
+                                                    },
+                                                    () => {},
+                                                )
+                                            })(
+                                                currentChild,
+                                                ($) => {
+                                                    optional = $
+                                                }
+                                            )
+                                        } else {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gparameter$_questionToken",
+                                                token: currentChild,
+                                                expected: "QuestionToken",
+                                            })
+                                        }
+                                    },
+                                    () => { // no child
+                                        $x.reportMissingToken({
+                                            parentDetails: node.details,
+                                            path: "Gparameter$_questionToken",
+                                            kindNameOptions: "QuestionToken",
+                                        })
+                                    },
+                                )
                             }
                             $d.lookAhead(children, 
                                 (nextChild) => {
                                     switch (nextChild.kindName) {
-                                        case "AnyKeyword": //XXX
-                                            setOptional()
-                                            break
-                                        case "ArrayType": //XXX
-                                            setOptional()
-                                            break
-                                        case "BooleanKeyword": //XXX
-                                            setOptional()
-                                            break
-                                        case "FunctionType": //XXX
-                                            setOptional()
-                                            break
-                                        case "LiteralType": //XXX
-                                            setOptional()
-                                            break
-                                        case "NeverKeyword": //XXX
-                                            setOptional()
-                                            break
-                                        case "NumberKeyword": //XXX
-                                            setOptional()
-                                            break
-                                        case "OptionalType": //XXX
-                                            setOptional()
-                                            break
-                                        case "ParenthesizedType": //XXX
-                                            setOptional()
-                                            break
-                                        case "StringKeyword": //XXX
-                                            setOptional()
-                                            break
-                                        case "TupleType": //XXX
-                                            setOptional()
-                                            break
-                                        case "TypeLiteral": //XXX
-                                            setOptional()
-                                            break
-                                        case "TypeReference": //XXX
-                                            setOptional()
-                                            break
-                                        case "UndefinedKeyword": //XXX
-                                            setOptional()
-                                            break
-                                        case "UnionType": //XXX
-                                            setOptional()
-                                            break
-                                        case "VoidKeyword": //XXX
+                                        case "QuestionToken": //XXX
                                             setOptional()
                                             break
                                     }
@@ -3262,31 +3192,101 @@ export function parse(
                                 () => {},
                             )
                             pl.cc(optional, ($) => {
-                                const _type = $
-                                sequenceEnd({
-                                    "name": _name,
-                                    "questionToken": _questionToken,
-                                    "type": _type,
+                                const _questionToken = $
+                                let optional: null | api.TVTGparameter$_type = null
+                                const setOptional = () => {
+                                    Gtype(node, children, ($) => {
+                                        optional = $
+                                    })
+                                }
+                                $d.lookAhead(children, 
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "AnyKeyword": //XXX
+                                                setOptional()
+                                                break
+                                            case "ArrayType": //XXX
+                                                setOptional()
+                                                break
+                                            case "BooleanKeyword": //XXX
+                                                setOptional()
+                                                break
+                                            case "FunctionType": //XXX
+                                                setOptional()
+                                                break
+                                            case "LiteralType": //XXX
+                                                setOptional()
+                                                break
+                                            case "NeverKeyword": //XXX
+                                                setOptional()
+                                                break
+                                            case "NumberKeyword": //XXX
+                                                setOptional()
+                                                break
+                                            case "OptionalType": //XXX
+                                                setOptional()
+                                                break
+                                            case "ParenthesizedType": //XXX
+                                                setOptional()
+                                                break
+                                            case "StringKeyword": //XXX
+                                                setOptional()
+                                                break
+                                            case "TupleType": //XXX
+                                                setOptional()
+                                                break
+                                            case "TypeLiteral": //XXX
+                                                setOptional()
+                                                break
+                                            case "TypeReference": //XXX
+                                                setOptional()
+                                                break
+                                            case "UndefinedKeyword": //XXX
+                                                setOptional()
+                                                break
+                                            case "UnionType": //XXX
+                                                setOptional()
+                                                break
+                                            case "VoidKeyword": //XXX
+                                                setOptional()
+                                                break
+                                        }
+                                    },
+                                    () => {},
+                                )
+                                pl.cc(optional, ($) => {
+                                    const _type = $
+                                    sequenceEnd({
+                                        "name": _name,
+                                        "questionToken": _questionToken,
+                                        "type": _type,
+                                    })
                                 })
                             })
                         })
-                    })
-                    children.pop(
-                        (nextChild) => {
-                            $x.reportUnexpectedToken({
-                                path: "Gparameter$",
-                                token: nextChild,
-                                expected: null,
-                            })
-                        },
-                        () => {},
+                        children.pop(
+                            (nextChild) => {
+                                $x.reportUnexpectedToken({
+                                    path: "Gparameter$",
+                                    token: nextChild,
+                                    expected: null,
+                                })
+                            },
+                            () => {},
+                        )
+                    })(
+                        currentChild,
+                        ($) => {
+                            callback($)
+                        }
                     )
-                })(
-                    currentChild,
-                    ($) => {
-                        callback($)
-                    }
-                )
+                } else {
+                    $x.reportUnexpectedToken({
+                        path: "Gparameter",
+                        token: currentChild,
+                        expected: "Parameter",
+                    })
+                }
             },
             () => { // no child
                 $x.reportMissingToken({
@@ -3315,58 +3315,58 @@ export function parse(
                 const choose_break = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "BreakStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "BreakStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_break$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    let optional: null | api.TVTGstatement_break$ = null
+                                    const setOptional = () => {
+                                        Gidentifier(node, children, ($) => {
+                                            optional = $
+                                        })
+                                    }
+                                    $d.lookAhead(children, 
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "Identifier": //XXX
+                                                    setOptional()
+                                                    break
+                                            }
+                                        },
+                                        () => {},
+                                    )
+                                    pl.cc(optional, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_break$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["break", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_break",
                                     token: currentChild,
                                     expected: "BreakStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_break$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                let optional: null | api.TVTGstatement_break$ = null
-                                const setOptional = () => {
-                                    Gidentifier(node, children, ($) => {
-                                        optional = $
-                                    })
-                                }
-                                $d.lookAhead(children, 
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "Identifier": //XXX
-                                                setOptional()
-                                                break
-                                        }
-                                    },
-                                    () => {},
-                                )
-                                pl.cc(optional, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_break$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["break", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -3380,42 +3380,42 @@ export function parse(
                 const choose_export = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ExportDeclaration")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ExportDeclaration")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_export$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    GstringLiteral(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_export$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["export", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_export",
                                     token: currentChild,
                                     expected: "ExportDeclaration",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_export$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                GstringLiteral(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_export$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["export", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -3429,42 +3429,42 @@ export function parse(
                 const choose_expression = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ExpressionStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ExpressionStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_expression$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    Gexpression(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_expression$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["expression", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_expression",
                                     token: currentChild,
                                     expected: "ExpressionStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_expression$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                Gexpression(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_expression$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["expression", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -3478,60 +3478,60 @@ export function parse(
                 const choose_for = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ForStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ForStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_for$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_for$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    GvariableDeclarationList(node, children, ($) => {
+                                        const _initializer = $
+                                        Gexpression(node, children, ($) => {
+                                            const _condition = $
+                                            Gexpression(node, children, ($) => {
+                                                const _incrementer = $
+                                                Gblock(node, children, ($) => {
+                                                    const _block = $
+                                                    sequenceEnd({
+                                                        "initializer": _initializer,
+                                                        "condition": _condition,
+                                                        "incrementer": _incrementer,
+                                                        "block": _block,
+                                                    })
+                                                })
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_for$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["for", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_for",
                                     token: currentChild,
                                     expected: "ForStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_for$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_for$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                GvariableDeclarationList(node, children, ($) => {
-                                    const _initializer = $
-                                    Gexpression(node, children, ($) => {
-                                        const _condition = $
-                                        Gexpression(node, children, ($) => {
-                                            const _incrementer = $
-                                            Gblock(node, children, ($) => {
-                                                const _block = $
-                                                sequenceEnd({
-                                                    "initializer": _initializer,
-                                                    "condition": _condition,
-                                                    "incrementer": _incrementer,
-                                                    "block": _block,
-                                                })
-                                            })
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_for$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["for", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -3545,99 +3545,99 @@ export function parse(
                 const choose_function = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "FunctionDeclaration")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "FunctionDeclaration")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_function$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_function$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGstatement_function$_modifiers>()
+                                    const processElement = () => {
+                                        Gmodifier(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "DeclareKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ExportKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ReadonlyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _modifiers = $
+                                        Gidentifier(node, children, ($) => {
+                                            const _name = $
+                                            GfunctionDefinition(node, children, ($) => {
+                                                const _definition = $
+                                                let optional: null | api.TVTGstatement_function$_block = null
+                                                const setOptional = () => {
+                                                    Gblock(node, children, ($) => {
+                                                        optional = $
+                                                    })
+                                                }
+                                                $d.lookAhead(children, 
+                                                    (nextChild) => {
+                                                        switch (nextChild.kindName) {
+                                                            case "Block": //XXX
+                                                                setOptional()
+                                                                break
+                                                        }
+                                                    },
+                                                    () => {},
+                                                )
+                                                pl.cc(optional, ($) => {
+                                                    const _block = $
+                                                    sequenceEnd({
+                                                        "modifiers": _modifiers,
+                                                        "name": _name,
+                                                        "definition": _definition,
+                                                        "block": _block,
+                                                    })
+                                                })
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_function$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["function", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_function",
                                     token: currentChild,
                                     expected: "FunctionDeclaration",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_function$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_function$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGstatement_function$_modifiers>()
-                                const processElement = () => {
-                                    Gmodifier(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "DeclareKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ExportKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ReadonlyKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _modifiers = $
-                                    Gidentifier(node, children, ($) => {
-                                        const _name = $
-                                        GfunctionDefinition(node, children, ($) => {
-                                            const _definition = $
-                                            let optional: null | api.TVTGstatement_function$_block = null
-                                            const setOptional = () => {
-                                                Gblock(node, children, ($) => {
-                                                    optional = $
-                                                })
-                                            }
-                                            $d.lookAhead(children, 
-                                                (nextChild) => {
-                                                    switch (nextChild.kindName) {
-                                                        case "Block": //XXX
-                                                            setOptional()
-                                                            break
-                                                    }
-                                                },
-                                                () => {},
-                                            )
-                                            pl.cc(optional, ($) => {
-                                                const _block = $
-                                                sequenceEnd({
-                                                    "modifiers": _modifiers,
-                                                    "name": _name,
-                                                    "definition": _definition,
-                                                    "block": _block,
-                                                })
-                                            })
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_function$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["function", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -3651,120 +3651,120 @@ export function parse(
                 const choose_if = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "IfStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "IfStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_if$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_if$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gexpression(node, children, ($) => {
+                                        const _expression = $
+                                        Gstatement(node, children, ($) => {
+                                            const _thenStatement = $
+                                            let optional: null | api.TVTGstatement_if$_elseStatement = null
+                                            const setOptional = () => {
+                                                Gstatement(node, children, ($) => {
+                                                    optional = $
+                                                })
+                                            }
+                                            $d.lookAhead(children, 
+                                                (nextChild) => {
+                                                    switch (nextChild.kindName) {
+                                                        case "Block": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "BreakStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "ExportDeclaration": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "ExpressionStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "ForStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "FunctionDeclaration": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "IfStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "ImportDeclaration": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "InterfaceDeclaration": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "LabeledStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "ReturnStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "SwitchStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "ThrowStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "TryStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "TypeAliasDeclaration": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "VariableStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                        case "WhileStatement": //XXX
+                                                            setOptional()
+                                                            break
+                                                    }
+                                                },
+                                                () => {},
+                                            )
+                                            pl.cc(optional, ($) => {
+                                                const _elseStatement = $
+                                                sequenceEnd({
+                                                    "expression": _expression,
+                                                    "thenStatement": _thenStatement,
+                                                    "elseStatement": _elseStatement,
+                                                })
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_if$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["if", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_if",
                                     token: currentChild,
                                     expected: "IfStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_if$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_if$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gexpression(node, children, ($) => {
-                                    const _expression = $
-                                    Gstatement(node, children, ($) => {
-                                        const _thenStatement = $
-                                        let optional: null | api.TVTGstatement_if$_elseStatement = null
-                                        const setOptional = () => {
-                                            Gstatement(node, children, ($) => {
-                                                optional = $
-                                            })
-                                        }
-                                        $d.lookAhead(children, 
-                                            (nextChild) => {
-                                                switch (nextChild.kindName) {
-                                                    case "Block": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "BreakStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "ExportDeclaration": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "ExpressionStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "ForStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "FunctionDeclaration": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "IfStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "ImportDeclaration": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "InterfaceDeclaration": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "LabeledStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "ReturnStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "SwitchStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "ThrowStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "TryStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "TypeAliasDeclaration": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "VariableStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "WhileStatement": //XXX
-                                                        setOptional()
-                                                        break
-                                                }
-                                            },
-                                            () => {},
-                                        )
-                                        pl.cc(optional, ($) => {
-                                            const _elseStatement = $
-                                            sequenceEnd({
-                                                "expression": _expression,
-                                                "thenStatement": _thenStatement,
-                                                "elseStatement": _elseStatement,
-                                            })
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_if$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["if", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -3778,309 +3778,309 @@ export function parse(
                 const choose_import = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ImportDeclaration")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ImportDeclaration")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_import$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_import$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    children.pop(
+                                        (currentChild) => {
+                                            if ($d.stringsAreEqual(currentChild.kindName, "ImportClause")) {
+                                                ((
+                                                    $: uast.TUntypedNode,
+                                                    callback: ($: api.TNGstatement_import$_clause$) => void,
+                                                ): void => {
+                                                    const node = $
+                                                    const children = pm.createStack($.children)
+                                                    const choiceEnd_Gstatement_import$_clause$ = ($: api.TVTGstatement_import$_clause$) => {
+                                                        callback({
+                                                            tokenDetails: node.details,
+                                                            content: $,
+                                                        })
+                                                    }
+                                                    $d.lookAhead(children, 
+                                                        (nextChild) => {
+                                                            const choose_named = () => {
+                                                                children.pop(
+                                                                    (currentChild) => {
+                                                                        if ($d.stringsAreEqual(currentChild.kindName, "NamedImports")) {
+                                                                            ((
+                                                                                $: uast.TUntypedNode,
+                                                                                callback: ($: api.TNGstatement_import$_clause$_named$) => void,
+                                                                            ): void => {
+                                                                                const node = $
+                                                                                const children = pm.createStack($.children)
+                                                                                const elements = pm.createArrayBuilder<api.TVTGstatement_import$_clause$_named$>()
+                                                                                const processElement = () => {
+                                                                                    children.pop(
+                                                                                        (currentChild) => {
+                                                                                            if ($d.stringsAreEqual(currentChild.kindName, "ImportSpecifier")) {
+                                                                                                ((
+                                                                                                    $: uast.TUntypedNode,
+                                                                                                    callback: ($: api.TNGstatement_import$_clause$_named$$) => void,
+                                                                                                ): void => {
+                                                                                                    const node = $
+                                                                                                    const children = pm.createStack($.children)
+                                                                                                    const sequenceEnd = ($: api.TVTGstatement_import$_clause$_named$$) => {
+                                                                                                        callback({
+                                                                                                            tokenDetails: node.details,
+                                                                                                            content: $,
+                                                                                                        })
+                                                                                                    }
+                                                                                                    Gidentifier(node, children, ($) => {
+                                                                                                        const _name = $
+                                                                                                        let optional: null | api.TVTGstatement_import$_clause$_named$$_as = null
+                                                                                                        const setOptional = () => {
+                                                                                                            Gidentifier(node, children, ($) => {
+                                                                                                                optional = $
+                                                                                                            })
+                                                                                                        }
+                                                                                                        $d.lookAhead(children, 
+                                                                                                            (nextChild) => {
+                                                                                                                switch (nextChild.kindName) {
+                                                                                                                    case "Identifier": //XXX
+                                                                                                                        setOptional()
+                                                                                                                        break
+                                                                                                                }
+                                                                                                            },
+                                                                                                            () => {},
+                                                                                                        )
+                                                                                                        pl.cc(optional, ($) => {
+                                                                                                            const _as = $
+                                                                                                            sequenceEnd({
+                                                                                                                "name": _name,
+                                                                                                                "as": _as,
+                                                                                                            })
+                                                                                                        })
+                                                                                                    })
+                                                                                                    children.pop(
+                                                                                                        (nextChild) => {
+                                                                                                            $x.reportUnexpectedToken({
+                                                                                                                path: "Gstatement_import$_clause$_named$$",
+                                                                                                                token: nextChild,
+                                                                                                                expected: null,
+                                                                                                            })
+                                                                                                        },
+                                                                                                        () => {},
+                                                                                                    )
+                                                                                                })(
+                                                                                                    currentChild,
+                                                                                                    ($) => {
+                                                                                                        elements.push($)
+                                                                                                    }
+                                                                                                )
+                                                                                            } else {
+                                                                                                $x.reportUnexpectedToken({
+                                                                                                    path: "Gstatement_import$_clause$_named$",
+                                                                                                    token: currentChild,
+                                                                                                    expected: "ImportSpecifier",
+                                                                                                })
+                                                                                            }
+                                                                                        },
+                                                                                        () => { // no child
+                                                                                            $x.reportMissingToken({
+                                                                                                parentDetails: node.details,
+                                                                                                path: "Gstatement_import$_clause$_named$",
+                                                                                                kindNameOptions: "ImportSpecifier",
+                                                                                            })
+                                                                                        },
+                                                                                    )
+                                                                                }
+                                                                                $d.doUntil(
+                                                                                    children,
+                                                                                    (nextChild) => {
+                                                                                        switch (nextChild.kindName) {
+                                                                                            case "ImportSpecifier": //z
+                                                                                                processElement()
+                                                                                                return true
+                                                                                            default: return false
+                                                                                        }
+                                                                                    },
+                                                                                )
+                                                                                pl.cc(elements.getArray(), ($) => {
+                                                                                    callback({
+                                                                                        tokenDetails: node.details,
+                                                                                        content: $,
+                                                                                    })
+                                                                                })
+                                                                                children.pop(
+                                                                                    (nextChild) => {
+                                                                                        $x.reportUnexpectedToken({
+                                                                                            path: "Gstatement_import$_clause$_named$",
+                                                                                            token: nextChild,
+                                                                                            expected: null,
+                                                                                        })
+                                                                                    },
+                                                                                    () => {},
+                                                                                )
+                                                                            })(
+                                                                                currentChild,
+                                                                                ($) => {
+                                                                                    choiceEnd_Gstatement_import$_clause$(["named", $])
+                                                                                }
+                                                                            )
+                                                                        } else {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gstatement_import$_clause$_named",
+                                                                                token: currentChild,
+                                                                                expected: "NamedImports",
+                                                                            })
+                                                                        }
+                                                                    },
+                                                                    () => { // no child
+                                                                        $x.reportMissingToken({
+                                                                            parentDetails: node.details,
+                                                                            path: "Gstatement_import$_clause$_named",
+                                                                            kindNameOptions: "NamedImports",
+                                                                        })
+                                                                    },
+                                                                )
+                                                            }
+                                                            const choose_namespace = () => {
+                                                                children.pop(
+                                                                    (currentChild) => {
+                                                                        if ($d.stringsAreEqual(currentChild.kindName, "NamespaceImport")) {
+                                                                            ((
+                                                                                $: uast.TUntypedNode,
+                                                                                callback: ($: api.TNGstatement_import$_clause$_namespace$) => void,
+                                                                            ): void => {
+                                                                                const node = $
+                                                                                const children = pm.createStack($.children)
+                                                                                Gidentifier(node, children, ($) => {
+                                                                                    callback({
+                                                                                        tokenDetails: node.details,
+                                                                                        content: $,
+                                                                                    })
+                                                                                })
+                                                                                children.pop(
+                                                                                    (nextChild) => {
+                                                                                        $x.reportUnexpectedToken({
+                                                                                            path: "Gstatement_import$_clause$_namespace$",
+                                                                                            token: nextChild,
+                                                                                            expected: null,
+                                                                                        })
+                                                                                    },
+                                                                                    () => {},
+                                                                                )
+                                                                            })(
+                                                                                currentChild,
+                                                                                ($) => {
+                                                                                    choiceEnd_Gstatement_import$_clause$(["namespace", $])
+                                                                                }
+                                                                            )
+                                                                        } else {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gstatement_import$_clause$_namespace",
+                                                                                token: currentChild,
+                                                                                expected: "NamespaceImport",
+                                                                            })
+                                                                        }
+                                                                    },
+                                                                    () => { // no child
+                                                                        $x.reportMissingToken({
+                                                                            parentDetails: node.details,
+                                                                            path: "Gstatement_import$_clause$_namespace",
+                                                                            kindNameOptions: "NamespaceImport",
+                                                                        })
+                                                                    },
+                                                                )
+                                                            }
+                                                            switch (nextChild.kindName) {
+                                                                case "NamedImports": /*Y*/ {
+                                                                    choose_named()
+                                                                    break
+                                                                }
+                                                                case "NamespaceImport": /*Y*/ {
+                                                                    choose_namespace()
+                                                                    break
+                                                                }
+                                                                default: {
+                                                                    $x.reportUnexpectedToken({
+                                                                        path: "Gstatement_import$_clause$",
+                                                                        token: nextChild,
+                                                                        expected: "NamespaceImport, NamedImports",
+                                                                    })
+                                                                }
+                                                            }
+                                                        },
+                                                        () => { //no child
+                                                            $x.reportMissingToken({
+                                                                parentDetails: node.details,
+                                                                path: "Gstatement_import$_clause$",
+                                                                kindNameOptions: "NamespaceImport, NamedImports",
+                                                            })
+                                                        },
+                                                    )
+                                                    children.pop(
+                                                        (nextChild) => {
+                                                            $x.reportUnexpectedToken({
+                                                                path: "Gstatement_import$_clause$",
+                                                                token: nextChild,
+                                                                expected: null,
+                                                            })
+                                                        },
+                                                        () => {},
+                                                    )
+                                                })(
+                                                    currentChild,
+                                                    ($) => {
+                                                        const _clause = $
+                                                        GstringLiteral(node, children, ($) => {
+                                                            const _file = $
+                                                            sequenceEnd({
+                                                                "clause": _clause,
+                                                                "file": _file,
+                                                            })
+                                                        })
+                                                    }
+                                                )
+                                            } else {
+                                                $x.reportUnexpectedToken({
+                                                    path: "Gstatement_import$_clause",
+                                                    token: currentChild,
+                                                    expected: "ImportClause",
+                                                })
+                                            }
+                                        },
+                                        () => { // no child
+                                            $x.reportMissingToken({
+                                                parentDetails: node.details,
+                                                path: "Gstatement_import$_clause",
+                                                kindNameOptions: "ImportClause",
+                                            })
+                                        },
+                                    )
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_import$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["import", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_import",
                                     token: currentChild,
                                     expected: "ImportDeclaration",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_import$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_import$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                children.pop(
-                                    (currentChild) => {
-                                        if ($d.stringsNotEqual(currentChild.kindName, "ImportClause")) {
-                                            $x.reportUnexpectedToken({
-                                                path: "Gstatement_import$_clause",
-                                                token: currentChild,
-                                                expected: "ImportClause",
-                                            })
-                                            return
-                                        }
-                                        ((
-                                            $: uast.TUntypedNode,
-                                            callback: ($: api.TNGstatement_import$_clause$) => void,
-                                        ): void => {
-                                            const node = $
-                                            const children = pm.createStack($.children)
-                                            const choiceEnd_Gstatement_import$_clause$ = ($: api.TVTGstatement_import$_clause$) => {
-                                                callback({
-                                                    tokenDetails: node.details,
-                                                    content: $,
-                                                })
-                                            }
-                                            $d.lookAhead(children, 
-                                                (nextChild) => {
-                                                    const choose_named = () => {
-                                                        children.pop(
-                                                            (currentChild) => {
-                                                                if ($d.stringsNotEqual(currentChild.kindName, "NamedImports")) {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gstatement_import$_clause$_named",
-                                                                        token: currentChild,
-                                                                        expected: "NamedImports",
-                                                                    })
-                                                                    return
-                                                                }
-                                                                ((
-                                                                    $: uast.TUntypedNode,
-                                                                    callback: ($: api.TNGstatement_import$_clause$_named$) => void,
-                                                                ): void => {
-                                                                    const node = $
-                                                                    const children = pm.createStack($.children)
-                                                                    const elements = pm.createArrayBuilder<api.TVTGstatement_import$_clause$_named$>()
-                                                                    const processElement = () => {
-                                                                        children.pop(
-                                                                            (currentChild) => {
-                                                                                if ($d.stringsNotEqual(currentChild.kindName, "ImportSpecifier")) {
-                                                                                    $x.reportUnexpectedToken({
-                                                                                        path: "Gstatement_import$_clause$_named$",
-                                                                                        token: currentChild,
-                                                                                        expected: "ImportSpecifier",
-                                                                                    })
-                                                                                    return
-                                                                                }
-                                                                                ((
-                                                                                    $: uast.TUntypedNode,
-                                                                                    callback: ($: api.TNGstatement_import$_clause$_named$$) => void,
-                                                                                ): void => {
-                                                                                    const node = $
-                                                                                    const children = pm.createStack($.children)
-                                                                                    const sequenceEnd = ($: api.TVTGstatement_import$_clause$_named$$) => {
-                                                                                        callback({
-                                                                                            tokenDetails: node.details,
-                                                                                            content: $,
-                                                                                        })
-                                                                                    }
-                                                                                    Gidentifier(node, children, ($) => {
-                                                                                        const _name = $
-                                                                                        let optional: null | api.TVTGstatement_import$_clause$_named$$_as = null
-                                                                                        const setOptional = () => {
-                                                                                            Gidentifier(node, children, ($) => {
-                                                                                                optional = $
-                                                                                            })
-                                                                                        }
-                                                                                        $d.lookAhead(children, 
-                                                                                            (nextChild) => {
-                                                                                                switch (nextChild.kindName) {
-                                                                                                    case "Identifier": //XXX
-                                                                                                        setOptional()
-                                                                                                        break
-                                                                                                }
-                                                                                            },
-                                                                                            () => {},
-                                                                                        )
-                                                                                        pl.cc(optional, ($) => {
-                                                                                            const _as = $
-                                                                                            sequenceEnd({
-                                                                                                "name": _name,
-                                                                                                "as": _as,
-                                                                                            })
-                                                                                        })
-                                                                                    })
-                                                                                    children.pop(
-                                                                                        (nextChild) => {
-                                                                                            $x.reportUnexpectedToken({
-                                                                                                path: "Gstatement_import$_clause$_named$$",
-                                                                                                token: nextChild,
-                                                                                                expected: null,
-                                                                                            })
-                                                                                        },
-                                                                                        () => {},
-                                                                                    )
-                                                                                })(
-                                                                                    currentChild,
-                                                                                    ($) => {
-                                                                                        elements.push($)
-                                                                                    }
-                                                                                )
-                                                                            },
-                                                                            () => { // no child
-                                                                                $x.reportMissingToken({
-                                                                                    parentDetails: node.details,
-                                                                                    path: "Gstatement_import$_clause$_named$",
-                                                                                    kindNameOptions: "ImportSpecifier",
-                                                                                })
-                                                                            },
-                                                                        )
-                                                                    }
-                                                                    $d.doUntil(
-                                                                        children,
-                                                                        (nextChild) => {
-                                                                            switch (nextChild.kindName) {
-                                                                                case "ImportSpecifier": //z
-                                                                                    processElement()
-                                                                                    return true
-                                                                                default: return false
-                                                                            }
-                                                                        },
-                                                                    )
-                                                                    pl.cc(elements.getArray(), ($) => {
-                                                                        callback({
-                                                                            tokenDetails: node.details,
-                                                                            content: $,
-                                                                        })
-                                                                    })
-                                                                    children.pop(
-                                                                        (nextChild) => {
-                                                                            $x.reportUnexpectedToken({
-                                                                                path: "Gstatement_import$_clause$_named$",
-                                                                                token: nextChild,
-                                                                                expected: null,
-                                                                            })
-                                                                        },
-                                                                        () => {},
-                                                                    )
-                                                                })(
-                                                                    currentChild,
-                                                                    ($) => {
-                                                                        choiceEnd_Gstatement_import$_clause$(["named", $])
-                                                                    }
-                                                                )
-                                                            },
-                                                            () => { // no child
-                                                                $x.reportMissingToken({
-                                                                    parentDetails: node.details,
-                                                                    path: "Gstatement_import$_clause$_named",
-                                                                    kindNameOptions: "NamedImports",
-                                                                })
-                                                            },
-                                                        )
-                                                    }
-                                                    const choose_namespace = () => {
-                                                        children.pop(
-                                                            (currentChild) => {
-                                                                if ($d.stringsNotEqual(currentChild.kindName, "NamespaceImport")) {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gstatement_import$_clause$_namespace",
-                                                                        token: currentChild,
-                                                                        expected: "NamespaceImport",
-                                                                    })
-                                                                    return
-                                                                }
-                                                                ((
-                                                                    $: uast.TUntypedNode,
-                                                                    callback: ($: api.TNGstatement_import$_clause$_namespace$) => void,
-                                                                ): void => {
-                                                                    const node = $
-                                                                    const children = pm.createStack($.children)
-                                                                    Gidentifier(node, children, ($) => {
-                                                                        callback({
-                                                                            tokenDetails: node.details,
-                                                                            content: $,
-                                                                        })
-                                                                    })
-                                                                    children.pop(
-                                                                        (nextChild) => {
-                                                                            $x.reportUnexpectedToken({
-                                                                                path: "Gstatement_import$_clause$_namespace$",
-                                                                                token: nextChild,
-                                                                                expected: null,
-                                                                            })
-                                                                        },
-                                                                        () => {},
-                                                                    )
-                                                                })(
-                                                                    currentChild,
-                                                                    ($) => {
-                                                                        choiceEnd_Gstatement_import$_clause$(["namespace", $])
-                                                                    }
-                                                                )
-                                                            },
-                                                            () => { // no child
-                                                                $x.reportMissingToken({
-                                                                    parentDetails: node.details,
-                                                                    path: "Gstatement_import$_clause$_namespace",
-                                                                    kindNameOptions: "NamespaceImport",
-                                                                })
-                                                            },
-                                                        )
-                                                    }
-                                                    switch (nextChild.kindName) {
-                                                        case "NamedImports": /*Y*/ {
-                                                            choose_named()
-                                                            break
-                                                        }
-                                                        case "NamespaceImport": /*Y*/ {
-                                                            choose_namespace()
-                                                            break
-                                                        }
-                                                        default: {
-                                                            $x.reportUnexpectedToken({
-                                                                path: "Gstatement_import$_clause$",
-                                                                token: nextChild,
-                                                                expected: "NamespaceImport, NamedImports",
-                                                            })
-                                                        }
-                                                    }
-                                                },
-                                                () => { //no child
-                                                    $x.reportMissingToken({
-                                                        parentDetails: node.details,
-                                                        path: "Gstatement_import$_clause$",
-                                                        kindNameOptions: "NamespaceImport, NamedImports",
-                                                    })
-                                                },
-                                            )
-                                            children.pop(
-                                                (nextChild) => {
-                                                    $x.reportUnexpectedToken({
-                                                        path: "Gstatement_import$_clause$",
-                                                        token: nextChild,
-                                                        expected: null,
-                                                    })
-                                                },
-                                                () => {},
-                                            )
-                                        })(
-                                            currentChild,
-                                            ($) => {
-                                                const _clause = $
-                                                GstringLiteral(node, children, ($) => {
-                                                    const _file = $
-                                                    sequenceEnd({
-                                                        "clause": _clause,
-                                                        "file": _file,
-                                                    })
-                                                })
-                                            }
-                                        )
-                                    },
-                                    () => { // no child
-                                        $x.reportMissingToken({
-                                            parentDetails: node.details,
-                                            path: "Gstatement_import$_clause",
-                                            kindNameOptions: "ImportClause",
-                                        })
-                                    },
-                                )
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_import$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["import", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -4094,75 +4094,49 @@ export function parse(
                 const choose_interface = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "InterfaceDeclaration")) {
-                                $x.reportUnexpectedToken({
-                                    path: "Gstatement_interface",
-                                    token: currentChild,
-                                    expected: "InterfaceDeclaration",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_interface$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_interface$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_modifiers>()
-                                const processElement = () => {
-                                    Gmodifier(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "DeclareKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ExportKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ReadonlyKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _modifiers = $
-                                    Gidentifier(node, children, ($) => {
-                                        const _name = $
-                                        const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_typeParameters>()
-                                        const processElement = () => {
-                                            GtypeParameter(node, children, ($) => {
-                                                elements.push($)
-                                            })
-                                        }
-                                        $d.doUntil(
-                                            children,
-                                            (nextChild) => {
-                                                switch (nextChild.kindName) {
-                                                    case "TypeParameter": //z
-                                                        processElement()
-                                                        return true
-                                                    default: return false
-                                                }
-                                            },
-                                        )
-                                        pl.cc(elements.getArray(), ($) => {
-                                            const _typeParameters = $
-                                            const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_signature>()
+                            if ($d.stringsAreEqual(currentChild.kindName, "InterfaceDeclaration")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_interface$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_interface$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_modifiers>()
+                                    const processElement = () => {
+                                        Gmodifier(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "DeclareKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ExportKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ReadonlyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _modifiers = $
+                                        Gidentifier(node, children, ($) => {
+                                            const _name = $
+                                            const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_typeParameters>()
                                             const processElement = () => {
-                                                GtypeSignature(node, children, ($) => {
+                                                GtypeParameter(node, children, ($) => {
                                                     elements.push($)
                                                 })
                                             }
@@ -4170,16 +4144,7 @@ export function parse(
                                                 children,
                                                 (nextChild) => {
                                                     switch (nextChild.kindName) {
-                                                        case "ConstructSignature": //z
-                                                            processElement()
-                                                            return true
-                                                        case "IndexSignature": //z
-                                                            processElement()
-                                                            return true
-                                                        case "MethodSignature": //z
-                                                            processElement()
-                                                            return true
-                                                        case "PropertySignature": //z
+                                                        case "TypeParameter": //z
                                                             processElement()
                                                             return true
                                                         default: return false
@@ -4187,33 +4152,68 @@ export function parse(
                                                 },
                                             )
                                             pl.cc(elements.getArray(), ($) => {
-                                                const _signature = $
-                                                sequenceEnd({
-                                                    "modifiers": _modifiers,
-                                                    "name": _name,
-                                                    "typeParameters": _typeParameters,
-                                                    "signature": _signature,
+                                                const _typeParameters = $
+                                                const elements = pm.createArrayBuilder<api.TVTGstatement_interface$_signature>()
+                                                const processElement = () => {
+                                                    GtypeSignature(node, children, ($) => {
+                                                        elements.push($)
+                                                    })
+                                                }
+                                                $d.doUntil(
+                                                    children,
+                                                    (nextChild) => {
+                                                        switch (nextChild.kindName) {
+                                                            case "ConstructSignature": //z
+                                                                processElement()
+                                                                return true
+                                                            case "IndexSignature": //z
+                                                                processElement()
+                                                                return true
+                                                            case "MethodSignature": //z
+                                                                processElement()
+                                                                return true
+                                                            case "PropertySignature": //z
+                                                                processElement()
+                                                                return true
+                                                            default: return false
+                                                        }
+                                                    },
+                                                )
+                                                pl.cc(elements.getArray(), ($) => {
+                                                    const _signature = $
+                                                    sequenceEnd({
+                                                        "modifiers": _modifiers,
+                                                        "name": _name,
+                                                        "typeParameters": _typeParameters,
+                                                        "signature": _signature,
+                                                    })
                                                 })
                                             })
                                         })
                                     })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_interface$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_interface$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["interface", $])
+                                    }
                                 )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["interface", $])
-                                }
-                            )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "Gstatement_interface",
+                                    token: currentChild,
+                                    expected: "InterfaceDeclaration",
+                                })
+                            }
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -4227,52 +4227,52 @@ export function parse(
                 const choose_labeled = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "LabeledStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "LabeledStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_labeled$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_labeled$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gidentifier(node, children, ($) => {
+                                        const _label = $
+                                        Gstatement(node, children, ($) => {
+                                            const _statement = $
+                                            sequenceEnd({
+                                                "label": _label,
+                                                "statement": _statement,
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_labeled$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["labeled", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_labeled",
                                     token: currentChild,
                                     expected: "LabeledStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_labeled$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_labeled$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gidentifier(node, children, ($) => {
-                                    const _label = $
-                                    Gstatement(node, children, ($) => {
-                                        const _statement = $
-                                        sequenceEnd({
-                                            "label": _label,
-                                            "statement": _statement,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_labeled$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["labeled", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -4286,115 +4286,115 @@ export function parse(
                 const choose_return = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ReturnStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ReturnStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_return$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    let optional: null | api.TVTGstatement_return$ = null
+                                    const setOptional = () => {
+                                        Gexpression(node, children, ($) => {
+                                            optional = $
+                                        })
+                                    }
+                                    $d.lookAhead(children, 
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "ArrayLiteralExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "ArrowFunction": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "BinaryExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "CallExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "ConditionalExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "ElementAccessExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "FalseKeyword": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "Identifier": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "NewExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "NoSubstitutionTemplateLiteral": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "NullKeyword": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "NumericLiteral": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "ObjectLiteralExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "ParenthesizedExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "PostfixUnaryExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "PrefixUnaryExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "PropertyAccessExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "StringLiteral": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "TemplateExpression": //XXX
+                                                    setOptional()
+                                                    break
+                                                case "TrueKeyword": //XXX
+                                                    setOptional()
+                                                    break
+                                            }
+                                        },
+                                        () => {},
+                                    )
+                                    pl.cc(optional, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_return$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["return", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_return",
                                     token: currentChild,
                                     expected: "ReturnStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_return$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                let optional: null | api.TVTGstatement_return$ = null
-                                const setOptional = () => {
-                                    Gexpression(node, children, ($) => {
-                                        optional = $
-                                    })
-                                }
-                                $d.lookAhead(children, 
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "ArrayLiteralExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "ArrowFunction": //XXX
-                                                setOptional()
-                                                break
-                                            case "BinaryExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "CallExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "ConditionalExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "ElementAccessExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "FalseKeyword": //XXX
-                                                setOptional()
-                                                break
-                                            case "Identifier": //XXX
-                                                setOptional()
-                                                break
-                                            case "NewExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "NoSubstitutionTemplateLiteral": //XXX
-                                                setOptional()
-                                                break
-                                            case "NullKeyword": //XXX
-                                                setOptional()
-                                                break
-                                            case "NumericLiteral": //XXX
-                                                setOptional()
-                                                break
-                                            case "ObjectLiteralExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "ParenthesizedExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "PostfixUnaryExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "PrefixUnaryExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "PropertyAccessExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "StringLiteral": //XXX
-                                                setOptional()
-                                                break
-                                            case "TemplateExpression": //XXX
-                                                setOptional()
-                                                break
-                                            case "TrueKeyword": //XXX
-                                                setOptional()
-                                                break
-                                        }
-                                    },
-                                    () => {},
-                                )
-                                pl.cc(optional, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_return$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["return", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -4408,382 +4408,382 @@ export function parse(
                 const choose_switch = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "SwitchStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "SwitchStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_switch$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_switch$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gexpression(node, children, ($) => {
+                                        const _expression = $
+                                        children.pop(
+                                            (currentChild) => {
+                                                if ($d.stringsAreEqual(currentChild.kindName, "CaseBlock")) {
+                                                    ((
+                                                        $: uast.TUntypedNode,
+                                                        callback: ($: api.TNGstatement_switch$_caseBlock$) => void,
+                                                    ): void => {
+                                                        const node = $
+                                                        const children = pm.createStack($.children)
+                                                        const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$>()
+                                                        const processElement = () => {
+                                                            const choiceEnd_Gstatement_switch$_caseBlock$ = ($: api.TVTGstatement_switch$_caseBlock$) => {
+                                                                elements.push($)
+                                                            }
+                                                            $d.lookAhead(children, 
+                                                                (nextChild) => {
+                                                                    const choose_case = () => {
+                                                                        children.pop(
+                                                                            (currentChild) => {
+                                                                                if ($d.stringsAreEqual(currentChild.kindName, "CaseClause")) {
+                                                                                    ((
+                                                                                        $: uast.TUntypedNode,
+                                                                                        callback: ($: api.TNGstatement_switch$_caseBlock$_case$) => void,
+                                                                                    ): void => {
+                                                                                        const node = $
+                                                                                        const children = pm.createStack($.children)
+                                                                                        const sequenceEnd = ($: api.TVTGstatement_switch$_caseBlock$_case$) => {
+                                                                                            callback({
+                                                                                                tokenDetails: node.details,
+                                                                                                content: $,
+                                                                                            })
+                                                                                        }
+                                                                                        Gexpression(node, children, ($) => {
+                                                                                            const _case = $
+                                                                                            const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$_case$_statements>()
+                                                                                            const processElement = () => {
+                                                                                                Gstatement(node, children, ($) => {
+                                                                                                    elements.push($)
+                                                                                                })
+                                                                                            }
+                                                                                            $d.doUntil(
+                                                                                                children,
+                                                                                                (nextChild) => {
+                                                                                                    switch (nextChild.kindName) {
+                                                                                                        case "Block": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "BreakStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "ExportDeclaration": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "ExpressionStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "ForStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "FunctionDeclaration": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "IfStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "ImportDeclaration": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "InterfaceDeclaration": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "LabeledStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "ReturnStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "SwitchStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "ThrowStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "TryStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "TypeAliasDeclaration": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "VariableStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        case "WhileStatement": //z
+                                                                                                            processElement()
+                                                                                                            return true
+                                                                                                        default: return false
+                                                                                                    }
+                                                                                                },
+                                                                                            )
+                                                                                            pl.cc(elements.getArray(), ($) => {
+                                                                                                const _statements = $
+                                                                                                sequenceEnd({
+                                                                                                    "case": _case,
+                                                                                                    "statements": _statements,
+                                                                                                })
+                                                                                            })
+                                                                                        })
+                                                                                        children.pop(
+                                                                                            (nextChild) => {
+                                                                                                $x.reportUnexpectedToken({
+                                                                                                    path: "Gstatement_switch$_caseBlock$_case$",
+                                                                                                    token: nextChild,
+                                                                                                    expected: null,
+                                                                                                })
+                                                                                            },
+                                                                                            () => {},
+                                                                                        )
+                                                                                    })(
+                                                                                        currentChild,
+                                                                                        ($) => {
+                                                                                            choiceEnd_Gstatement_switch$_caseBlock$(["case", $])
+                                                                                        }
+                                                                                    )
+                                                                                } else {
+                                                                                    $x.reportUnexpectedToken({
+                                                                                        path: "Gstatement_switch$_caseBlock$_case",
+                                                                                        token: currentChild,
+                                                                                        expected: "CaseClause",
+                                                                                    })
+                                                                                }
+                                                                            },
+                                                                            () => { // no child
+                                                                                $x.reportMissingToken({
+                                                                                    parentDetails: node.details,
+                                                                                    path: "Gstatement_switch$_caseBlock$_case",
+                                                                                    kindNameOptions: "CaseClause",
+                                                                                })
+                                                                            },
+                                                                        )
+                                                                    }
+                                                                    const choose_default = () => {
+                                                                        children.pop(
+                                                                            (currentChild) => {
+                                                                                if ($d.stringsAreEqual(currentChild.kindName, "DefaultClause")) {
+                                                                                    ((
+                                                                                        $: uast.TUntypedNode,
+                                                                                        callback: ($: api.TNGstatement_switch$_caseBlock$_default$) => void,
+                                                                                    ): void => {
+                                                                                        const node = $
+                                                                                        const children = pm.createStack($.children)
+                                                                                        const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$_default$>()
+                                                                                        const processElement = () => {
+                                                                                            Gstatement(node, children, ($) => {
+                                                                                                elements.push($)
+                                                                                            })
+                                                                                        }
+                                                                                        $d.doUntil(
+                                                                                            children,
+                                                                                            (nextChild) => {
+                                                                                                switch (nextChild.kindName) {
+                                                                                                    case "Block": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "BreakStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "ExportDeclaration": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "ExpressionStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "ForStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "FunctionDeclaration": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "IfStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "ImportDeclaration": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "InterfaceDeclaration": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "LabeledStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "ReturnStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "SwitchStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "ThrowStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "TryStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "TypeAliasDeclaration": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "VariableStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    case "WhileStatement": //z
+                                                                                                        processElement()
+                                                                                                        return true
+                                                                                                    default: return false
+                                                                                                }
+                                                                                            },
+                                                                                        )
+                                                                                        pl.cc(elements.getArray(), ($) => {
+                                                                                            callback({
+                                                                                                tokenDetails: node.details,
+                                                                                                content: $,
+                                                                                            })
+                                                                                        })
+                                                                                        children.pop(
+                                                                                            (nextChild) => {
+                                                                                                $x.reportUnexpectedToken({
+                                                                                                    path: "Gstatement_switch$_caseBlock$_default$",
+                                                                                                    token: nextChild,
+                                                                                                    expected: null,
+                                                                                                })
+                                                                                            },
+                                                                                            () => {},
+                                                                                        )
+                                                                                    })(
+                                                                                        currentChild,
+                                                                                        ($) => {
+                                                                                            choiceEnd_Gstatement_switch$_caseBlock$(["default", $])
+                                                                                        }
+                                                                                    )
+                                                                                } else {
+                                                                                    $x.reportUnexpectedToken({
+                                                                                        path: "Gstatement_switch$_caseBlock$_default",
+                                                                                        token: currentChild,
+                                                                                        expected: "DefaultClause",
+                                                                                    })
+                                                                                }
+                                                                            },
+                                                                            () => { // no child
+                                                                                $x.reportMissingToken({
+                                                                                    parentDetails: node.details,
+                                                                                    path: "Gstatement_switch$_caseBlock$_default",
+                                                                                    kindNameOptions: "DefaultClause",
+                                                                                })
+                                                                            },
+                                                                        )
+                                                                    }
+                                                                    switch (nextChild.kindName) {
+                                                                        case "CaseClause": /*Y*/ {
+                                                                            choose_case()
+                                                                            break
+                                                                        }
+                                                                        case "DefaultClause": /*Y*/ {
+                                                                            choose_default()
+                                                                            break
+                                                                        }
+                                                                        default: {
+                                                                            $x.reportUnexpectedToken({
+                                                                                path: "Gstatement_switch$_caseBlock$",
+                                                                                token: nextChild,
+                                                                                expected: "DefaultClause, CaseClause",
+                                                                            })
+                                                                        }
+                                                                    }
+                                                                },
+                                                                () => { //no child
+                                                                    $x.reportMissingToken({
+                                                                        parentDetails: node.details,
+                                                                        path: "Gstatement_switch$_caseBlock$",
+                                                                        kindNameOptions: "DefaultClause, CaseClause",
+                                                                    })
+                                                                },
+                                                            )
+                                                        }
+                                                        $d.doUntil(
+                                                            children,
+                                                            (nextChild) => {
+                                                                switch (nextChild.kindName) {
+                                                                    case "CaseClause": //z
+                                                                        processElement()
+                                                                        return true
+                                                                    case "DefaultClause": //z
+                                                                        processElement()
+                                                                        return true
+                                                                    default: return false
+                                                                }
+                                                            },
+                                                        )
+                                                        pl.cc(elements.getArray(), ($) => {
+                                                            callback({
+                                                                tokenDetails: node.details,
+                                                                content: $,
+                                                            })
+                                                        })
+                                                        children.pop(
+                                                            (nextChild) => {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gstatement_switch$_caseBlock$",
+                                                                    token: nextChild,
+                                                                    expected: null,
+                                                                })
+                                                            },
+                                                            () => {},
+                                                        )
+                                                    })(
+                                                        currentChild,
+                                                        ($) => {
+                                                            const _caseBlock = $
+                                                            sequenceEnd({
+                                                                "expression": _expression,
+                                                                "caseBlock": _caseBlock,
+                                                            })
+                                                        }
+                                                    )
+                                                } else {
+                                                    $x.reportUnexpectedToken({
+                                                        path: "Gstatement_switch$_caseBlock",
+                                                        token: currentChild,
+                                                        expected: "CaseBlock",
+                                                    })
+                                                }
+                                            },
+                                            () => { // no child
+                                                $x.reportMissingToken({
+                                                    parentDetails: node.details,
+                                                    path: "Gstatement_switch$_caseBlock",
+                                                    kindNameOptions: "CaseBlock",
+                                                })
+                                            },
+                                        )
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_switch$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["switch", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_switch",
                                     token: currentChild,
                                     expected: "SwitchStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_switch$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_switch$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gexpression(node, children, ($) => {
-                                    const _expression = $
-                                    children.pop(
-                                        (currentChild) => {
-                                            if ($d.stringsNotEqual(currentChild.kindName, "CaseBlock")) {
-                                                $x.reportUnexpectedToken({
-                                                    path: "Gstatement_switch$_caseBlock",
-                                                    token: currentChild,
-                                                    expected: "CaseBlock",
-                                                })
-                                                return
-                                            }
-                                            ((
-                                                $: uast.TUntypedNode,
-                                                callback: ($: api.TNGstatement_switch$_caseBlock$) => void,
-                                            ): void => {
-                                                const node = $
-                                                const children = pm.createStack($.children)
-                                                const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$>()
-                                                const processElement = () => {
-                                                    const choiceEnd_Gstatement_switch$_caseBlock$ = ($: api.TVTGstatement_switch$_caseBlock$) => {
-                                                        elements.push($)
-                                                    }
-                                                    $d.lookAhead(children, 
-                                                        (nextChild) => {
-                                                            const choose_case = () => {
-                                                                children.pop(
-                                                                    (currentChild) => {
-                                                                        if ($d.stringsNotEqual(currentChild.kindName, "CaseClause")) {
-                                                                            $x.reportUnexpectedToken({
-                                                                                path: "Gstatement_switch$_caseBlock$_case",
-                                                                                token: currentChild,
-                                                                                expected: "CaseClause",
-                                                                            })
-                                                                            return
-                                                                        }
-                                                                        ((
-                                                                            $: uast.TUntypedNode,
-                                                                            callback: ($: api.TNGstatement_switch$_caseBlock$_case$) => void,
-                                                                        ): void => {
-                                                                            const node = $
-                                                                            const children = pm.createStack($.children)
-                                                                            const sequenceEnd = ($: api.TVTGstatement_switch$_caseBlock$_case$) => {
-                                                                                callback({
-                                                                                    tokenDetails: node.details,
-                                                                                    content: $,
-                                                                                })
-                                                                            }
-                                                                            Gexpression(node, children, ($) => {
-                                                                                const _case = $
-                                                                                const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$_case$_statements>()
-                                                                                const processElement = () => {
-                                                                                    Gstatement(node, children, ($) => {
-                                                                                        elements.push($)
-                                                                                    })
-                                                                                }
-                                                                                $d.doUntil(
-                                                                                    children,
-                                                                                    (nextChild) => {
-                                                                                        switch (nextChild.kindName) {
-                                                                                            case "Block": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "BreakStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "ExportDeclaration": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "ExpressionStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "ForStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "FunctionDeclaration": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "IfStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "ImportDeclaration": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "InterfaceDeclaration": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "LabeledStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "ReturnStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "SwitchStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "ThrowStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "TryStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "TypeAliasDeclaration": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "VariableStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            case "WhileStatement": //z
-                                                                                                processElement()
-                                                                                                return true
-                                                                                            default: return false
-                                                                                        }
-                                                                                    },
-                                                                                )
-                                                                                pl.cc(elements.getArray(), ($) => {
-                                                                                    const _statements = $
-                                                                                    sequenceEnd({
-                                                                                        "case": _case,
-                                                                                        "statements": _statements,
-                                                                                    })
-                                                                                })
-                                                                            })
-                                                                            children.pop(
-                                                                                (nextChild) => {
-                                                                                    $x.reportUnexpectedToken({
-                                                                                        path: "Gstatement_switch$_caseBlock$_case$",
-                                                                                        token: nextChild,
-                                                                                        expected: null,
-                                                                                    })
-                                                                                },
-                                                                                () => {},
-                                                                            )
-                                                                        })(
-                                                                            currentChild,
-                                                                            ($) => {
-                                                                                choiceEnd_Gstatement_switch$_caseBlock$(["case", $])
-                                                                            }
-                                                                        )
-                                                                    },
-                                                                    () => { // no child
-                                                                        $x.reportMissingToken({
-                                                                            parentDetails: node.details,
-                                                                            path: "Gstatement_switch$_caseBlock$_case",
-                                                                            kindNameOptions: "CaseClause",
-                                                                        })
-                                                                    },
-                                                                )
-                                                            }
-                                                            const choose_default = () => {
-                                                                children.pop(
-                                                                    (currentChild) => {
-                                                                        if ($d.stringsNotEqual(currentChild.kindName, "DefaultClause")) {
-                                                                            $x.reportUnexpectedToken({
-                                                                                path: "Gstatement_switch$_caseBlock$_default",
-                                                                                token: currentChild,
-                                                                                expected: "DefaultClause",
-                                                                            })
-                                                                            return
-                                                                        }
-                                                                        ((
-                                                                            $: uast.TUntypedNode,
-                                                                            callback: ($: api.TNGstatement_switch$_caseBlock$_default$) => void,
-                                                                        ): void => {
-                                                                            const node = $
-                                                                            const children = pm.createStack($.children)
-                                                                            const elements = pm.createArrayBuilder<api.TVTGstatement_switch$_caseBlock$_default$>()
-                                                                            const processElement = () => {
-                                                                                Gstatement(node, children, ($) => {
-                                                                                    elements.push($)
-                                                                                })
-                                                                            }
-                                                                            $d.doUntil(
-                                                                                children,
-                                                                                (nextChild) => {
-                                                                                    switch (nextChild.kindName) {
-                                                                                        case "Block": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "BreakStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "ExportDeclaration": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "ExpressionStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "ForStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "FunctionDeclaration": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "IfStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "ImportDeclaration": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "InterfaceDeclaration": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "LabeledStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "ReturnStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "SwitchStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "ThrowStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "TryStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "TypeAliasDeclaration": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "VariableStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        case "WhileStatement": //z
-                                                                                            processElement()
-                                                                                            return true
-                                                                                        default: return false
-                                                                                    }
-                                                                                },
-                                                                            )
-                                                                            pl.cc(elements.getArray(), ($) => {
-                                                                                callback({
-                                                                                    tokenDetails: node.details,
-                                                                                    content: $,
-                                                                                })
-                                                                            })
-                                                                            children.pop(
-                                                                                (nextChild) => {
-                                                                                    $x.reportUnexpectedToken({
-                                                                                        path: "Gstatement_switch$_caseBlock$_default$",
-                                                                                        token: nextChild,
-                                                                                        expected: null,
-                                                                                    })
-                                                                                },
-                                                                                () => {},
-                                                                            )
-                                                                        })(
-                                                                            currentChild,
-                                                                            ($) => {
-                                                                                choiceEnd_Gstatement_switch$_caseBlock$(["default", $])
-                                                                            }
-                                                                        )
-                                                                    },
-                                                                    () => { // no child
-                                                                        $x.reportMissingToken({
-                                                                            parentDetails: node.details,
-                                                                            path: "Gstatement_switch$_caseBlock$_default",
-                                                                            kindNameOptions: "DefaultClause",
-                                                                        })
-                                                                    },
-                                                                )
-                                                            }
-                                                            switch (nextChild.kindName) {
-                                                                case "CaseClause": /*Y*/ {
-                                                                    choose_case()
-                                                                    break
-                                                                }
-                                                                case "DefaultClause": /*Y*/ {
-                                                                    choose_default()
-                                                                    break
-                                                                }
-                                                                default: {
-                                                                    $x.reportUnexpectedToken({
-                                                                        path: "Gstatement_switch$_caseBlock$",
-                                                                        token: nextChild,
-                                                                        expected: "DefaultClause, CaseClause",
-                                                                    })
-                                                                }
-                                                            }
-                                                        },
-                                                        () => { //no child
-                                                            $x.reportMissingToken({
-                                                                parentDetails: node.details,
-                                                                path: "Gstatement_switch$_caseBlock$",
-                                                                kindNameOptions: "DefaultClause, CaseClause",
-                                                            })
-                                                        },
-                                                    )
-                                                }
-                                                $d.doUntil(
-                                                    children,
-                                                    (nextChild) => {
-                                                        switch (nextChild.kindName) {
-                                                            case "CaseClause": //z
-                                                                processElement()
-                                                                return true
-                                                            case "DefaultClause": //z
-                                                                processElement()
-                                                                return true
-                                                            default: return false
-                                                        }
-                                                    },
-                                                )
-                                                pl.cc(elements.getArray(), ($) => {
-                                                    callback({
-                                                        tokenDetails: node.details,
-                                                        content: $,
-                                                    })
-                                                })
-                                                children.pop(
-                                                    (nextChild) => {
-                                                        $x.reportUnexpectedToken({
-                                                            path: "Gstatement_switch$_caseBlock$",
-                                                            token: nextChild,
-                                                            expected: null,
-                                                        })
-                                                    },
-                                                    () => {},
-                                                )
-                                            })(
-                                                currentChild,
-                                                ($) => {
-                                                    const _caseBlock = $
-                                                    sequenceEnd({
-                                                        "expression": _expression,
-                                                        "caseBlock": _caseBlock,
-                                                    })
-                                                }
-                                            )
-                                        },
-                                        () => { // no child
-                                            $x.reportMissingToken({
-                                                parentDetails: node.details,
-                                                path: "Gstatement_switch$_caseBlock",
-                                                kindNameOptions: "CaseBlock",
-                                            })
-                                        },
-                                    )
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_switch$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["switch", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -4797,42 +4797,42 @@ export function parse(
                 const choose_throw = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ThrowStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ThrowStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_throw$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    Gexpression(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_throw$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["throw", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_throw",
                                     token: currentChild,
                                     expected: "ThrowStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_throw$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                Gexpression(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_throw$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["throw", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -4846,106 +4846,106 @@ export function parse(
                 const choose_try = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "TryStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "TryStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_try$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_try$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gblock(node, children, ($) => {
+                                        const _block = $
+                                        children.pop(
+                                            (currentChild) => {
+                                                if ($d.stringsAreEqual(currentChild.kindName, "CatchClause")) {
+                                                    ((
+                                                        $: uast.TUntypedNode,
+                                                        callback: ($: api.TNGstatement_try$_catchClause$) => void,
+                                                    ): void => {
+                                                        const node = $
+                                                        const children = pm.createStack($.children)
+                                                        const sequenceEnd = ($: api.TVTGstatement_try$_catchClause$) => {
+                                                            callback({
+                                                                tokenDetails: node.details,
+                                                                content: $,
+                                                            })
+                                                        }
+                                                        GvariableDeclaration(node, children, ($) => {
+                                                            const _variable = $
+                                                            Gblock(node, children, ($) => {
+                                                                const _block = $
+                                                                sequenceEnd({
+                                                                    "variable": _variable,
+                                                                    "block": _block,
+                                                                })
+                                                            })
+                                                        })
+                                                        children.pop(
+                                                            (nextChild) => {
+                                                                $x.reportUnexpectedToken({
+                                                                    path: "Gstatement_try$_catchClause$",
+                                                                    token: nextChild,
+                                                                    expected: null,
+                                                                })
+                                                            },
+                                                            () => {},
+                                                        )
+                                                    })(
+                                                        currentChild,
+                                                        ($) => {
+                                                            const _catchClause = $
+                                                            sequenceEnd({
+                                                                "block": _block,
+                                                                "catchClause": _catchClause,
+                                                            })
+                                                        }
+                                                    )
+                                                } else {
+                                                    $x.reportUnexpectedToken({
+                                                        path: "Gstatement_try$_catchClause",
+                                                        token: currentChild,
+                                                        expected: "CatchClause",
+                                                    })
+                                                }
+                                            },
+                                            () => { // no child
+                                                $x.reportMissingToken({
+                                                    parentDetails: node.details,
+                                                    path: "Gstatement_try$_catchClause",
+                                                    kindNameOptions: "CatchClause",
+                                                })
+                                            },
+                                        )
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_try$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["try", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_try",
                                     token: currentChild,
                                     expected: "TryStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_try$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_try$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gblock(node, children, ($) => {
-                                    const _block = $
-                                    children.pop(
-                                        (currentChild) => {
-                                            if ($d.stringsNotEqual(currentChild.kindName, "CatchClause")) {
-                                                $x.reportUnexpectedToken({
-                                                    path: "Gstatement_try$_catchClause",
-                                                    token: currentChild,
-                                                    expected: "CatchClause",
-                                                })
-                                                return
-                                            }
-                                            ((
-                                                $: uast.TUntypedNode,
-                                                callback: ($: api.TNGstatement_try$_catchClause$) => void,
-                                            ): void => {
-                                                const node = $
-                                                const children = pm.createStack($.children)
-                                                const sequenceEnd = ($: api.TVTGstatement_try$_catchClause$) => {
-                                                    callback({
-                                                        tokenDetails: node.details,
-                                                        content: $,
-                                                    })
-                                                }
-                                                GvariableDeclaration(node, children, ($) => {
-                                                    const _variable = $
-                                                    Gblock(node, children, ($) => {
-                                                        const _block = $
-                                                        sequenceEnd({
-                                                            "variable": _variable,
-                                                            "block": _block,
-                                                        })
-                                                    })
-                                                })
-                                                children.pop(
-                                                    (nextChild) => {
-                                                        $x.reportUnexpectedToken({
-                                                            path: "Gstatement_try$_catchClause$",
-                                                            token: nextChild,
-                                                            expected: null,
-                                                        })
-                                                    },
-                                                    () => {},
-                                                )
-                                            })(
-                                                currentChild,
-                                                ($) => {
-                                                    const _catchClause = $
-                                                    sequenceEnd({
-                                                        "block": _block,
-                                                        "catchClause": _catchClause,
-                                                    })
-                                                }
-                                            )
-                                        },
-                                        () => { // no child
-                                            $x.reportMissingToken({
-                                                parentDetails: node.details,
-                                                path: "Gstatement_try$_catchClause",
-                                                kindNameOptions: "CatchClause",
-                                            })
-                                        },
-                                    )
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_try$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["try", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -4959,100 +4959,100 @@ export function parse(
                 const choose_typeAlias = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "TypeAliasDeclaration")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "TypeAliasDeclaration")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_typeAlias$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_typeAlias$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGstatement_typeAlias$_modifiers>()
+                                    const processElement = () => {
+                                        Gmodifier(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "DeclareKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ExportKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ReadonlyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _modifiers = $
+                                        Gidentifier(node, children, ($) => {
+                                            const _name = $
+                                            const elements = pm.createArrayBuilder<api.TVTGstatement_typeAlias$_typeParameters>()
+                                            const processElement = () => {
+                                                GtypeParameter(node, children, ($) => {
+                                                    elements.push($)
+                                                })
+                                            }
+                                            $d.doUntil(
+                                                children,
+                                                (nextChild) => {
+                                                    switch (nextChild.kindName) {
+                                                        case "TypeParameter": //z
+                                                            processElement()
+                                                            return true
+                                                        default: return false
+                                                    }
+                                                },
+                                            )
+                                            pl.cc(elements.getArray(), ($) => {
+                                                const _typeParameters = $
+                                                Gtype(node, children, ($) => {
+                                                    const _type = $
+                                                    sequenceEnd({
+                                                        "modifiers": _modifiers,
+                                                        "name": _name,
+                                                        "typeParameters": _typeParameters,
+                                                        "type": _type,
+                                                    })
+                                                })
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_typeAlias$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["typeAlias", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_typeAlias",
                                     token: currentChild,
                                     expected: "TypeAliasDeclaration",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_typeAlias$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_typeAlias$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGstatement_typeAlias$_modifiers>()
-                                const processElement = () => {
-                                    Gmodifier(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "DeclareKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ExportKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ReadonlyKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _modifiers = $
-                                    Gidentifier(node, children, ($) => {
-                                        const _name = $
-                                        const elements = pm.createArrayBuilder<api.TVTGstatement_typeAlias$_typeParameters>()
-                                        const processElement = () => {
-                                            GtypeParameter(node, children, ($) => {
-                                                elements.push($)
-                                            })
-                                        }
-                                        $d.doUntil(
-                                            children,
-                                            (nextChild) => {
-                                                switch (nextChild.kindName) {
-                                                    case "TypeParameter": //z
-                                                        processElement()
-                                                        return true
-                                                    default: return false
-                                                }
-                                            },
-                                        )
-                                        pl.cc(elements.getArray(), ($) => {
-                                            const _typeParameters = $
-                                            Gtype(node, children, ($) => {
-                                                const _type = $
-                                                sequenceEnd({
-                                                    "modifiers": _modifiers,
-                                                    "name": _name,
-                                                    "typeParameters": _typeParameters,
-                                                    "type": _type,
-                                                })
-                                            })
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_typeAlias$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["typeAlias", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5066,75 +5066,75 @@ export function parse(
                 const choose_variable = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "VariableStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "VariableStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_variable$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_variable$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGstatement_variable$_modifiers>()
+                                    const processElement = () => {
+                                        Gmodifier(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "DeclareKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ExportKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ReadonlyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _modifiers = $
+                                        GvariableDeclarationList(node, children, ($) => {
+                                            const _variableDeclarationList = $
+                                            sequenceEnd({
+                                                "modifiers": _modifiers,
+                                                "variableDeclarationList": _variableDeclarationList,
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_variable$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["variable", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_variable",
                                     token: currentChild,
                                     expected: "VariableStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_variable$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_variable$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGstatement_variable$_modifiers>()
-                                const processElement = () => {
-                                    Gmodifier(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "DeclareKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ExportKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ReadonlyKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _modifiers = $
-                                    GvariableDeclarationList(node, children, ($) => {
-                                        const _variableDeclarationList = $
-                                        sequenceEnd({
-                                            "modifiers": _modifiers,
-                                            "variableDeclarationList": _variableDeclarationList,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_variable$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["variable", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5148,52 +5148,52 @@ export function parse(
                 const choose_while = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "WhileStatement")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "WhileStatement")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGstatement_while$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGstatement_while$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gexpression(node, children, ($) => {
+                                        const _condition = $
+                                        Gblock(node, children, ($) => {
+                                            const _block = $
+                                            sequenceEnd({
+                                                "condition": _condition,
+                                                "block": _block,
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gstatement_while$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gstatement(["while", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gstatement_while",
                                     token: currentChild,
                                     expected: "WhileStatement",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGstatement_while$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGstatement_while$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gexpression(node, children, ($) => {
-                                    const _condition = $
-                                    Gblock(node, children, ($) => {
-                                        const _block = $
-                                        sequenceEnd({
-                                            "condition": _condition,
-                                            "block": _block,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gstatement_while$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gstatement(["while", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5298,40 +5298,40 @@ export function parse(
     ): void {
         children.pop(
             (currentChild) => {
-                if ($d.stringsNotEqual(currentChild.kindName, "StringLiteral")) {
+                if ($d.stringsAreEqual(currentChild.kindName, "StringLiteral")) {
+                    ((
+                        $: uast.TUntypedNode,
+                        callback: ($: api.TNGstringLiteral$) => void,
+                    ): void => {
+                        const node = $
+                        const children = pm.createStack($.children)
+                        callback({
+                            tokenDetails: $.details,
+                            value: $.value
+                        })
+                        children.pop(
+                            (nextChild) => {
+                                $x.reportUnexpectedToken({
+                                    path: "GstringLiteral$",
+                                    token: nextChild,
+                                    expected: null,
+                                })
+                            },
+                            () => {},
+                        )
+                    })(
+                        currentChild,
+                        ($) => {
+                            callback($)
+                        }
+                    )
+                } else {
                     $x.reportUnexpectedToken({
                         path: "GstringLiteral",
                         token: currentChild,
                         expected: "StringLiteral",
                     })
-                    return
                 }
-                ((
-                    $: uast.TUntypedNode,
-                    callback: ($: api.TNGstringLiteral$) => void,
-                ): void => {
-                    const node = $
-                    const children = pm.createStack($.children)
-                    callback({
-                        tokenDetails: $.details,
-                        value: $.value
-                    })
-                    children.pop(
-                        (nextChild) => {
-                            $x.reportUnexpectedToken({
-                                path: "GstringLiteral$",
-                                token: nextChild,
-                                expected: null,
-                            })
-                        },
-                        () => {},
-                    )
-                })(
-                    currentChild,
-                    ($) => {
-                        callback($)
-                    }
-                )
             },
             () => { // no child
                 $x.reportMissingToken({
@@ -5355,37 +5355,37 @@ export function parse(
                 const choose_any = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "AnyKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "AnyKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_any$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_any$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["any", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_any",
                                     token: currentChild,
                                     expected: "AnyKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_any$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_any$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["any", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5399,42 +5399,42 @@ export function parse(
                 const choose_array = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ArrayType")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ArrayType")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_array$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    Gtype(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_array$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["array", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_array",
                                     token: currentChild,
                                     expected: "ArrayType",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_array$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                Gtype(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_array$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["array", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5448,37 +5448,37 @@ export function parse(
                 const choose_boolean = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "BooleanKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "BooleanKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_boolean$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_boolean$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["boolean", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_boolean",
                                     token: currentChild,
                                     expected: "BooleanKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_boolean$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_boolean$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["boolean", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5492,130 +5492,130 @@ export function parse(
                 const choose_function = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "FunctionType")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "FunctionType")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_function$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGtype_function$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGtype_function$_parameters>()
+                                    const processElement = () => {
+                                        Gparameter(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "Parameter": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _parameters = $
+                                        let optional: null | api.TVTGtype_function$_returnType = null
+                                        const setOptional = () => {
+                                            Gtype(node, children, ($) => {
+                                                optional = $
+                                            })
+                                        }
+                                        $d.lookAhead(children, 
+                                            (nextChild) => {
+                                                switch (nextChild.kindName) {
+                                                    case "AnyKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "ArrayType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "BooleanKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "FunctionType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "LiteralType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "NeverKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "NumberKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "OptionalType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "ParenthesizedType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "StringKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "TupleType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "TypeLiteral": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "TypeReference": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "UndefinedKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "UnionType": //XXX
+                                                        setOptional()
+                                                        break
+                                                    case "VoidKeyword": //XXX
+                                                        setOptional()
+                                                        break
+                                                }
+                                            },
+                                            () => {},
+                                        )
+                                        pl.cc(optional, ($) => {
+                                            const _returnType = $
+                                            sequenceEnd({
+                                                "parameters": _parameters,
+                                                "returnType": _returnType,
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_function$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["function", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_function",
                                     token: currentChild,
                                     expected: "FunctionType",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_function$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGtype_function$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGtype_function$_parameters>()
-                                const processElement = () => {
-                                    Gparameter(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "Parameter": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _parameters = $
-                                    let optional: null | api.TVTGtype_function$_returnType = null
-                                    const setOptional = () => {
-                                        Gtype(node, children, ($) => {
-                                            optional = $
-                                        })
-                                    }
-                                    $d.lookAhead(children, 
-                                        (nextChild) => {
-                                            switch (nextChild.kindName) {
-                                                case "AnyKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "ArrayType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "BooleanKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "FunctionType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "LiteralType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "NeverKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "NumberKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "OptionalType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "ParenthesizedType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "StringKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "TupleType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "TypeLiteral": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "TypeReference": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "UndefinedKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "UnionType": //XXX
-                                                    setOptional()
-                                                    break
-                                                case "VoidKeyword": //XXX
-                                                    setOptional()
-                                                    break
-                                            }
-                                        },
-                                        () => {},
-                                    )
-                                    pl.cc(optional, ($) => {
-                                        const _returnType = $
-                                        sequenceEnd({
-                                            "parameters": _parameters,
-                                            "returnType": _returnType,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_function$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["function", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5629,119 +5629,119 @@ export function parse(
                 const choose_literal = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "LiteralType")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "LiteralType")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_literal$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const choiceEnd_Gtype_literal$ = ($: api.TVTGtype_literal$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    $d.lookAhead(children, 
+                                        (nextChild) => {
+                                            const choose_null = () => {
+                                                children.pop(
+                                                    (currentChild) => {
+                                                        if ($d.stringsAreEqual(currentChild.kindName, "NullKeyword")) {
+                                                            ((
+                                                                $: uast.TUntypedNode,
+                                                                callback: ($: api.TNGtype_literal$_null$) => void,
+                                                            ): void => {
+                                                                const node = $
+                                                                const children = pm.createStack($.children)
+                                                                callback($.details)
+                                                                children.pop(
+                                                                    (nextChild) => {
+                                                                        $x.reportUnexpectedToken({
+                                                                            path: "Gtype_literal$_null$",
+                                                                            token: nextChild,
+                                                                            expected: null,
+                                                                        })
+                                                                    },
+                                                                    () => {},
+                                                                )
+                                                            })(
+                                                                currentChild,
+                                                                ($) => {
+                                                                    choiceEnd_Gtype_literal$(["null", $])
+                                                                }
+                                                            )
+                                                        } else {
+                                                            $x.reportUnexpectedToken({
+                                                                path: "Gtype_literal$_null",
+                                                                token: currentChild,
+                                                                expected: "NullKeyword",
+                                                            })
+                                                        }
+                                                    },
+                                                    () => { // no child
+                                                        $x.reportMissingToken({
+                                                            parentDetails: node.details,
+                                                            path: "Gtype_literal$_null",
+                                                            kindNameOptions: "NullKeyword",
+                                                        })
+                                                    },
+                                                )
+                                            }
+                                            const choose_string = () => {
+                                                GstringLiteral(node, children, ($) => {
+                                                    choiceEnd_Gtype_literal$(["string", $])
+                                                })
+                                            }
+                                            switch (nextChild.kindName) {
+                                                case "NullKeyword": /*Y*/ {
+                                                    choose_null()
+                                                    break
+                                                }
+                                                case "StringLiteral": /*Y*/ {
+                                                    choose_string()
+                                                    break
+                                                }
+                                                default: {
+                                                    $x.reportUnexpectedToken({
+                                                        path: "Gtype_literal$",
+                                                        token: nextChild,
+                                                        expected: "StringLiteral, NullKeyword",
+                                                    })
+                                                }
+                                            }
+                                        },
+                                        () => { //no child
+                                            $x.reportMissingToken({
+                                                parentDetails: node.details,
+                                                path: "Gtype_literal$",
+                                                kindNameOptions: "StringLiteral, NullKeyword",
+                                            })
+                                        },
+                                    )
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_literal$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["literal", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_literal",
                                     token: currentChild,
                                     expected: "LiteralType",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_literal$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const choiceEnd_Gtype_literal$ = ($: api.TVTGtype_literal$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                $d.lookAhead(children, 
-                                    (nextChild) => {
-                                        const choose_null = () => {
-                                            children.pop(
-                                                (currentChild) => {
-                                                    if ($d.stringsNotEqual(currentChild.kindName, "NullKeyword")) {
-                                                        $x.reportUnexpectedToken({
-                                                            path: "Gtype_literal$_null",
-                                                            token: currentChild,
-                                                            expected: "NullKeyword",
-                                                        })
-                                                        return
-                                                    }
-                                                    ((
-                                                        $: uast.TUntypedNode,
-                                                        callback: ($: api.TNGtype_literal$_null$) => void,
-                                                    ): void => {
-                                                        const node = $
-                                                        const children = pm.createStack($.children)
-                                                        callback($.details)
-                                                        children.pop(
-                                                            (nextChild) => {
-                                                                $x.reportUnexpectedToken({
-                                                                    path: "Gtype_literal$_null$",
-                                                                    token: nextChild,
-                                                                    expected: null,
-                                                                })
-                                                            },
-                                                            () => {},
-                                                        )
-                                                    })(
-                                                        currentChild,
-                                                        ($) => {
-                                                            choiceEnd_Gtype_literal$(["null", $])
-                                                        }
-                                                    )
-                                                },
-                                                () => { // no child
-                                                    $x.reportMissingToken({
-                                                        parentDetails: node.details,
-                                                        path: "Gtype_literal$_null",
-                                                        kindNameOptions: "NullKeyword",
-                                                    })
-                                                },
-                                            )
-                                        }
-                                        const choose_string = () => {
-                                            GstringLiteral(node, children, ($) => {
-                                                choiceEnd_Gtype_literal$(["string", $])
-                                            })
-                                        }
-                                        switch (nextChild.kindName) {
-                                            case "NullKeyword": /*Y*/ {
-                                                choose_null()
-                                                break
-                                            }
-                                            case "StringLiteral": /*Y*/ {
-                                                choose_string()
-                                                break
-                                            }
-                                            default: {
-                                                $x.reportUnexpectedToken({
-                                                    path: "Gtype_literal$",
-                                                    token: nextChild,
-                                                    expected: "StringLiteral, NullKeyword",
-                                                })
-                                            }
-                                        }
-                                    },
-                                    () => { //no child
-                                        $x.reportMissingToken({
-                                            parentDetails: node.details,
-                                            path: "Gtype_literal$",
-                                            kindNameOptions: "StringLiteral, NullKeyword",
-                                        })
-                                    },
-                                )
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_literal$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["literal", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5755,37 +5755,37 @@ export function parse(
                 const choose_never = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "NeverKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "NeverKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_never$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_never$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["never", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_never",
                                     token: currentChild,
                                     expected: "NeverKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_never$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_never$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["never", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5799,37 +5799,37 @@ export function parse(
                 const choose_number = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "NumberKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "NumberKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_number$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_number$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["number", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_number",
                                     token: currentChild,
                                     expected: "NumberKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_number$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_number$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["number", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5843,42 +5843,42 @@ export function parse(
                 const choose_optional = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "OptionalType")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "OptionalType")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_optional$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    Gtype(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_optional$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["optional", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_optional",
                                     token: currentChild,
                                     expected: "OptionalType",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_optional$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                Gtype(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_optional$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["optional", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5892,42 +5892,42 @@ export function parse(
                 const choose_parenthesized = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ParenthesizedType")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ParenthesizedType")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_parenthesized$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    Gtype(node, children, ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_parenthesized$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["parenthesized", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_parenthesized",
                                     token: currentChild,
                                     expected: "ParenthesizedType",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_parenthesized$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                Gtype(node, children, ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_parenthesized$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["parenthesized", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5941,37 +5941,37 @@ export function parse(
                 const choose_string = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "StringKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "StringKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_string$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_string$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["string", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_string",
                                     token: currentChild,
                                     expected: "StringKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_string$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_string$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["string", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -5985,215 +5985,14 @@ export function parse(
                 const choose_tuple = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "TupleType")) {
-                                $x.reportUnexpectedToken({
-                                    path: "Gtype_tuple",
-                                    token: currentChild,
-                                    expected: "TupleType",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_tuple$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<api.TVTGtype_tuple$>()
-                                const processElement = () => {
-                                    Gtype(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "AnyKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ArrayType": //z
-                                                processElement()
-                                                return true
-                                            case "BooleanKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "FunctionType": //z
-                                                processElement()
-                                                return true
-                                            case "LiteralType": //z
-                                                processElement()
-                                                return true
-                                            case "NeverKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "NumberKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "OptionalType": //z
-                                                processElement()
-                                                return true
-                                            case "ParenthesizedType": //z
-                                                processElement()
-                                                return true
-                                            case "StringKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "TupleType": //z
-                                                processElement()
-                                                return true
-                                            case "TypeLiteral": //z
-                                                processElement()
-                                                return true
-                                            case "TypeReference": //z
-                                                processElement()
-                                                return true
-                                            case "UndefinedKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "UnionType": //z
-                                                processElement()
-                                                return true
-                                            case "VoidKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_tuple$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["tuple", $])
-                                }
-                            )
-                        },
-                        () => { // no child
-                            $x.reportMissingToken({
-                                parentDetails: node.details,
-                                path: "Gtype_tuple",
-                                kindNameOptions: "TupleType",
-                            })
-                        },
-                    )
-                }
-                const choose_typeLiteral = () => {
-                    children.pop(
-                        (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "TypeLiteral")) {
-                                $x.reportUnexpectedToken({
-                                    path: "Gtype_typeLiteral",
-                                    token: currentChild,
-                                    expected: "TypeLiteral",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_typeLiteral$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<api.TVTGtype_typeLiteral$>()
-                                const processElement = () => {
-                                    GtypeSignature(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "ConstructSignature": //z
-                                                processElement()
-                                                return true
-                                            case "IndexSignature": //z
-                                                processElement()
-                                                return true
-                                            case "MethodSignature": //z
-                                                processElement()
-                                                return true
-                                            case "PropertySignature": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_typeLiteral$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["typeLiteral", $])
-                                }
-                            )
-                        },
-                        () => { // no child
-                            $x.reportMissingToken({
-                                parentDetails: node.details,
-                                path: "Gtype_typeLiteral",
-                                kindNameOptions: "TypeLiteral",
-                            })
-                        },
-                    )
-                }
-                const choose_typeReference = () => {
-                    children.pop(
-                        (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "TypeReference")) {
-                                $x.reportUnexpectedToken({
-                                    path: "Gtype_typeReference",
-                                    token: currentChild,
-                                    expected: "TypeReference",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_typeReference$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGtype_typeReference$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const choiceEnd_Gtype_typeReference$_x = ($: api.TVTGtype_typeReference$_x) => {
-                                    const _x = $
-                                    const elements = pm.createArrayBuilder<api.TVTGtype_typeReference$_parameters>()
+                            if ($d.stringsAreEqual(currentChild.kindName, "TupleType")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_tuple$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const elements = pm.createArrayBuilder<api.TVTGtype_tuple$>()
                                     const processElement = () => {
                                         Gtype(node, children, ($) => {
                                             elements.push($)
@@ -6256,121 +6055,322 @@ export function parse(
                                         },
                                     )
                                     pl.cc(elements.getArray(), ($) => {
-                                        const _parameters = $
-                                        sequenceEnd({
-                                            "x": _x,
-                                            "parameters": _parameters,
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
                                         })
                                     })
-                                }
-                                $d.lookAhead(children, 
-                                    (nextChild) => {
-                                        const choose_identifier = () => {
-                                            Gidentifier(node, children, ($) => {
-                                                choiceEnd_Gtype_typeReference$_x(["identifier", $])
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_tuple$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["tuple", $])
+                                    }
+                                )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "Gtype_tuple",
+                                    token: currentChild,
+                                    expected: "TupleType",
+                                })
+                            }
+                        },
+                        () => { // no child
+                            $x.reportMissingToken({
+                                parentDetails: node.details,
+                                path: "Gtype_tuple",
+                                kindNameOptions: "TupleType",
+                            })
+                        },
+                    )
+                }
+                const choose_typeLiteral = () => {
+                    children.pop(
+                        (currentChild) => {
+                            if ($d.stringsAreEqual(currentChild.kindName, "TypeLiteral")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_typeLiteral$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const elements = pm.createArrayBuilder<api.TVTGtype_typeLiteral$>()
+                                    const processElement = () => {
+                                        GtypeSignature(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "ConstructSignature": //z
+                                                    processElement()
+                                                    return true
+                                                case "IndexSignature": //z
+                                                    processElement()
+                                                    return true
+                                                case "MethodSignature": //z
+                                                    processElement()
+                                                    return true
+                                                case "PropertySignature": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_typeLiteral$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["typeLiteral", $])
+                                    }
+                                )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "Gtype_typeLiteral",
+                                    token: currentChild,
+                                    expected: "TypeLiteral",
+                                })
+                            }
+                        },
+                        () => { // no child
+                            $x.reportMissingToken({
+                                parentDetails: node.details,
+                                path: "Gtype_typeLiteral",
+                                kindNameOptions: "TypeLiteral",
+                            })
+                        },
+                    )
+                }
+                const choose_typeReference = () => {
+                    children.pop(
+                        (currentChild) => {
+                            if ($d.stringsAreEqual(currentChild.kindName, "TypeReference")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_typeReference$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGtype_typeReference$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const choiceEnd_Gtype_typeReference$_x = ($: api.TVTGtype_typeReference$_x) => {
+                                        const _x = $
+                                        const elements = pm.createArrayBuilder<api.TVTGtype_typeReference$_parameters>()
+                                        const processElement = () => {
+                                            Gtype(node, children, ($) => {
+                                                elements.push($)
                                             })
                                         }
-                                        const choose_qualifiedName = () => {
-                                            children.pop(
-                                                (currentChild) => {
-                                                    if ($d.stringsNotEqual(currentChild.kindName, "QualifiedName")) {
-                                                        $x.reportUnexpectedToken({
-                                                            path: "Gtype_typeReference$_x_qualifiedName",
-                                                            token: currentChild,
-                                                            expected: "QualifiedName",
-                                                        })
-                                                        return
-                                                    }
-                                                    ((
-                                                        $: uast.TUntypedNode,
-                                                        callback: ($: api.TNGtype_typeReference$_x_qualifiedName$) => void,
-                                                    ): void => {
-                                                        const node = $
-                                                        const children = pm.createStack($.children)
-                                                        const sequenceEnd = ($: api.TVTGtype_typeReference$_x_qualifiedName$) => {
-                                                            callback({
-                                                                tokenDetails: node.details,
-                                                                content: $,
-                                                            })
-                                                        }
-                                                        Gidentifier(node, children, ($) => {
-                                                            const _context = $
-                                                            Gidentifier(node, children, ($) => {
-                                                                const _type = $
-                                                                sequenceEnd({
-                                                                    "context": _context,
-                                                                    "type": _type,
-                                                                })
-                                                            })
-                                                        })
-                                                        children.pop(
-                                                            (nextChild) => {
-                                                                $x.reportUnexpectedToken({
-                                                                    path: "Gtype_typeReference$_x_qualifiedName$",
-                                                                    token: nextChild,
-                                                                    expected: null,
-                                                                })
-                                                            },
-                                                            () => {},
-                                                        )
-                                                    })(
-                                                        currentChild,
-                                                        ($) => {
-                                                            choiceEnd_Gtype_typeReference$_x(["qualifiedName", $])
-                                                        }
-                                                    )
-                                                },
-                                                () => { // no child
-                                                    $x.reportMissingToken({
-                                                        parentDetails: node.details,
-                                                        path: "Gtype_typeReference$_x_qualifiedName",
-                                                        kindNameOptions: "QualifiedName",
-                                                    })
-                                                },
-                                            )
-                                        }
-                                        switch (nextChild.kindName) {
-                                            case "Identifier": /*Y*/ {
-                                                choose_identifier()
-                                                break
-                                            }
-                                            case "QualifiedName": /*Y*/ {
-                                                choose_qualifiedName()
-                                                break
-                                            }
-                                            default: {
-                                                $x.reportUnexpectedToken({
-                                                    path: "Gtype_typeReference$_x",
-                                                    token: nextChild,
-                                                    expected: "QualifiedName, Identifier",
+                                        $d.doUntil(
+                                            children,
+                                            (nextChild) => {
+                                                switch (nextChild.kindName) {
+                                                    case "AnyKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ArrayType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "BooleanKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "FunctionType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "LiteralType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "NeverKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "NumberKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "OptionalType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "ParenthesizedType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "StringKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "TupleType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "TypeLiteral": //z
+                                                        processElement()
+                                                        return true
+                                                    case "TypeReference": //z
+                                                        processElement()
+                                                        return true
+                                                    case "UndefinedKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    case "UnionType": //z
+                                                        processElement()
+                                                        return true
+                                                    case "VoidKeyword": //z
+                                                        processElement()
+                                                        return true
+                                                    default: return false
+                                                }
+                                            },
+                                        )
+                                        pl.cc(elements.getArray(), ($) => {
+                                            const _parameters = $
+                                            sequenceEnd({
+                                                "x": _x,
+                                                "parameters": _parameters,
+                                            })
+                                        })
+                                    }
+                                    $d.lookAhead(children, 
+                                        (nextChild) => {
+                                            const choose_identifier = () => {
+                                                Gidentifier(node, children, ($) => {
+                                                    choiceEnd_Gtype_typeReference$_x(["identifier", $])
                                                 })
                                             }
-                                        }
-                                    },
-                                    () => { //no child
-                                        $x.reportMissingToken({
-                                            parentDetails: node.details,
-                                            path: "Gtype_typeReference$_x",
-                                            kindNameOptions: "QualifiedName, Identifier",
-                                        })
-                                    },
+                                            const choose_qualifiedName = () => {
+                                                children.pop(
+                                                    (currentChild) => {
+                                                        if ($d.stringsAreEqual(currentChild.kindName, "QualifiedName")) {
+                                                            ((
+                                                                $: uast.TUntypedNode,
+                                                                callback: ($: api.TNGtype_typeReference$_x_qualifiedName$) => void,
+                                                            ): void => {
+                                                                const node = $
+                                                                const children = pm.createStack($.children)
+                                                                const sequenceEnd = ($: api.TVTGtype_typeReference$_x_qualifiedName$) => {
+                                                                    callback({
+                                                                        tokenDetails: node.details,
+                                                                        content: $,
+                                                                    })
+                                                                }
+                                                                Gidentifier(node, children, ($) => {
+                                                                    const _context = $
+                                                                    Gidentifier(node, children, ($) => {
+                                                                        const _type = $
+                                                                        sequenceEnd({
+                                                                            "context": _context,
+                                                                            "type": _type,
+                                                                        })
+                                                                    })
+                                                                })
+                                                                children.pop(
+                                                                    (nextChild) => {
+                                                                        $x.reportUnexpectedToken({
+                                                                            path: "Gtype_typeReference$_x_qualifiedName$",
+                                                                            token: nextChild,
+                                                                            expected: null,
+                                                                        })
+                                                                    },
+                                                                    () => {},
+                                                                )
+                                                            })(
+                                                                currentChild,
+                                                                ($) => {
+                                                                    choiceEnd_Gtype_typeReference$_x(["qualifiedName", $])
+                                                                }
+                                                            )
+                                                        } else {
+                                                            $x.reportUnexpectedToken({
+                                                                path: "Gtype_typeReference$_x_qualifiedName",
+                                                                token: currentChild,
+                                                                expected: "QualifiedName",
+                                                            })
+                                                        }
+                                                    },
+                                                    () => { // no child
+                                                        $x.reportMissingToken({
+                                                            parentDetails: node.details,
+                                                            path: "Gtype_typeReference$_x_qualifiedName",
+                                                            kindNameOptions: "QualifiedName",
+                                                        })
+                                                    },
+                                                )
+                                            }
+                                            switch (nextChild.kindName) {
+                                                case "Identifier": /*Y*/ {
+                                                    choose_identifier()
+                                                    break
+                                                }
+                                                case "QualifiedName": /*Y*/ {
+                                                    choose_qualifiedName()
+                                                    break
+                                                }
+                                                default: {
+                                                    $x.reportUnexpectedToken({
+                                                        path: "Gtype_typeReference$_x",
+                                                        token: nextChild,
+                                                        expected: "QualifiedName, Identifier",
+                                                    })
+                                                }
+                                            }
+                                        },
+                                        () => { //no child
+                                            $x.reportMissingToken({
+                                                parentDetails: node.details,
+                                                path: "Gtype_typeReference$_x",
+                                                kindNameOptions: "QualifiedName, Identifier",
+                                            })
+                                        },
+                                    )
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_typeReference$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["typeReference", $])
+                                    }
                                 )
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_typeReference$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["typeReference", $])
-                                }
-                            )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "Gtype_typeReference",
+                                    token: currentChild,
+                                    expected: "TypeReference",
+                                })
+                            }
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -6384,37 +6384,37 @@ export function parse(
                 const choose_undefined = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "UndefinedKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "UndefinedKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_undefined$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_undefined$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["undefined", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_undefined",
                                     token: currentChild,
                                     expected: "UndefinedKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_undefined$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_undefined$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["undefined", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -6428,104 +6428,104 @@ export function parse(
                 const choose_union = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "UnionType")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "UnionType")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_union$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const elements = pm.createArrayBuilder<api.TVTGtype_union$>()
+                                    const processElement = () => {
+                                        Gtype(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "AnyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ArrayType": //z
+                                                    processElement()
+                                                    return true
+                                                case "BooleanKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "FunctionType": //z
+                                                    processElement()
+                                                    return true
+                                                case "LiteralType": //z
+                                                    processElement()
+                                                    return true
+                                                case "NeverKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "NumberKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "OptionalType": //z
+                                                    processElement()
+                                                    return true
+                                                case "ParenthesizedType": //z
+                                                    processElement()
+                                                    return true
+                                                case "StringKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "TupleType": //z
+                                                    processElement()
+                                                    return true
+                                                case "TypeLiteral": //z
+                                                    processElement()
+                                                    return true
+                                                case "TypeReference": //z
+                                                    processElement()
+                                                    return true
+                                                case "UndefinedKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "UnionType": //z
+                                                    processElement()
+                                                    return true
+                                                case "VoidKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_union$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["union", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_union",
                                     token: currentChild,
                                     expected: "UnionType",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_union$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const elements = pm.createArrayBuilder<api.TVTGtype_union$>()
-                                const processElement = () => {
-                                    Gtype(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "AnyKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ArrayType": //z
-                                                processElement()
-                                                return true
-                                            case "BooleanKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "FunctionType": //z
-                                                processElement()
-                                                return true
-                                            case "LiteralType": //z
-                                                processElement()
-                                                return true
-                                            case "NeverKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "NumberKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "OptionalType": //z
-                                                processElement()
-                                                return true
-                                            case "ParenthesizedType": //z
-                                                processElement()
-                                                return true
-                                            case "StringKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "TupleType": //z
-                                                processElement()
-                                                return true
-                                            case "TypeLiteral": //z
-                                                processElement()
-                                                return true
-                                            case "TypeReference": //z
-                                                processElement()
-                                                return true
-                                            case "UndefinedKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "UnionType": //z
-                                                processElement()
-                                                return true
-                                            case "VoidKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_union$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["union", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -6539,37 +6539,37 @@ export function parse(
                 const choose_void = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "VoidKeyword")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "VoidKeyword")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtype_void$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    callback($.details)
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "Gtype_void$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_Gtype(["void", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "Gtype_void",
                                     token: currentChild,
                                     expected: "VoidKeyword",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtype_void$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                callback($.details)
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "Gtype_void$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_Gtype(["void", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -6670,42 +6670,42 @@ export function parse(
     ): void {
         children.pop(
             (currentChild) => {
-                if ($d.stringsNotEqual(currentChild.kindName, "TypeParameter")) {
+                if ($d.stringsAreEqual(currentChild.kindName, "TypeParameter")) {
+                    ((
+                        $: uast.TUntypedNode,
+                        callback: ($: api.TNGtypeParameter$) => void,
+                    ): void => {
+                        const node = $
+                        const children = pm.createStack($.children)
+                        Gidentifier(node, children, ($) => {
+                            callback({
+                                tokenDetails: node.details,
+                                content: $,
+                            })
+                        })
+                        children.pop(
+                            (nextChild) => {
+                                $x.reportUnexpectedToken({
+                                    path: "GtypeParameter$",
+                                    token: nextChild,
+                                    expected: null,
+                                })
+                            },
+                            () => {},
+                        )
+                    })(
+                        currentChild,
+                        ($) => {
+                            callback($)
+                        }
+                    )
+                } else {
                     $x.reportUnexpectedToken({
                         path: "GtypeParameter",
                         token: currentChild,
                         expected: "TypeParameter",
                     })
-                    return
                 }
-                ((
-                    $: uast.TUntypedNode,
-                    callback: ($: api.TNGtypeParameter$) => void,
-                ): void => {
-                    const node = $
-                    const children = pm.createStack($.children)
-                    Gidentifier(node, children, ($) => {
-                        callback({
-                            tokenDetails: node.details,
-                            content: $,
-                        })
-                    })
-                    children.pop(
-                        (nextChild) => {
-                            $x.reportUnexpectedToken({
-                                path: "GtypeParameter$",
-                                token: nextChild,
-                                expected: null,
-                            })
-                        },
-                        () => {},
-                    )
-                })(
-                    currentChild,
-                    ($) => {
-                        callback($)
-                    }
-                )
             },
             () => { // no child
                 $x.reportMissingToken({
@@ -6729,69 +6729,69 @@ export function parse(
                 const choose_construct = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "ConstructSignature")) {
+                            if ($d.stringsAreEqual(currentChild.kindName, "ConstructSignature")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtypeSignature_construct$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGtypeSignature_construct$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGtypeSignature_construct$_parameters>()
+                                    const processElement = () => {
+                                        Gparameter(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "Parameter": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _parameters = $
+                                        Gtype(node, children, ($) => {
+                                            const _returnType = $
+                                            sequenceEnd({
+                                                "parameters": _parameters,
+                                                "returnType": _returnType,
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "GtypeSignature_construct$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_GtypeSignature(["construct", $])
+                                    }
+                                )
+                            } else {
                                 $x.reportUnexpectedToken({
                                     path: "GtypeSignature_construct",
                                     token: currentChild,
                                     expected: "ConstructSignature",
                                 })
-                                return
                             }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtypeSignature_construct$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGtypeSignature_construct$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGtypeSignature_construct$_parameters>()
-                                const processElement = () => {
-                                    Gparameter(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "Parameter": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _parameters = $
-                                    Gtype(node, children, ($) => {
-                                        const _returnType = $
-                                        sequenceEnd({
-                                            "parameters": _parameters,
-                                            "returnType": _returnType,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "GtypeSignature_construct$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_GtypeSignature(["construct", $])
-                                }
-                            )
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -6805,317 +6805,47 @@ export function parse(
                 const choose_index = () => {
                     children.pop(
                         (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "IndexSignature")) {
-                                $x.reportUnexpectedToken({
-                                    path: "GtypeSignature_index",
-                                    token: currentChild,
-                                    expected: "IndexSignature",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtypeSignature_index$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGtypeSignature_index$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGtypeSignature_index$_modifiers>()
-                                const processElement = () => {
-                                    Gmodifier(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "DeclareKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ExportKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ReadonlyKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _modifiers = $
-                                    Gparameter(node, children, ($) => {
-                                        const _parameter = $
-                                        let optional: null | api.TVTGtypeSignature_index$_type = null
-                                        const setOptional = () => {
-                                            Gtype(node, children, ($) => {
-                                                optional = $
-                                            })
-                                        }
-                                        $d.lookAhead(children, 
-                                            (nextChild) => {
-                                                switch (nextChild.kindName) {
-                                                    case "AnyKeyword": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "ArrayType": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "BooleanKeyword": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "FunctionType": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "LiteralType": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "NeverKeyword": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "NumberKeyword": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "OptionalType": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "ParenthesizedType": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "StringKeyword": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "TupleType": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "TypeLiteral": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "TypeReference": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "UndefinedKeyword": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "UnionType": //XXX
-                                                        setOptional()
-                                                        break
-                                                    case "VoidKeyword": //XXX
-                                                        setOptional()
-                                                        break
-                                                }
-                                            },
-                                            () => {},
-                                        )
-                                        pl.cc(optional, ($) => {
-                                            const _type = $
-                                            sequenceEnd({
-                                                "modifiers": _modifiers,
-                                                "parameter": _parameter,
-                                                "type": _type,
-                                            })
+                            if ($d.stringsAreEqual(currentChild.kindName, "IndexSignature")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtypeSignature_index$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGtypeSignature_index$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
                                         })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "GtypeSignature_index$",
-                                            token: nextChild,
-                                            expected: null,
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGtypeSignature_index$_modifiers>()
+                                    const processElement = () => {
+                                        Gmodifier(node, children, ($) => {
+                                            elements.push($)
                                         })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_GtypeSignature(["index", $])
-                                }
-                            )
-                        },
-                        () => { // no child
-                            $x.reportMissingToken({
-                                parentDetails: node.details,
-                                path: "GtypeSignature_index",
-                                kindNameOptions: "IndexSignature",
-                            })
-                        },
-                    )
-                }
-                const choose_method = () => {
-                    children.pop(
-                        (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "MethodSignature")) {
-                                $x.reportUnexpectedToken({
-                                    path: "GtypeSignature_method",
-                                    token: currentChild,
-                                    expected: "MethodSignature",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtypeSignature_method$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGtypeSignature_method$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                Gidentifier(node, children, ($) => {
-                                    const _name = $
-                                    GfunctionDefinition(node, children, ($) => {
-                                        const _definition = $
-                                        sequenceEnd({
-                                            "name": _name,
-                                            "definition": _definition,
-                                        })
-                                    })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "GtypeSignature_method$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
-                                )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_GtypeSignature(["method", $])
-                                }
-                            )
-                        },
-                        () => { // no child
-                            $x.reportMissingToken({
-                                parentDetails: node.details,
-                                path: "GtypeSignature_method",
-                                kindNameOptions: "MethodSignature",
-                            })
-                        },
-                    )
-                }
-                const choose_property = () => {
-                    children.pop(
-                        (currentChild) => {
-                            if ($d.stringsNotEqual(currentChild.kindName, "PropertySignature")) {
-                                $x.reportUnexpectedToken({
-                                    path: "GtypeSignature_property",
-                                    token: currentChild,
-                                    expected: "PropertySignature",
-                                })
-                                return
-                            }
-                            ((
-                                $: uast.TUntypedNode,
-                                callback: ($: api.TNGtypeSignature_property$) => void,
-                            ): void => {
-                                const node = $
-                                const children = pm.createStack($.children)
-                                const sequenceEnd = ($: api.TVTGtypeSignature_property$) => {
-                                    callback({
-                                        tokenDetails: node.details,
-                                        content: $,
-                                    })
-                                }
-                                const elements = pm.createArrayBuilder<api.TVTGtypeSignature_property$_modifiers>()
-                                const processElement = () => {
-                                    Gmodifier(node, children, ($) => {
-                                        elements.push($)
-                                    })
-                                }
-                                $d.doUntil(
-                                    children,
-                                    (nextChild) => {
-                                        switch (nextChild.kindName) {
-                                            case "DeclareKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ExportKeyword": //z
-                                                processElement()
-                                                return true
-                                            case "ReadonlyKeyword": //z
-                                                processElement()
-                                                return true
-                                            default: return false
-                                        }
-                                    },
-                                )
-                                pl.cc(elements.getArray(), ($) => {
-                                    const _modifiers = $
-                                    GidentifierOrStringLiteral(node, children, ($) => {
-                                        const _name = $
-                                        let optional: null | api.TVTGtypeSignature_property$_quesionToken = null
-                                        const setOptional = () => {
-                                            children.pop(
-                                                (currentChild) => {
-                                                    if ($d.stringsNotEqual(currentChild.kindName, "QuestionToken")) {
-                                                        $x.reportUnexpectedToken({
-                                                            path: "GtypeSignature_property$_quesionToken",
-                                                            token: currentChild,
-                                                            expected: "QuestionToken",
-                                                        })
-                                                        return
-                                                    }
-                                                    ((
-                                                        $: uast.TUntypedNode,
-                                                        callback: ($: api.TNGtypeSignature_property$_quesionToken$) => void,
-                                                    ): void => {
-                                                        const node = $
-                                                        const children = pm.createStack($.children)
-                                                        callback($.details)
-                                                        children.pop(
-                                                            (nextChild) => {
-                                                                $x.reportUnexpectedToken({
-                                                                    path: "GtypeSignature_property$_quesionToken$",
-                                                                    token: nextChild,
-                                                                    expected: null,
-                                                                })
-                                                            },
-                                                            () => {},
-                                                        )
-                                                    })(
-                                                        currentChild,
-                                                        ($) => {
-                                                            optional = $
-                                                        }
-                                                    )
-                                                },
-                                                () => { // no child
-                                                    $x.reportMissingToken({
-                                                        parentDetails: node.details,
-                                                        path: "GtypeSignature_property$_quesionToken",
-                                                        kindNameOptions: "QuestionToken",
-                                                    })
-                                                },
-                                            )
-                                        }
-                                        $d.lookAhead(children, 
-                                            (nextChild) => {
-                                                switch (nextChild.kindName) {
-                                                    case "QuestionToken": //XXX
-                                                        setOptional()
-                                                        break
-                                                }
-                                            },
-                                            () => {},
-                                        )
-                                        pl.cc(optional, ($) => {
-                                            const _quesionToken = $
-                                            let optional: null | api.TVTGtypeSignature_property$_type = null
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "DeclareKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ExportKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ReadonlyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _modifiers = $
+                                        Gparameter(node, children, ($) => {
+                                            const _parameter = $
+                                            let optional: null | api.TVTGtypeSignature_index$_type = null
                                             const setOptional = () => {
                                                 Gtype(node, children, ($) => {
                                                     optional = $
@@ -7180,30 +6910,300 @@ export function parse(
                                                 const _type = $
                                                 sequenceEnd({
                                                     "modifiers": _modifiers,
-                                                    "name": _name,
-                                                    "quesionToken": _quesionToken,
+                                                    "parameter": _parameter,
                                                     "type": _type,
                                                 })
                                             })
                                         })
                                     })
-                                })
-                                children.pop(
-                                    (nextChild) => {
-                                        $x.reportUnexpectedToken({
-                                            path: "GtypeSignature_property$",
-                                            token: nextChild,
-                                            expected: null,
-                                        })
-                                    },
-                                    () => {},
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "GtypeSignature_index$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_GtypeSignature(["index", $])
+                                    }
                                 )
-                            })(
-                                currentChild,
-                                ($) => {
-                                    choiceEnd_GtypeSignature(["property", $])
-                                }
-                            )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "GtypeSignature_index",
+                                    token: currentChild,
+                                    expected: "IndexSignature",
+                                })
+                            }
+                        },
+                        () => { // no child
+                            $x.reportMissingToken({
+                                parentDetails: node.details,
+                                path: "GtypeSignature_index",
+                                kindNameOptions: "IndexSignature",
+                            })
+                        },
+                    )
+                }
+                const choose_method = () => {
+                    children.pop(
+                        (currentChild) => {
+                            if ($d.stringsAreEqual(currentChild.kindName, "MethodSignature")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtypeSignature_method$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGtypeSignature_method$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    Gidentifier(node, children, ($) => {
+                                        const _name = $
+                                        GfunctionDefinition(node, children, ($) => {
+                                            const _definition = $
+                                            sequenceEnd({
+                                                "name": _name,
+                                                "definition": _definition,
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "GtypeSignature_method$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_GtypeSignature(["method", $])
+                                    }
+                                )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "GtypeSignature_method",
+                                    token: currentChild,
+                                    expected: "MethodSignature",
+                                })
+                            }
+                        },
+                        () => { // no child
+                            $x.reportMissingToken({
+                                parentDetails: node.details,
+                                path: "GtypeSignature_method",
+                                kindNameOptions: "MethodSignature",
+                            })
+                        },
+                    )
+                }
+                const choose_property = () => {
+                    children.pop(
+                        (currentChild) => {
+                            if ($d.stringsAreEqual(currentChild.kindName, "PropertySignature")) {
+                                ((
+                                    $: uast.TUntypedNode,
+                                    callback: ($: api.TNGtypeSignature_property$) => void,
+                                ): void => {
+                                    const node = $
+                                    const children = pm.createStack($.children)
+                                    const sequenceEnd = ($: api.TVTGtypeSignature_property$) => {
+                                        callback({
+                                            tokenDetails: node.details,
+                                            content: $,
+                                        })
+                                    }
+                                    const elements = pm.createArrayBuilder<api.TVTGtypeSignature_property$_modifiers>()
+                                    const processElement = () => {
+                                        Gmodifier(node, children, ($) => {
+                                            elements.push($)
+                                        })
+                                    }
+                                    $d.doUntil(
+                                        children,
+                                        (nextChild) => {
+                                            switch (nextChild.kindName) {
+                                                case "DeclareKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ExportKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                case "ReadonlyKeyword": //z
+                                                    processElement()
+                                                    return true
+                                                default: return false
+                                            }
+                                        },
+                                    )
+                                    pl.cc(elements.getArray(), ($) => {
+                                        const _modifiers = $
+                                        GidentifierOrStringLiteral(node, children, ($) => {
+                                            const _name = $
+                                            let optional: null | api.TVTGtypeSignature_property$_quesionToken = null
+                                            const setOptional = () => {
+                                                children.pop(
+                                                    (currentChild) => {
+                                                        if ($d.stringsAreEqual(currentChild.kindName, "QuestionToken")) {
+                                                            ((
+                                                                $: uast.TUntypedNode,
+                                                                callback: ($: api.TNGtypeSignature_property$_quesionToken$) => void,
+                                                            ): void => {
+                                                                const node = $
+                                                                const children = pm.createStack($.children)
+                                                                callback($.details)
+                                                                children.pop(
+                                                                    (nextChild) => {
+                                                                        $x.reportUnexpectedToken({
+                                                                            path: "GtypeSignature_property$_quesionToken$",
+                                                                            token: nextChild,
+                                                                            expected: null,
+                                                                        })
+                                                                    },
+                                                                    () => {},
+                                                                )
+                                                            })(
+                                                                currentChild,
+                                                                ($) => {
+                                                                    optional = $
+                                                                }
+                                                            )
+                                                        } else {
+                                                            $x.reportUnexpectedToken({
+                                                                path: "GtypeSignature_property$_quesionToken",
+                                                                token: currentChild,
+                                                                expected: "QuestionToken",
+                                                            })
+                                                        }
+                                                    },
+                                                    () => { // no child
+                                                        $x.reportMissingToken({
+                                                            parentDetails: node.details,
+                                                            path: "GtypeSignature_property$_quesionToken",
+                                                            kindNameOptions: "QuestionToken",
+                                                        })
+                                                    },
+                                                )
+                                            }
+                                            $d.lookAhead(children, 
+                                                (nextChild) => {
+                                                    switch (nextChild.kindName) {
+                                                        case "QuestionToken": //XXX
+                                                            setOptional()
+                                                            break
+                                                    }
+                                                },
+                                                () => {},
+                                            )
+                                            pl.cc(optional, ($) => {
+                                                const _quesionToken = $
+                                                let optional: null | api.TVTGtypeSignature_property$_type = null
+                                                const setOptional = () => {
+                                                    Gtype(node, children, ($) => {
+                                                        optional = $
+                                                    })
+                                                }
+                                                $d.lookAhead(children, 
+                                                    (nextChild) => {
+                                                        switch (nextChild.kindName) {
+                                                            case "AnyKeyword": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "ArrayType": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "BooleanKeyword": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "FunctionType": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "LiteralType": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "NeverKeyword": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "NumberKeyword": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "OptionalType": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "ParenthesizedType": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "StringKeyword": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "TupleType": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "TypeLiteral": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "TypeReference": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "UndefinedKeyword": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "UnionType": //XXX
+                                                                setOptional()
+                                                                break
+                                                            case "VoidKeyword": //XXX
+                                                                setOptional()
+                                                                break
+                                                        }
+                                                    },
+                                                    () => {},
+                                                )
+                                                pl.cc(optional, ($) => {
+                                                    const _type = $
+                                                    sequenceEnd({
+                                                        "modifiers": _modifiers,
+                                                        "name": _name,
+                                                        "quesionToken": _quesionToken,
+                                                        "type": _type,
+                                                    })
+                                                })
+                                            })
+                                        })
+                                    })
+                                    children.pop(
+                                        (nextChild) => {
+                                            $x.reportUnexpectedToken({
+                                                path: "GtypeSignature_property$",
+                                                token: nextChild,
+                                                expected: null,
+                                            })
+                                        },
+                                        () => {},
+                                    )
+                                })(
+                                    currentChild,
+                                    ($) => {
+                                        choiceEnd_GtypeSignature(["property", $])
+                                    }
+                                )
+                            } else {
+                                $x.reportUnexpectedToken({
+                                    path: "GtypeSignature_property",
+                                    token: currentChild,
+                                    expected: "PropertySignature",
+                                })
+                            }
                         },
                         () => { // no child
                             $x.reportMissingToken({
@@ -7256,158 +7256,76 @@ export function parse(
     ): void {
         children.pop(
             (currentChild) => {
-                if ($d.stringsNotEqual(currentChild.kindName, "VariableDeclaration")) {
-                    $x.reportUnexpectedToken({
-                        path: "GvariableDeclaration",
-                        token: currentChild,
-                        expected: "VariableDeclaration",
-                    })
-                    return
-                }
-                ((
-                    $: uast.TUntypedNode,
-                    callback: ($: api.TNGvariableDeclaration$) => void,
-                ): void => {
-                    const node = $
-                    const children = pm.createStack($.children)
-                    const sequenceEnd = ($: api.TVTGvariableDeclaration$) => {
-                        callback({
-                            tokenDetails: node.details,
-                            content: $,
-                        })
-                    }
-                    Gidentifier(node, children, ($) => {
-                        const _name = $
-                        let optional: null | api.TVTGvariableDeclaration$_type = null
-                        const setOptional = () => {
-                            Gtype(node, children, ($) => {
-                                optional = $
+                if ($d.stringsAreEqual(currentChild.kindName, "VariableDeclaration")) {
+                    ((
+                        $: uast.TUntypedNode,
+                        callback: ($: api.TNGvariableDeclaration$) => void,
+                    ): void => {
+                        const node = $
+                        const children = pm.createStack($.children)
+                        const sequenceEnd = ($: api.TVTGvariableDeclaration$) => {
+                            callback({
+                                tokenDetails: node.details,
+                                content: $,
                             })
                         }
-                        $d.lookAhead(children, 
-                            (nextChild) => {
-                                switch (nextChild.kindName) {
-                                    case "AnyKeyword": //XXX
-                                        setOptional()
-                                        break
-                                    case "ArrayType": //XXX
-                                        setOptional()
-                                        break
-                                    case "BooleanKeyword": //XXX
-                                        setOptional()
-                                        break
-                                    case "FunctionType": //XXX
-                                        setOptional()
-                                        break
-                                    case "LiteralType": //XXX
-                                        setOptional()
-                                        break
-                                    case "NeverKeyword": //XXX
-                                        setOptional()
-                                        break
-                                    case "NumberKeyword": //XXX
-                                        setOptional()
-                                        break
-                                    case "OptionalType": //XXX
-                                        setOptional()
-                                        break
-                                    case "ParenthesizedType": //XXX
-                                        setOptional()
-                                        break
-                                    case "StringKeyword": //XXX
-                                        setOptional()
-                                        break
-                                    case "TupleType": //XXX
-                                        setOptional()
-                                        break
-                                    case "TypeLiteral": //XXX
-                                        setOptional()
-                                        break
-                                    case "TypeReference": //XXX
-                                        setOptional()
-                                        break
-                                    case "UndefinedKeyword": //XXX
-                                        setOptional()
-                                        break
-                                    case "UnionType": //XXX
-                                        setOptional()
-                                        break
-                                    case "VoidKeyword": //XXX
-                                        setOptional()
-                                        break
-                                }
-                            },
-                            () => {},
-                        )
-                        pl.cc(optional, ($) => {
-                            const _type = $
-                            let optional: null | api.TVTGvariableDeclaration$_expression = null
+                        Gidentifier(node, children, ($) => {
+                            const _name = $
+                            let optional: null | api.TVTGvariableDeclaration$_type = null
                             const setOptional = () => {
-                                Gexpression(node, children, ($) => {
+                                Gtype(node, children, ($) => {
                                     optional = $
                                 })
                             }
                             $d.lookAhead(children, 
                                 (nextChild) => {
                                     switch (nextChild.kindName) {
-                                        case "ArrayLiteralExpression": //XXX
+                                        case "AnyKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "ArrowFunction": //XXX
+                                        case "ArrayType": //XXX
                                             setOptional()
                                             break
-                                        case "BinaryExpression": //XXX
+                                        case "BooleanKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "CallExpression": //XXX
+                                        case "FunctionType": //XXX
                                             setOptional()
                                             break
-                                        case "ConditionalExpression": //XXX
+                                        case "LiteralType": //XXX
                                             setOptional()
                                             break
-                                        case "ElementAccessExpression": //XXX
+                                        case "NeverKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "FalseKeyword": //XXX
+                                        case "NumberKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "Identifier": //XXX
+                                        case "OptionalType": //XXX
                                             setOptional()
                                             break
-                                        case "NewExpression": //XXX
+                                        case "ParenthesizedType": //XXX
                                             setOptional()
                                             break
-                                        case "NoSubstitutionTemplateLiteral": //XXX
+                                        case "StringKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "NullKeyword": //XXX
+                                        case "TupleType": //XXX
                                             setOptional()
                                             break
-                                        case "NumericLiteral": //XXX
+                                        case "TypeLiteral": //XXX
                                             setOptional()
                                             break
-                                        case "ObjectLiteralExpression": //XXX
+                                        case "TypeReference": //XXX
                                             setOptional()
                                             break
-                                        case "ParenthesizedExpression": //XXX
+                                        case "UndefinedKeyword": //XXX
                                             setOptional()
                                             break
-                                        case "PostfixUnaryExpression": //XXX
+                                        case "UnionType": //XXX
                                             setOptional()
                                             break
-                                        case "PrefixUnaryExpression": //XXX
-                                            setOptional()
-                                            break
-                                        case "PropertyAccessExpression": //XXX
-                                            setOptional()
-                                            break
-                                        case "StringLiteral": //XXX
-                                            setOptional()
-                                            break
-                                        case "TemplateExpression": //XXX
-                                            setOptional()
-                                            break
-                                        case "TrueKeyword": //XXX
+                                        case "VoidKeyword": //XXX
                                             setOptional()
                                             break
                                     }
@@ -7415,31 +7333,113 @@ export function parse(
                                 () => {},
                             )
                             pl.cc(optional, ($) => {
-                                const _expression = $
-                                sequenceEnd({
-                                    "name": _name,
-                                    "type": _type,
-                                    "expression": _expression,
+                                const _type = $
+                                let optional: null | api.TVTGvariableDeclaration$_expression = null
+                                const setOptional = () => {
+                                    Gexpression(node, children, ($) => {
+                                        optional = $
+                                    })
+                                }
+                                $d.lookAhead(children, 
+                                    (nextChild) => {
+                                        switch (nextChild.kindName) {
+                                            case "ArrayLiteralExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "ArrowFunction": //XXX
+                                                setOptional()
+                                                break
+                                            case "BinaryExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "CallExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "ConditionalExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "ElementAccessExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "FalseKeyword": //XXX
+                                                setOptional()
+                                                break
+                                            case "Identifier": //XXX
+                                                setOptional()
+                                                break
+                                            case "NewExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "NoSubstitutionTemplateLiteral": //XXX
+                                                setOptional()
+                                                break
+                                            case "NullKeyword": //XXX
+                                                setOptional()
+                                                break
+                                            case "NumericLiteral": //XXX
+                                                setOptional()
+                                                break
+                                            case "ObjectLiteralExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "ParenthesizedExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "PostfixUnaryExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "PrefixUnaryExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "PropertyAccessExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "StringLiteral": //XXX
+                                                setOptional()
+                                                break
+                                            case "TemplateExpression": //XXX
+                                                setOptional()
+                                                break
+                                            case "TrueKeyword": //XXX
+                                                setOptional()
+                                                break
+                                        }
+                                    },
+                                    () => {},
+                                )
+                                pl.cc(optional, ($) => {
+                                    const _expression = $
+                                    sequenceEnd({
+                                        "name": _name,
+                                        "type": _type,
+                                        "expression": _expression,
+                                    })
                                 })
                             })
                         })
-                    })
-                    children.pop(
-                        (nextChild) => {
-                            $x.reportUnexpectedToken({
-                                path: "GvariableDeclaration$",
-                                token: nextChild,
-                                expected: null,
-                            })
-                        },
-                        () => {},
+                        children.pop(
+                            (nextChild) => {
+                                $x.reportUnexpectedToken({
+                                    path: "GvariableDeclaration$",
+                                    token: nextChild,
+                                    expected: null,
+                                })
+                            },
+                            () => {},
+                        )
+                    })(
+                        currentChild,
+                        ($) => {
+                            callback($)
+                        }
                     )
-                })(
-                    currentChild,
-                    ($) => {
-                        callback($)
-                    }
-                )
+                } else {
+                    $x.reportUnexpectedToken({
+                        path: "GvariableDeclaration",
+                        token: currentChild,
+                        expected: "VariableDeclaration",
+                    })
+                }
             },
             () => { // no child
                 $x.reportMissingToken({
@@ -7457,59 +7457,59 @@ export function parse(
     ): void {
         children.pop(
             (currentChild) => {
-                if ($d.stringsNotEqual(currentChild.kindName, "VariableDeclarationList")) {
+                if ($d.stringsAreEqual(currentChild.kindName, "VariableDeclarationList")) {
+                    ((
+                        $: uast.TUntypedNode,
+                        callback: ($: api.TNGvariableDeclarationList$) => void,
+                    ): void => {
+                        const node = $
+                        const children = pm.createStack($.children)
+                        const elements = pm.createArrayBuilder<api.TVTGvariableDeclarationList$>()
+                        const processElement = () => {
+                            GvariableDeclaration(node, children, ($) => {
+                                elements.push($)
+                            })
+                        }
+                        $d.doUntil(
+                            children,
+                            (nextChild) => {
+                                switch (nextChild.kindName) {
+                                    case "VariableDeclaration": //z
+                                        processElement()
+                                        return true
+                                    default: return false
+                                }
+                            },
+                        )
+                        pl.cc(elements.getArray(), ($) => {
+                            callback({
+                                tokenDetails: node.details,
+                                content: $,
+                            })
+                        })
+                        children.pop(
+                            (nextChild) => {
+                                $x.reportUnexpectedToken({
+                                    path: "GvariableDeclarationList$",
+                                    token: nextChild,
+                                    expected: null,
+                                })
+                            },
+                            () => {},
+                        )
+                    })(
+                        currentChild,
+                        ($) => {
+                            callback($)
+                        }
+                    )
+                } else {
                     $x.reportUnexpectedToken({
                         path: "GvariableDeclarationList",
                         token: currentChild,
                         expected: "VariableDeclarationList",
                     })
-                    return
                 }
-                ((
-                    $: uast.TUntypedNode,
-                    callback: ($: api.TNGvariableDeclarationList$) => void,
-                ): void => {
-                    const node = $
-                    const children = pm.createStack($.children)
-                    const elements = pm.createArrayBuilder<api.TVTGvariableDeclarationList$>()
-                    const processElement = () => {
-                        GvariableDeclaration(node, children, ($) => {
-                            elements.push($)
-                        })
-                    }
-                    $d.doUntil(
-                        children,
-                        (nextChild) => {
-                            switch (nextChild.kindName) {
-                                case "VariableDeclaration": //z
-                                    processElement()
-                                    return true
-                                default: return false
-                            }
-                        },
-                    )
-                    pl.cc(elements.getArray(), ($) => {
-                        callback({
-                            tokenDetails: node.details,
-                            content: $,
-                        })
-                    })
-                    children.pop(
-                        (nextChild) => {
-                            $x.reportUnexpectedToken({
-                                path: "GvariableDeclarationList$",
-                                token: nextChild,
-                                expected: null,
-                            })
-                        },
-                        () => {},
-                    )
-                })(
-                    currentChild,
-                    ($) => {
-                        callback($)
-                    }
-                )
             },
             () => { // no child
                 $x.reportMissingToken({
@@ -7520,14 +7520,7 @@ export function parse(
             },
         )
     }
-    if ($d.stringsNotEqual($.kindName, "SourceFile")) {
-        $x.reportUnexpectedToken({
-            path: "",
-            token: $,
-            expected: "SourceFile",
-        })
-        return
-    } else {
+    if ($d.stringsAreEqual($.kindName, "SourceFile")) {
         ((
             $: uast.TUntypedNode,
             callback: ($: api.TNroot) => void,
@@ -7609,41 +7602,41 @@ export function parse(
                 const _statements = $
                 children.pop(
                     (currentChild) => {
-                        if ($d.stringsNotEqual(currentChild.kindName, "EndOfFileToken")) {
+                        if ($d.stringsAreEqual(currentChild.kindName, "EndOfFileToken")) {
+                            ((
+                                $: uast.TUntypedNode,
+                                callback: ($: api.TNroot_endOfFile$) => void,
+                            ): void => {
+                                const node = $
+                                const children = pm.createStack($.children)
+                                callback($.details)
+                                children.pop(
+                                    (nextChild) => {
+                                        $x.reportUnexpectedToken({
+                                            path: "root_endOfFile$",
+                                            token: nextChild,
+                                            expected: null,
+                                        })
+                                    },
+                                    () => {},
+                                )
+                            })(
+                                currentChild,
+                                ($) => {
+                                    const _endOfFile = $
+                                    sequenceEnd({
+                                        "statements": _statements,
+                                        "endOfFile": _endOfFile,
+                                    })
+                                }
+                            )
+                        } else {
                             $x.reportUnexpectedToken({
                                 path: "root_endOfFile",
                                 token: currentChild,
                                 expected: "EndOfFileToken",
                             })
-                            return
                         }
-                        ((
-                            $: uast.TUntypedNode,
-                            callback: ($: api.TNroot_endOfFile$) => void,
-                        ): void => {
-                            const node = $
-                            const children = pm.createStack($.children)
-                            callback($.details)
-                            children.pop(
-                                (nextChild) => {
-                                    $x.reportUnexpectedToken({
-                                        path: "root_endOfFile$",
-                                        token: nextChild,
-                                        expected: null,
-                                    })
-                                },
-                                () => {},
-                            )
-                        })(
-                            currentChild,
-                            ($) => {
-                                const _endOfFile = $
-                                sequenceEnd({
-                                    "statements": _statements,
-                                    "endOfFile": _endOfFile,
-                                })
-                            }
-                        )
                     },
                     () => { // no child
                         $x.reportMissingToken({
@@ -7670,5 +7663,11 @@ export function parse(
                 $x.callback($)
             },
         )
+    } else {
+        $x.reportUnexpectedToken({
+            path: "",
+            token: $,
+            expected: "SourceFile",
+        })
     }
 }

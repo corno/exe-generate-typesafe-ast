@@ -129,7 +129,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                             $w.snippet(`lookAhead: <T>(stack: pm.Stack<T>, exists: ($: T) => void, notExists: () => void) => void,`)
                         })
                         $w.line({}, ($w) => {
-                            $w.snippet(`stringsNotEqual: (a: string, b: string) => boolean,`)
+                            $w.snippet(`stringsAreEqual: (a: string, b: string) => boolean,`)
                         })
                     })
                     $w.snippet(`},`)
@@ -326,7 +326,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                                     pl.panic("IMPLEMENT ME 4")
                                                                 }
                                                             )
-                                                            possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
+                                                            possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), ($, key) => {
                                                                 $w.line({}, ($w) => {
                                                                     $w.snippet(`case "${key}": //z`)
                                                                     $w.indent({}, ($w) => {
@@ -422,7 +422,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                                     pl.panic("IMPLEMENT ME 5")
                                                                 }
                                                             )
-                                                            possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
+                                                            possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), ($, key) => {
                                                                 $w.line({}, ($w) => {
                                                                     $w.snippet(`case "${key}": //XXX`)
                                                                     $w.indent({}, ($w) => {
@@ -495,7 +495,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                         pl.panic("tokens are not unique")
                                     }
                                 )
-                                $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
+                                $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), ($, key) => {
                                     const option = $
                                     findNextPossibleTokensInSymbolType(
                                         option.type,
@@ -523,7 +523,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                         $w.line({}, ($w) => {
                                             $w.snippet(`(nextChild) => {`)
                                             $w.indent({}, ($w) => {
-                                                $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
+                                                $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), ($, key) => {
                                                     const option = $
                                                     $w.line({}, ($w) => {
                                                         $w.snippet(`const choose_${key} = () => {`)
@@ -552,7 +552,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                                 pl.panic("unexpected: duplicate key")
                                                             }
                                                         )
-                                                        $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
+                                                        $.options.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), ($, key) => {
                                                             const option = $
                                                             findNextPossibleTokensInSymbolType(
                                                                 option.type,
@@ -564,7 +564,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                                 }
                                                             )
                                                         })
-                                                        possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), (optionKey, key) => {
+                                                        possibleTokens.getDictionary().forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), (optionKey, key) => {
                                                             $w.line({}, ($w) => {
                                                                 $w.snippet(`case "${key}": /*Y*/ {`)
                                                                 $w.indent({}, ($w) => {
@@ -712,7 +712,32 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                             $w.snippet(`(currentChild) => {`)
                                             $w.indent({}, ($w) => {
                                                 $w.line({}, ($w) => {
-                                                    $w.snippet(`if ($d.stringsNotEqual(currentChild.kindName, "${$.name}")) {`)
+                                                    $w.snippet(`if ($d.stringsAreEqual(currentChild.kindName, "${$.name}")) {`)
+                                                    $w.indent({}, ($w) => {
+                                                        generateNode(
+                                                            $,
+                                                            `${path}$`,
+                                                            $w,
+                                                            ($w) => {
+                                                                $w.snippet(`(`)
+                                                                $w.indent({}, ($w) => {
+                                                                    $w.line({}, ($w) => {
+                                                                        $w.snippet(`currentChild,`)
+                                                                    })
+                                                                    $w.line({}, ($w) => {
+                                                                        $w.snippet(`($) => {`)
+                                                                        $w.indent({}, ($w) => {
+                                                                            endCallback($w)
+                                                                        })
+                                                                        $w.snippet(`}`)
+                                                                    })
+                                                                })
+                                                                $w.snippet(`)`)
+                                                            }
+                                                        )
+
+                                                    })
+                                                    $w.snippet(`} else {`)
                                                     $w.indent({}, ($w) => {
                                                         $w.line({}, ($w) => {
                                                             $w.snippet(`$x.reportUnexpectedToken({`)
@@ -729,33 +754,9 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                                             })
                                                             $w.snippet(`})`)
                                                         })
-                                                        $w.line({}, ($w) => {
-                                                            $w.snippet(`return`)
-                                                        })
                                                     })
                                                     $w.snippet(`}`)
                                                 })
-                                                generateNode(
-                                                    $,
-                                                    `${path}$`,
-                                                    $w,
-                                                    ($w) => {
-                                                        $w.snippet(`(`)
-                                                        $w.indent({}, ($w) => {
-                                                            $w.line({}, ($w) => {
-                                                                $w.snippet(`currentChild,`)
-                                                            })
-                                                            $w.line({}, ($w) => {
-                                                                $w.snippet(`($) => {`)
-                                                                $w.indent({}, ($w) => {
-                                                                    endCallback($w)
-                                                                })
-                                                                $w.snippet(`}`)
-                                                            })
-                                                        })
-                                                        $w.snippet(`)`)
-                                                    }
-                                                )
                                             })
                                             $w.snippet(`},`)
                                         })
@@ -789,7 +790,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                             pl.au($[0])
                     }
                 }
-                grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a}), ($, key) => {
+                grammar.globalValueTypes.forEach((a, b) => $d.isYinBeforeYang({ yin: b, yang: a }), ($, key) => {
 
                     $w.line({}, ($w) => {
 
@@ -829,28 +830,7 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                 })
 
                 $w.line({}, ($w) => {
-                    $w.snippet(`if ($d.stringsNotEqual($.kindName, "${grammar.root.name}")) {`)
-                    $w.indent({}, ($w) => {
-                        $w.line({}, ($w) => {
-                            $w.snippet(`$x.reportUnexpectedToken({`)
-                            $w.indent({}, ($w) => {
-                                $w.line({}, ($w) => {
-                                    $w.snippet(`path: "",`)
-                                })
-                                $w.line({}, ($w) => {
-                                    $w.snippet(`token: $,`)
-                                })
-                                $w.line({}, ($w) => {
-                                    $w.snippet(`expected: "${grammar.root.name}",`)
-                                })
-                            })
-                            $w.snippet(`})`)
-                        })
-                        $w.line({}, ($w) => {
-                            $w.snippet(`return`)
-                        })
-                    })
-                    $w.snippet(`} else {`)
+                    $w.snippet(`if ($d.stringsAreEqual($.kindName, "${grammar.root.name}")) {`)
                     $w.indent({}, ($w) => {
                         generateNode(
                             grammar.root,
@@ -876,6 +856,24 @@ export const generateParse: GenerateImplementationFile = ($, $i, $d) => {
                                 $w.snippet(`)`)
                             },
                         )
+                    })
+                    $w.snippet(`} else {`)
+                    $w.indent({}, ($w) => {
+                        $w.line({}, ($w) => {
+                            $w.snippet(`$x.reportUnexpectedToken({`)
+                            $w.indent({}, ($w) => {
+                                $w.line({}, ($w) => {
+                                    $w.snippet(`path: "",`)
+                                })
+                                $w.line({}, ($w) => {
+                                    $w.snippet(`token: $,`)
+                                })
+                                $w.line({}, ($w) => {
+                                    $w.snippet(`expected: "${grammar.root.name}",`)
+                                })
+                            })
+                            $w.snippet(`})`)
+                        })
                     })
                     $w.snippet(`}`)
                 })
