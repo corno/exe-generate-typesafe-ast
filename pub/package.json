@@ -19,11 +19,7 @@
     "api-pareto-filesystem": "^0.1.2",
     "api-pareto-main": "^0.5.0",
     "lib-fountain-pen": "^0.4.4",
-    "pareto-core-lib": "^0.8.0",
-    "pareto-core-raw": "^0.2.0",
-    "pareto-core-resolve": "^0.2.0",
-    "pareto-core-state": "^0.6.0",
-    "pareto-core-tostring": "^0.4.0",
+    "pareto-core": "^0.0.1",
     "res-pareto-collation": "^0.1.0"
   },
   "name": "exe-generate-typesafe-ast",
@@ -33,6 +29,6 @@
   "files": [
     "dist"
   ],
-  "interface-fingerprint": "94c351b73e817d66b15e2e2aa3c98e2e2cfb1ab2",
-  "content-fingerprint": "59a3df41c385c5b2750f89599f306da7df364eae"
+  "interface-fingerprint": "d420e291a3264a9d34805f0480d7721d3f0d3cd4",
+  "content-fingerprint": "d6a14692618427ecb9e62112b70562985f17921c"
 }
